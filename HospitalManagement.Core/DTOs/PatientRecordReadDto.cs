@@ -1,11 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-namespace HospitalManagement.Core.Models;
+using HospitalManagement.Core.Models;
+namespace TaskManagement.Core.DTOs;
 
-public class PatientRecord
+public class PatientRecordReadDto
 {
     public long Id { get; set; } // Primary Key
 
-    [Required]
     public long PatientId { get; set; } // Foreign Key: To which patient does this record belong to?
 
     public List<RecordEntry> Entries { get; set; } = new(); // Initially empty

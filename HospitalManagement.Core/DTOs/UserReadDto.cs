@@ -1,10 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-namespace HospitalManagement.Core.Models;
+namespace TaskManagement.Core.DTOs;
 
-public class User
+public class UserReadDto
 {
-    public long Id { get; set; }
-
     [Required (ErrorMessage = "Name is required")]
     [StringLength (50, ErrorMessage = "Name cannot exceed 50 characters")]
     public string Name { get; set; } = string.Empty;
@@ -25,24 +23,10 @@ public class User
     [StringLength (100, ErrorMessage = "Address cannot exceed 100 characters")]
     public string Email { get; set; } = string.Empty;
 
-    [Required (ErrorMessage = "Password is required")]
-    public string Password { get; set; } = string.Empty;
-
     [Required (ErrorMessage = "Birthdate is required")]
     public DateOnly Birthdate { get; set; }
 
     [Required (ErrorMessage = "Address is required")]
     [StringLength (100, ErrorMessage = "Address cannot exceed 100 characters")]
     public string Address { get; set; } = string.Empty;
-
-    public UserStatus Status { get; set; } = UserStatus.Inactive;
-
-    bool Login() {
-        Status = UserStatus.Active;
-        return true;
-    }
-
-    void Logout() {
-        Status = UserStatus.Inactive;
-    }
 }

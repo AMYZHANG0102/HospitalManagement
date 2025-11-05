@@ -17,6 +17,5 @@ public class Appointment
     [Required (ErrorMessage = "Date and time are required")]
     public DateTime DateTime { get; set; }
 
-    [Required]
     public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 }

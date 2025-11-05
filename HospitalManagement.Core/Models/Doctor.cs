@@ -6,7 +6,7 @@ public class Doctor : User
     [Required (ErrorMessage = "Specialization must be stated")]
     public Specialization Specialization { get; set; }
 
-    public List<Appointment>? Appointments { get; set; }
-    
-    public List<Feedback>? FeedbackReceived { get; set; }
+    public List<Appointment> Appointments { get; set; } = new(); // Initially empty
+
+    public List<Feedback> FeedbackReceived { get; set; } = new();
 }

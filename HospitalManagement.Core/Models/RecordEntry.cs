@@ -6,7 +6,6 @@ public class RecordEntry
     [Required]
     public long DoctorId { get; set; } // Doctor who created the entry
 
-    [Required]
     public DateTime DateTime { get; set; } = DateTime.Now;
 
     [Required (ErrorMessage = "Provide a description for this entry")]
