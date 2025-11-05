@@ -1,0 +1,17 @@
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\bin\Debug\net9.0\HospitalManagement.Infrastructure.deps.json
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\bin\Debug\net9.0\HospitalManagement.Infrastructure.runtimeconfig.json
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\bin\Debug\net9.0\HospitalManagement.Infrastructure.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\bin\Debug\net9.0\HospitalManagement.Infrastructure.pdb
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\bin\Debug\net9.0\HospitalManagement.Core.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\bin\Debug\net9.0\HospitalManagement.Core.pdb
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.AssemblyInfo.cs
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\Hospital.04B4BFA6.Up2Date
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\refint\HospitalManagement.Infrastructure.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.pdb
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\HospitalManagement.Infrastructure.genruntimeconfig.cache
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Infrastructure\obj\Debug\net9.0\ref\HospitalManagement.Infrastructure.dll

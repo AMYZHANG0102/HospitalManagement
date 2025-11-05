@@ -1,0 +1,11 @@
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\bin\Debug\net9.0\HospitalManagement.Core.deps.json
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\bin\Debug\net9.0\HospitalManagement.Core.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\bin\Debug\net9.0\HospitalManagement.Core.pdb
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\HospitalManagement.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\HospitalManagement.Core.AssemblyInfoInputs.cache
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\HospitalManagement.Core.AssemblyInfo.cs
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\HospitalManagement.Core.csproj.CoreCompileInputs.cache
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\HospitalManagement.Core.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\refint\HospitalManagement.Core.dll
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\HospitalManagement.Core.pdb
+C:\Users\amyzh\Documents\Prog3000Projects\HospitalManagement\HospitalManagement.Core\obj\Debug\net9.0\ref\HospitalManagement.Core.dll
