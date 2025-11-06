@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using HospitalManagement.Core.Models;
 namespace TaskManagement.Core.DTOs;
 
 public class UserUpdateDto
@@ -17,8 +18,11 @@ public class UserUpdateDto
 
     [Required (ErrorMessage = "Email is required")]
     [EmailAddress (ErrorMessage = "Invalid email format")]
-    [StringLength (100, ErrorMessage = "Address cannot exceed 100 characters")]
+    [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]
     public string Email { get; set; } = string.Empty;
+    
+    [Required (ErrorMessage = "Gender is required")]
+    public Gender Gender { get; set; }
 
     [Required (ErrorMessage = "Birthdate is required")]
     public DateOnly Birthdate { get; set; }

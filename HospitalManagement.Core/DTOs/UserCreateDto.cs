@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using HospitalManagement.Core.Models;
 namespace TaskManagement.Core.DTOs;
 
 public class UserCreateDto
@@ -18,10 +19,13 @@ public class UserCreateDto
     [RegularExpression (@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Phone must be in format xxx-xxx-xxxx")]
     public string Phone { get; set; } = string.Empty;
 
-    [Required (ErrorMessage = "Email is required")]
-    [EmailAddress (ErrorMessage = "Invalid email format")]
-    [StringLength (100, ErrorMessage = "Address cannot exceed 100 characters")]
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email format")]
+    [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]
     public string Email { get; set; } = string.Empty;
+    
+    [Required (ErrorMessage = "Gender is required")]
+    public Gender Gender { get; set; }
 
     [Required (ErrorMessage = "Password is required")]
     public string Password { get; set; } = string.Empty;

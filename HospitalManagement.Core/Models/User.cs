@@ -28,6 +28,9 @@ public class User
     [Required (ErrorMessage = "Password is required")]
     public string Password { get; set; } = string.Empty;
 
+    [Required (ErrorMessage = "Gender is required")]
+    public Gender Gender { get; set; }
+
     [Required (ErrorMessage = "Birthdate is required")]
     public DateOnly Birthdate { get; set; }
 
