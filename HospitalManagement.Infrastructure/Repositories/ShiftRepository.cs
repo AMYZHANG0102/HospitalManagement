@@ -60,13 +60,13 @@ public class ShiftRepository : IShiftRepository
 
     public async Task<Shift?> UpdateAsync(Shift shift)
     {
-        var existingShift = await _context.Shifts.FindAsync(shift.id);
+        var existingShift = await _context.Shifts.FindAsync(shift.Id);
         if (existingShift == null)
         {
             return null;
         }
         existingShift.DoctorId = shift.DoctorId;
-        existingShift.Data = shift.Date;
+        existingShift.Date = shift.Date;
         existingShift.StartTime = shift.StartTime;
         existingShift.EndTime = shift.EndTime;
         existingShift.Type = shift.Type;
