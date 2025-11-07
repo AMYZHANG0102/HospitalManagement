@@ -1,8 +1,9 @@
 namespace HospitalManagement.Core.Models;
 
-public enum AppointmentStatus
+public enum Status
 {
     Pending,
     Completed,
+    Ongoing,
     Canceled,
 }
