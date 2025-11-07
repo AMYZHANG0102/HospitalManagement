@@ -49,15 +49,11 @@ var patient = new Patient
 {
 FirstName = patientDto.FirstName,
 LastName = patientDto.LastName,
-Birthdate = patientDto.Birthdate,
 Gender = patientDto.Gender,
 HealthCard = patientDto.HealthCard,
 HomeAddress = patientDto.HomeAddress,
 Phone = patientDto.Phone,
 Email = patientDto.Email,
-Password = patientDto.Password,
-Status = patientDto.Status,
-Role = patientDto.Role
 };
 
 var createdPatient = await _repository.CreateAsync(patient);
@@ -71,7 +67,7 @@ createdPatient
 
 // PUT: api/patients/{id}
 [HttpPut("{id}")]
-public async Task<IActionResult> UpdatePatient(int id, [FromBody] PatientRecordUpdateDto patientDto)
+public async Task<IActionResult> UpdatePatient(int id, [FromBody] PatientUpdateDto patientDto)
 {
 if (!ModelState.IsValid)
 {
@@ -87,15 +83,11 @@ var patient = new Patient
 Id = id,
 FirstName = patientDto.FirstName,
 LastName = patientDto.LastName,
-Birthdate = patientDto.Birthdate,
 Gender = patientDto.Gender,
 HealthCard = patientDto.HealthCard,
-HomeAddress = patientDto.HomeAddress,
+HomeAddress = patientDto.HomeAddress, 
 Phone = patientDto.Phone,
 Email = patientDto.Email,
-Password = patientDto.Password,
-Status = patientDto.Status,
-Role = patientDto.Role      
 };
 var updatedPatient = await _repository.UpdateAsync(patient);
 return Ok(updatedPatient);
@@ -120,7 +112,7 @@ if (!ModelState.IsValid)
 {
 return BadRequest(ModelState);
 }
-patient.UpdatedAt = DateTime.UtcNow;
+
 await _repository.UpdateAsync(patient);
 return Ok(patient);
 }
