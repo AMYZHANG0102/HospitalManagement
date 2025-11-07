@@ -1,5 +1,5 @@
 using HospitalManagement.Core.Models;
-namespace TaskManagement.Core.DTOs;
+namespace HospitalManagement.Core.DTOs;
 
 public class PatientRecordUpdateDto
 {

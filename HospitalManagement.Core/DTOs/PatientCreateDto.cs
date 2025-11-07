@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace TaskManagement.Core.DTOs;
+namespace HospitalManagement.Core.DTOs;
 
 public class PatientCreateDto : UserCreateDto
 {
