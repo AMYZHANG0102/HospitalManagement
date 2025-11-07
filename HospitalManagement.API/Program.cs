@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
+using HospitalManagement.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
