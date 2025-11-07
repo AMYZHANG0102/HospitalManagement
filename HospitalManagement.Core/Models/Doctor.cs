@@ -8,5 +8,7 @@ public class Doctor : User
 
     public List<Appointment> Appointments { get; set; } = new(); // Initially empty
 
+    public List<Shift> Shifts { get; set; } = new();
+
     public List<Feedback> FeedbackReceived { get; set; } = new();
 }

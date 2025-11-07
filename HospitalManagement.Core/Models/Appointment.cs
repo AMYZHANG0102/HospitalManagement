@@ -18,4 +18,8 @@ public class Appointment
     public DateTime DateTime { get; set; }
 
     public Status Status { get; set; } = Status.Pending;
+
+    // Navigation properties
+    public Doctor? Doctor { get; set; }
+    public Patient? Patient { get; set; }
 }

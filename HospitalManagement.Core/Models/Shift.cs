@@ -5,8 +5,10 @@ public class Shift
 {
     public long Id { get; set; }
 
-    [Required (ErrorMessage = "Specify doctor working on this shift")]
+    [Required(ErrorMessage = "Specify doctors working on this shift")]
     public long DoctorId { get; set; } // Foreign key
+
+    public Doctor? Doctor { get; set; } // Navigation Property
     
     [Required (ErrorMessage = "Shift date is required")]
     public DateOnly Date { get; set; }
