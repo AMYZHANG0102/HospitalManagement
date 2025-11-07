@@ -12,6 +12,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Shift> Shifts { get; set; }
+    public DbSet<Feedback> Feedbacks { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -71,7 +73,16 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.StartTime).IsRequired();
             entity.Property(e => e.EndTime).IsRequired();
             entity.Property(e => e.Type).IsRequired();
-            entity.Property(e => e.Status);      
+            entity.Property(e => e.Status);
+        });
+        modelBuilder.Entity<Feedback>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.PatientId).IsRequired();
+            entity.Property(e => e.DoctorId); // Optional (nullable)
+            entity.Property(e => e.Rating).IsRequired();
+            entity.Property(e => e.Comment).HasMaxLength(500);
+            entity.Property(e => e.Date).IsRequired();
         });
     }
 }
