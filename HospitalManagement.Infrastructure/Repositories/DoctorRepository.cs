@@ -2,7 +2,6 @@ using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 namespace HospitalManagement.Infrastructure.Repositories;
 
 public class DoctorRepository : IDoctorRepository
@@ -51,6 +50,7 @@ public class DoctorRepository : IDoctorRepository
         existingDoctor.Gender = doctor.Gender;
         existingDoctor.Birthdate = doctor.Birthdate;
         existingDoctor.HomeAddress = doctor.HomeAddress;
+        await _context.SaveChangesAsync();
         return existingDoctor;
     }
     

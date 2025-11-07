@@ -19,7 +19,7 @@ public class Shift
     [Required(ErrorMessage = "Shift ending time is required")]
     public TimeOnly EndTime { get; set; }
     
-    public ShiftType ShiftType { get; set; }
+    public ShiftType Type { get; set; }
     
     public Status Status { get; set; } = Status.Pending;
 }

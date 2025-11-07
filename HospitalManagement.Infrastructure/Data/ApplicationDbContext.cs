@@ -70,7 +70,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Date).IsRequired();
             entity.Property(e => e.StartTime).IsRequired();
             entity.Property(e => e.EndTime).IsRequired();
-            entity.Property(e => e.ShiftType).IsRequired();
+            entity.Property(e => e.Type).IsRequired();
             entity.Property(e => e.Status);      
         });
     }

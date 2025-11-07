@@ -75,6 +75,7 @@ public class AppointmentRepository : IAppointmentRepository
         existingAppointment.Type = appointment.Type;
         existingAppointment.DateTime = appointment.DateTime;
         existingAppointment.Status = appointment.Status;
+        await _context.SaveChangesAsync();
         return existingAppointment;
     }
 
