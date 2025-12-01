@@ -12,7 +12,7 @@ public class AppointmentRepository : IAppointmentRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Appointment>?> GetAllAsync()
+    public async Task<IEnumerable<Appointment>> GetAllAsync()
     {
         return await _context.Appointments.ToListAsync();
     }
@@ -22,35 +22,35 @@ public class AppointmentRepository : IAppointmentRepository
         return await _context.Appointments.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Appointment>?> GetByDoctorIdAsync(long id)
+    public async Task<IEnumerable<Appointment>> GetByDoctorIdAsync(long id)
     {
         return await _context.Appointments
                              .Where(e => e.DoctorId == id)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Appointment>?> GetByPatientIdAsync(long id)
+    public async Task<IEnumerable<Appointment>> GetByPatientIdAsync(long id)
     {
         return await _context.Appointments
                              .Where(e => e.PatientId == id)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Appointment>?> GetByStatusAsync(Status status)
+    public async Task<IEnumerable<Appointment>> GetByStatusAsync(AppointmentStatus status)
     {
         return await _context.Appointments
                              .Where(e => e.Status == status)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Appointment>?> GetByTypeAsync(AppointmentType type)
+    public async Task<IEnumerable<Appointment>> GetByTypeAsync(AppointmentType type)
     {
         return await _context.Appointments
                              .Where(e => e.Type == type)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Appointment>?> GetByDateAsync(DateOnly date)
+    public async Task<IEnumerable<Appointment>> GetByDateAsync(DateOnly date)
     {
         return await _context.Appointments
                              .Where(e => DateOnly.FromDateTime(e.DateTime) == date)

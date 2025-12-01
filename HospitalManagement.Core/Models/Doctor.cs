@@ -1,3 +1,7 @@
+/* Amy Zhang
+Summary: This child class represents a doctor entity.
+It inherits from the User class and has additional doctor-related fields. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
@@ -10,5 +14,5 @@ public class Doctor : User
 
     public List<Shift> Shifts { get; set; } = new();
 
-    public List<Feedback> FeedbackReceived { get; set; } = new();
+    public List<Review> FeedbackReceived { get; set; } = new();
 }

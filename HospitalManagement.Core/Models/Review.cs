@@ -1,7 +1,13 @@
+/* Amy Zhang
+Summary: This class represents reviews given by patients.
+The review can be about a doctor (optional) or about the hospital service in general.
+Patients can provide a comment on their review (optional),
+but the rating is necessary. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
-public class Feedback
+public class Review
 {
     public long Id { get; set; }
 

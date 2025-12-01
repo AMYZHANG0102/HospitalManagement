@@ -12,7 +12,7 @@ public class DoctorRepository : IDoctorRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Doctor>?> GetAllAsync()
+    public async Task<IEnumerable<Doctor>> GetAllAsync()
     {
         return await _context.Doctors.ToListAsync();
     }
@@ -22,7 +22,7 @@ public class DoctorRepository : IDoctorRepository
         return await _context.Doctors.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Doctor>?> GetBySpecializationAsync(Specialization specialization)
+    public async Task<IEnumerable<Doctor>> GetBySpecializationAsync(Specialization specialization)
     {
         return await _context.Doctors
                              .Where(e => e.Specialization == specialization)

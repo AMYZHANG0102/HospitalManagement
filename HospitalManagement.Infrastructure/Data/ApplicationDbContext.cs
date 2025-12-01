@@ -12,7 +12,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Shift> Shifts { get; set; }
-    public DbSet<Feedback> Feedbacks { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -60,7 +60,7 @@ public class ApplicationDbContext : DbContext
                   .IsRequired();
             entity.Property(e => e.Type).IsRequired();
             entity.Property(e => e.DateTime).IsRequired();
-            entity.Property(e => e.Status).HasDefaultValue(Status.Pending);
+            entity.Property(e => e.Status).HasDefaultValue(AppointmentStatus.Pending);
         });
         modelBuilder.Entity<Shift>(entity =>
         {
@@ -75,7 +75,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Type).IsRequired();
             entity.Property(e => e.Status);
         });
-        modelBuilder.Entity<Feedback>(entity =>
+        modelBuilder.Entity<Review>(entity =>
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.PatientId).IsRequired();

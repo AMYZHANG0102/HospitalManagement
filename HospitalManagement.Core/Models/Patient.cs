@@ -1,3 +1,7 @@
+/* Amy Zhang
+Summary: This child class represents a patient entity.
+It inherits from the User class and has additional patient-related fields. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
@@ -12,5 +16,5 @@ public class Patient : User
 
     public List<Appointment> Appointments { get; set; } = new(); // Initially empty
 
-    public List<Feedback> SentFeedback { get; set; } = new();
+    public List<Review> SentFeedback { get; set; } = new();
 }

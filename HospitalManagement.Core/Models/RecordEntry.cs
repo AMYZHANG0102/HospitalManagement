@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: This class represents a record entry made by a doctor for a patient. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 

@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: This model is the parent class for all user types. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
@@ -14,7 +17,7 @@ public class User
     public string LastName { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "User role needs to be specified")]
-    public Role Role { get; set; }
+    public UserRole Role { get; set; } // Patient, Dcotor, or Admin
 
     [Required(ErrorMessage = "Phone is required")]
     [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Phone must be in format xxx-xxx-xxxx")]
@@ -38,5 +41,5 @@ public class User
     [StringLength(100, ErrorMessage = "Home Address cannot exceed 100 characters")]
     public string HomeAddress { get; set; } = string.Empty;
 
-    public UserStatus Status { get; set; } = UserStatus.Inactive;
+    public UserStatus Status { get; set; } = UserStatus.Active;
 }

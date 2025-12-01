@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: This class represents a work shift for doctors. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
@@ -21,5 +24,5 @@ public class Shift
     
     public ShiftType Type { get; set; }
     
-    public Status Status { get; set; } = Status.Pending;
+    public ShiftStatus Status { get; set; } = ShiftStatus.Scheduled;
 }
