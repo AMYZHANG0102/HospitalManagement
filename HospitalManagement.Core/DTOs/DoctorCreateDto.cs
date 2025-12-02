@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using HospitalManagement.Core.Models;
-namespace HospitalManagement.Core.DTOs;
+namespace HospitalManagement.Core.DTOs; 
 
 public class DoctorCreateDto : UserCreateDto
 {
