@@ -91,11 +91,17 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<RecordEntry>(entity =>
         {
             entity.HasKey(e => e.Id);
+            entity.Property(e => e.Description).IsRequired();
+            entity.Property(e => e.DateTime);
             // Configure many-to-one relationship:
             entity.HasOne(e => e.PatientRecord) // Each RecordEntry belongs to one PatientRecord
                   .WithMany(pr => pr.Entries) // PatientRecord has many RecordEntries
                   .HasForeignKey(e => e.PatientRecordId) // Foreign key in RecordEntry
                   .IsRequired();
+            entity.HasOne(e => e.Doctor) // Each RecordEntry is created by one Doctor
+                  .WithMany() // No navigation property in Doctor for RecordEntries
+                  .HasForeignKey(e => e.DoctorId) // Foreign key in RecordEntry
+                  .IsRequired();     
         });
         
         modelBuilder.Entity<Appointment>(entity =>
