@@ -65,7 +65,6 @@ public class ShiftRepository : IShiftRepository
         {
             return null;
         }
-        existingShift.DoctorId = shift.DoctorId;
         existingShift.Date = shift.Date;
         existingShift.StartTime = shift.StartTime;
         existingShift.EndTime = shift.EndTime;

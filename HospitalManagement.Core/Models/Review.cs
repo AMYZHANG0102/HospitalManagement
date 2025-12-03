@@ -23,4 +23,8 @@ public class Review
     public string? Comment { get; set; } = string.Empty;
     
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+
+    // Navigation properties
+    public Patient? Patient { get; set; }
+    public Doctor? Doctor { get; set; }
 }
