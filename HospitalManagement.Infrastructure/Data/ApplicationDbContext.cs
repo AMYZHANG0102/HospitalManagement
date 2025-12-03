@@ -12,6 +12,8 @@ public class ApplicationDbContext : DbContext
     : base(options)
     {
     }
+
+    #region DbSets
     public DbSet<User> Users { get; set; }
     public DbSet<Patient> Patients { get; set; }
     public DbSet<Doctor> Doctors { get; set; }
@@ -20,6 +22,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Shift> Shifts { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    #endregion
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,7 +47,7 @@ public class ApplicationDbContext : DbContext
 
         });
 
-        # region Table-Per-Type Inheritance Mapping (Extended User Types)
+        #region Table-Per-Type Inheritance Mapping (Extended User Types)
         modelBuilder.Entity<Patient>(entity =>
         {
             entity.HasBaseType<User>(); // Patient inherits from User
@@ -70,7 +73,7 @@ public class ApplicationDbContext : DbContext
                   .WithMany(s => s.Doctors); // Shift can have many doctors
 
          });
-        # endregion
+        #endregion
 
         modelBuilder.Entity<PatientRecord>(entity =>
         {
