@@ -53,21 +53,4 @@ public class DoctorRepository : IDoctorRepository
         await _context.SaveChangesAsync();
         return existingDoctor;
     }
-    
-    public async Task<bool> DeleteAsync(long id)
-    {
-        var doctor = await _context.Doctors.FindAsync(id);
-        if (doctor == null)
-        {
-            return false;
-        }
-        _context.Doctors.Remove(doctor);
-        await _context.SaveChangesAsync();
-        return true;
-    }
-
-    public async Task<bool> ExistsAsync(long id)
-    {
-        return await _context.Doctors.AnyAsync(e => e.Id == id);
-    }
 }

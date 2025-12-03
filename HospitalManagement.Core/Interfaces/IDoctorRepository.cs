@@ -11,6 +11,4 @@ public interface IDoctorRepository
     Task<IEnumerable<Doctor>> GetBySpecializationAsync(Specialization specialization);
     Task<Doctor> CreateAsync(Doctor doctor);
     Task<Doctor?> UpdateAsync(Doctor doctor);
-    Task<bool> DeleteAsync(long id);
-    Task<bool> ExistsAsync(long id);
 }
