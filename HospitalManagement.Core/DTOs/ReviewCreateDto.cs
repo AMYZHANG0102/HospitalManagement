@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
-public class FeedbackCreateDto
+public class ReviewCreateDto
 {
     public long? DoctorId { get; set; } // Optional
 
