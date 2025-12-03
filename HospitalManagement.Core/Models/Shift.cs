@@ -9,9 +9,7 @@ public class Shift
     public long Id { get; set; }
 
     [Required(ErrorMessage = "Specify doctors working on this shift")]
-    public long DoctorId { get; set; } // Foreign key
-
-    public Doctor? Doctor { get; set; } // Navigation Property
+    public List<Doctor> Doctors { get; set; } = new(); // Many-to-Many relationship
     
     [Required (ErrorMessage = "Shift date is required")]
     public DateOnly Date { get; set; }
