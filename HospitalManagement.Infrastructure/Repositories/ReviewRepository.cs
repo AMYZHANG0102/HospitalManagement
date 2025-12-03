@@ -5,80 +5,80 @@ using HospitalManagement.Infrastructure.Data;
 
 namespace HospitalManagement.Infrastructure.Repositories;
 
-public class FeedbackRepository : IFeedbackRepository
+public class ReviewRepository : IReviewRepository
 {
     private readonly ApplicationDbContext _context;
-    public FeedbackRepository(ApplicationDbContext context)
+    public ReviewRepository(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<IEnumerable<Feedback>?> GetAllAsync()
+    public async Task<IEnumerable<Review>> GetAllAsync()
     {
-        return await _context.Feedbacks.ToListAsync();
+        return await _context.Reviews.ToListAsync();
     }
 
-    public async Task<Feedback?> GetByIdAsync(long id)
+    public async Task<Review?> GetByIdAsync(long id)
     {
-        return await _context.Feedbacks.FindAsync(id);
+        return await _context.Reviews.FindAsync(id);
     }
-    public async Task<IEnumerable<Feedback>?> GetByDoctorIdAsync(long doctorId)
+    public async Task<IEnumerable<Review>> GetByDoctorIdAsync(long doctorId)
     {
-        return await _context.Feedbacks
+        return await _context.Reviews
             .Where(f => f.DoctorId == doctorId)
             .OrderByDescending(f => f.Date)
             .ToListAsync();
     }
-    public async Task<IEnumerable<Feedback>?> GetByRatingAsync(Rating rating)
+    public async Task<IEnumerable<Review>> GetByRatingAsync(Rating rating)
     {
-        return await _context.Feedbacks
+        return await _context.Reviews
             .Where(f => f.Rating == rating)
             .OrderByDescending(f => f.Date)
             .ToListAsync();
     }
-    public async Task<IEnumerable<Feedback>?> GetByDateAsync(DateOnly date)
+    public async Task<IEnumerable<Review>> GetByDateAsync(DateOnly date)
     {
-        return await _context.Feedbacks
+        return await _context.Reviews
             .Where(f => f.Date == date)
             .ToListAsync();
     }
     public async Task<double> GetAverageDoctorRatingAsync(long doctorId)
     {
-        var feedbacks = await _context.Feedbacks
+        var Reviews = await _context.Reviews
             .Where(f => f.DoctorId == doctorId)
             .ToListAsync();
 
-        if (!feedbacks.Any())
+        if (!Reviews.Any())
         {
             return 0;
         }
 
         // Convert Rating enum to numeric value (1-5)
-        var averageRating = feedbacks.Average(f => (int)f.Rating);
+        var averageRating = Reviews.Average(f => (int)f.Rating);
         return Math.Round(averageRating, 2);
     }
-    public async Task<Feedback> CreateAsync(Feedback feedback)
+    public async Task<Review> CreateAsync(Review Review)
     {
-        _context.Feedbacks.Add(feedback);
+        _context.Reviews.Add(Review);
         await _context.SaveChangesAsync();
-        return feedback;
+        return Review;
     }
     public async Task<bool> DeleteAsync(long id)
     {
-        var feedback = await _context.Feedbacks.FindAsync(id);
-        if (feedback == null)
+        var Review = await _context.Reviews.FindAsync(id);
+        if (Review == null)
         {
             return false;
         }
 
-        _context.Feedbacks.Remove(feedback);
+        _context.Reviews.Remove(Review);
         await _context.SaveChangesAsync();
         return true;
     }
 
     public async Task<bool> ExistsAsync(long id)
     {
-        return await _context.Feedbacks.AnyAsync(f => f.Id == id);
+        return await _context.Reviews.AnyAsync(f => f.Id == id);
     }
 
 }

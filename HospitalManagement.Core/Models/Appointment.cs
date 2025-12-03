@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: This class represents an appointment between a patient and a doctor. It has two foreign keys. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
@@ -6,10 +9,10 @@ public class Appointment
     public long Id { get; set; }
 
     [Required (ErrorMessage = "Must specify patient")]
-    public long PatientId { get; set; }
+    public long PatientId { get; set; } // Foreign Key
 
     [Required (ErrorMessage = "Must specify doctor")]
-    public long DoctorId { get; set; }
+    public long DoctorId { get; set; } // Foreign Key
 
     [Required (ErrorMessage = "Must specify appointment type")]
     public AppointmentType Type { get; set; }
@@ -17,7 +20,7 @@ public class Appointment
     [Required (ErrorMessage = "Date and time are required")]
     public DateTime DateTime { get; set; }
 
-    public Status Status { get; set; } = Status.Pending;
+    public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 
     // Navigation properties
     public Doctor? Doctor { get; set; }

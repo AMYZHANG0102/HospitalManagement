@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: This class represents a work shift for doctors. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
@@ -6,9 +9,7 @@ public class Shift
     public long Id { get; set; }
 
     [Required(ErrorMessage = "Specify doctors working on this shift")]
-    public long DoctorId { get; set; } // Foreign key
-
-    public Doctor? Doctor { get; set; } // Navigation Property
+    public List<Doctor> Doctors { get; set; } = new(); // Many-to-Many relationship
     
     [Required (ErrorMessage = "Shift date is required")]
     public DateOnly Date { get; set; }
@@ -21,5 +22,5 @@ public class Shift
     
     public ShiftType Type { get; set; }
     
-    public Status Status { get; set; } = Status.Pending;
+    public ShiftStatus Status { get; set; } = ShiftStatus.Scheduled;
 }

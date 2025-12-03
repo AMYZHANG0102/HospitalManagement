@@ -13,7 +13,7 @@ public class UserReadDto
     public string LastName { get; set; } = string.Empty;
 
     [Required (ErrorMessage = "User role needs to be specified")]
-    public Role Role { get; set; }
+    public UserRole Role { get; set; }
 
     [Required (ErrorMessage = "Phone is required")]
     [RegularExpression (@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Phone must be in format xxx-xxx-xxxx")]

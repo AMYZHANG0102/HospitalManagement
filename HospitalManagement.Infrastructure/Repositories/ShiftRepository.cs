@@ -13,7 +13,7 @@ public class ShiftRepository : IShiftRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Shift>?> GetAllAsync()
+    public async Task<IEnumerable<Shift>> GetAllAsync()
     {
         return await _context.Shifts.ToListAsync();
     }
@@ -23,28 +23,28 @@ public class ShiftRepository : IShiftRepository
         return await _context.Shifts.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Shift>?> GetByDoctorIdAsync(long id)
+    public async Task<IEnumerable<Shift>> GetByDoctorIdAsync(long id)
     {
         return await _context.Shifts
                              .Where(e => e.Id == id)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Shift>?> GetByDateAsync(DateOnly date)
+    public async Task<IEnumerable<Shift>> GetByDateAsync(DateOnly date)
     {
         return await _context.Shifts
                              .Where(e => e.Date == date)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Shift>?> GetByTypeAsync(ShiftType type)
+    public async Task<IEnumerable<Shift>> GetByTypeAsync(ShiftType type)
     {
         return await _context.Shifts
                              .Where(e => e.Type == type)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Shift>?> GetByStatusAsync(Status status)
+    public async Task<IEnumerable<Shift>> GetByStatusAsync(ShiftStatus status)
     {
         return await _context.Shifts
                              .Where(e => e.Status == status)
@@ -65,7 +65,6 @@ public class ShiftRepository : IShiftRepository
         {
             return null;
         }
-        existingShift.DoctorId = shift.DoctorId;
         existingShift.Date = shift.Date;
         existingShift.StartTime = shift.StartTime;
         existingShift.EndTime = shift.EndTime;

@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: This enum defines the various medical specializations for doctors. */
+
 namespace HospitalManagement.Core.Models;
 
 public enum Specialization
