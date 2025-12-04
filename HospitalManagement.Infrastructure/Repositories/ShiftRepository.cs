@@ -22,15 +22,15 @@ public class ShiftRepository : IShiftRepository
         return await _context.Shifts.ToListAsync();
     }
 
-    public async Task<Shift?> GetByIdAsync(long id)
+    public async Task<Shift?> GetByIdAsync(int id)
     {
         return await _context.Shifts.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Shift>> GetByDoctorIdAsync(long id)
+    public async Task<IEnumerable<Shift>> GetByDoctorIdAsync(string id)
     {
         return await _context.Shifts
-                             .Where(e => e.Id == id)
+                             .Where(e => e.Doctors.Any(doc => doc.Id == id))
                              .ToListAsync();
     }
 
@@ -63,7 +63,7 @@ public class ShiftRepository : IShiftRepository
         return existingShift;
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var shift = await _context.Shifts.FindAsync(id);
         if (shift == null)
@@ -75,7 +75,7 @@ public class ShiftRepository : IShiftRepository
         return true;
     }
     
-    public async Task<bool> ExistsAsync(long id)
+    public async Task<bool> ExistsAsync(int id)
     {
         return await _context.Shifts.AnyAsync(e => e.Id == id);
     }

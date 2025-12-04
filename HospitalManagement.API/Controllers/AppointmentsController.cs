@@ -36,7 +36,7 @@ public class AppointmentsController : ControllerBase
     // GET: /api/appointments/{id}
     // Authorize admins, patients, and doctors
     [HttpGet("{id}")]
-    public async Task<ActionResult<Appointment>> GetAppointment(long id)
+    public async Task<ActionResult<Appointment>> GetAppointment(int id)
     {
         var appointment = await _appointmentRepo.GetByIdAsync(id);
         if (appointment == null)
@@ -76,7 +76,7 @@ public class AppointmentsController : ControllerBase
     // PATCH: /api/appointments/{id}
     // Authorize admins and patients
     [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchAppointment(long id,
+    public async Task<IActionResult> PatchAppointment(int id,
         [FromBody] JsonPatchDocument<AppointmentPatchDto> patchDoc)
     {
         if (patchDoc == null)

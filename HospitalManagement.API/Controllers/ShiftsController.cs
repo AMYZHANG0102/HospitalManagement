@@ -31,7 +31,7 @@ public class ShiftsController : ControllerBase
     // GET: /api/shifts/{id}
     // Authorize admins and doctors
     [HttpGet("{id}")]
-    public async Task<ActionResult<Shift>> GetShiftById(long id)
+    public async Task<ActionResult<Shift>> GetShiftById(int id)
     {
         var shift = await _shiftRepo.GetByIdAsync(id);
         if (shift == null)
@@ -64,7 +64,7 @@ public class ShiftsController : ControllerBase
     // PATCH: /api/shifts/{id}
     // Authorize admins
     [HttpPatch("{id}")]
-    public async Task<ActionResult<Shift>> UpdateShift(long id,
+    public async Task<ActionResult<Shift>> UpdateShift(int id,
         [FromBody] JsonPatchDocument<Shift> patchDoc)
     {
         if (patchDoc == null)

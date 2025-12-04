@@ -6,7 +6,7 @@ namespace HospitalManagement.Core.DTOs;
 
 public class AppointmentPatchDto
 {
-    public long DoctorId { get; set; } // Foreign Key
+    public string DoctorId { get; set; } // Foreign Key
     
     public AppointmentType Type { get; set; }
 

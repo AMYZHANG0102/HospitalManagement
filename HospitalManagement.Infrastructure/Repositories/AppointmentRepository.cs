@@ -18,8 +18,8 @@ public class AppointmentRepository : IAppointmentRepository
     }
 
     public async Task<IEnumerable<Appointment>> GetAllAsync(
-        long? patientId,
-        long? doctorId,
+        string? patientId,
+        string? doctorId,
         AppointmentStatus? status,
         DateOnly? date,
         AppointmentType? type) 
@@ -48,7 +48,7 @@ public class AppointmentRepository : IAppointmentRepository
         return await appointments.ToListAsync();
     }
 
-    public async Task<Appointment?> GetByIdAsync(long id) // For admins, doctors, and patients
+    public async Task<Appointment?> GetByIdAsync(int id) // For admins, doctors, and patients
     {
         return await _context.Appointments.FindAsync(id);
     }
@@ -75,7 +75,7 @@ public class AppointmentRepository : IAppointmentRepository
         return existingAppointment;
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var appointment = await _context.Appointments.FindAsync(id);
         if (appointment == null)
@@ -87,7 +87,7 @@ public class AppointmentRepository : IAppointmentRepository
         return true;
     }
     
-    public async Task<bool> ExistsAsync(long id)
+    public async Task<bool> ExistsAsync(int id)
     {
         return await _context.Appointments.AnyAsync(e => e.Id == id);
     }

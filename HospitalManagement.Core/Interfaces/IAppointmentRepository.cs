@@ -7,14 +7,14 @@ namespace HospitalManagement.Core.Interfaces;
 public interface IAppointmentRepository
 {
     Task<IEnumerable<Appointment>> GetAllAsync(
-        long? patientId,
-        long? doctorId,
+        string? patientId,
+        string? doctorId,
         AppointmentStatus? status,
         DateOnly? date,
         AppointmentType? type);
-    Task<Appointment?> GetByIdAsync(long id);
+    Task<Appointment?> GetByIdAsync(int id);
     Task<Appointment> CreateAsync(Appointment appointment);
     Task<Appointment?> UpdateAsync(Appointment appointment);
-    Task<bool> DeleteAsync(long id);
-    Task<bool> ExistsAsync(long id);
+    Task<bool> DeleteAsync(int id);
+    Task<bool> ExistsAsync(int id);
 }
