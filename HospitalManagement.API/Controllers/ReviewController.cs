@@ -1,4 +1,7 @@
-/*Iram*/
+/*Iram
+Summary: ReviewController represents the API controller for managing reviews from the patient.
+Reviews - about service with a specific doctor or experience at the hospital.*/
+
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
@@ -100,8 +103,8 @@ public class ReviewsController : ControllerBase
 
         var review = new Review
         {
-            // PatientId = reviewDto.PatientId,
-            // DoctorId = reviewDto.DoctorId,  //fix error
+            //PatientId = reviewDto.PatientId,
+            //DoctorId = reviewDto.DoctorId,  //fix error, make sure data type matches 
             Rating = reviewDto.Rating,
             Comment = reviewDto.Comment ?? string.Empty,
             Date = DateOnly.FromDateTime(DateTime.Now)
