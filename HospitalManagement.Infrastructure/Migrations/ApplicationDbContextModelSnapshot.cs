@@ -160,12 +160,6 @@ namespace HospitalManagement.Infrastructure.Migrations
                     b.Property<TimeOnly>("StartTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.ToTable("Shifts");

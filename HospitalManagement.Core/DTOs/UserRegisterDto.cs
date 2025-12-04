@@ -6,7 +6,10 @@ using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.DTOs;
 
 public class UserRegisterDto
-{
+{    
+    [Required]
+    public string UserName { get; set; } = string.Empty;
+    
     [Required(ErrorMessage = "Email is required")]
     [EmailAddress(ErrorMessage = "Invalid email format")]
     [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]

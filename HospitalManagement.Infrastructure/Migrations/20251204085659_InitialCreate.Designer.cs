@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251204084706_InitialCreate")]
+    [Migration("20251204085659_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -162,12 +162,6 @@ namespace HospitalManagement.Infrastructure.Migrations
 
                     b.Property<TimeOnly>("StartTime")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

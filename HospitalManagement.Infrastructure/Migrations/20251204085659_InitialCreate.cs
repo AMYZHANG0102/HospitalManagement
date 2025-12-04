@@ -72,9 +72,7 @@ namespace HospitalManagement.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Date = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     StartTime = table.Column<TimeOnly>(type: "TEXT", nullable: false),
-                    EndTime = table.Column<TimeOnly>(type: "TEXT", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    Status = table.Column<int>(type: "INTEGER", nullable: false)
+                    EndTime = table.Column<TimeOnly>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
