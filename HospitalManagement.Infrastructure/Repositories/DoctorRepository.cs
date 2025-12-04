@@ -1,3 +1,8 @@
+/* Amy Zhang
+Summary: DoctorRepository implements the IDoctorRepository interface for managing
+doctor entities in the database using Entity Framework Core.
+It provides methods to perform CRUD operations on doctor records. */
+
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
@@ -53,7 +58,7 @@ public class DoctorRepository : IDoctorRepository
         await _context.SaveChangesAsync();
         return existingDoctor;
     }
-    
+
     public async Task<bool> DeleteAsync(long id)
     {
         var doctor = await _context.Doctors.FindAsync(id);
@@ -70,4 +75,5 @@ public class DoctorRepository : IDoctorRepository
     {
         return await _context.Doctors.AnyAsync(e => e.Id == id);
     }
+    
 }

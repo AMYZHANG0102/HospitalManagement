@@ -1,3 +1,7 @@
+/* Amy Zhang
+Summary: PatientCreateDto extends UserCreateDto to include patient-specific properties.
+It adds a required HealthCard field with validation to ensure proper format. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.DTOs;
 

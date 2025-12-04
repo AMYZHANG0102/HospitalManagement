@@ -14,10 +14,10 @@ public class RecordEntry
     [Required]
     public long DoctorId { get; set; } // Doctor who created the entry
 
-    public DateTime DateTime { get; set; } = DateTime.Now;
-
     [Required (ErrorMessage = "Provide a description for this entry")]
     public string Description { get; set; } = string.Empty;
+
+    public DateTime DateTime { get; set; } = DateTime.Now;
 
     // Navigation properties
     public PatientRecord? PatientRecord { get; set; }

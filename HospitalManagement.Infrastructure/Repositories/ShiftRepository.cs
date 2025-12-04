@@ -1,3 +1,7 @@
+/* Amy Zhang
+Summary: ShiftRepository implements the IShiftRepository interface for managing Shift entities
+in the database using Entity Framework Core. It provides methods for CRUD operations */
+
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;

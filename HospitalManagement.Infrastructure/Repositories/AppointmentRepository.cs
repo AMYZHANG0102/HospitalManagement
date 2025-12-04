@@ -1,3 +1,8 @@
+/* Amy Zhang
+Summary: AppointmentRepository implements the IAppointmentRepository interface
+for managing appointment entities in the database using Entity Framework Core.
+It performs CRUD operations on appointment records. */
+
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
