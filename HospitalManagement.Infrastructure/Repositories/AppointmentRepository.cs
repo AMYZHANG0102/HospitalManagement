@@ -17,49 +17,40 @@ public class AppointmentRepository : IAppointmentRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Appointment>> GetAllAsync()
+    public async Task<IEnumerable<Appointment>> GetAllAsync(
+        long? patientId,
+        long? doctorId,
+        AppointmentStatus? status,
+        DateOnly? date,
+        AppointmentType? type) 
     {
-        return await _context.Appointments.ToListAsync();
+        var appointments = _context.Appointments.AsQueryable();
+        if (patientId != null)
+        {
+            appointments = appointments.Where(e => e.PatientId == patientId);
+        }
+        if (doctorId != null)
+        {
+            appointments = appointments.Where(e => e.DoctorId == doctorId);
+        }
+        if (status != null)
+        {
+            appointments = appointments.Where(e => e.Status == status);
+        }
+        if (date != null)
+        {
+            appointments = appointments.Where(e => DateOnly.FromDateTime(e.DateTime) == date);
+        }
+        if (type != null)
+        {
+            appointments = appointments.Where(e => e.Type == type);
+        }
+        return await appointments.ToListAsync();
     }
 
-    public async Task<Appointment?> GetByIdAsync(long id)
+    public async Task<Appointment?> GetByIdAsync(long id) // For admins, doctors, and patients
     {
         return await _context.Appointments.FindAsync(id);
-    }
-
-    public async Task<IEnumerable<Appointment>> GetByDoctorIdAsync(long id)
-    {
-        return await _context.Appointments
-                             .Where(e => e.DoctorId == id)
-                             .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Appointment>> GetByPatientIdAsync(long id)
-    {
-        return await _context.Appointments
-                             .Where(e => e.PatientId == id)
-                             .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Appointment>> GetByStatusAsync(AppointmentStatus status)
-    {
-        return await _context.Appointments
-                             .Where(e => e.Status == status)
-                             .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Appointment>> GetByTypeAsync(AppointmentType type)
-    {
-        return await _context.Appointments
-                             .Where(e => e.Type == type)
-                             .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Appointment>> GetByDateAsync(DateOnly date)
-    {
-        return await _context.Appointments
-                             .Where(e => DateOnly.FromDateTime(e.DateTime) == date)
-                             .ToListAsync();
     }
 
     public async Task<Appointment> CreateAsync(Appointment appointment)

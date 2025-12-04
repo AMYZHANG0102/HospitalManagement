@@ -49,7 +49,7 @@ public class AdminsController : ControllerBase
     // POST: /api/admins
     // Authorize: Admins
     [HttpPost]
-    public async Task<ActionResult<User>> CreateAdmin([FromBody] UserRegisterDto userDto)
+    public async Task<ActionResult<User>> CreateAdmin([FromBody] UserRegisterDto userRegisterDto)
     {
         if (!ModelState.IsValid)
         {
@@ -58,14 +58,14 @@ public class AdminsController : ControllerBase
 
         var newAdmin = new User
         {
-            FirstName = userDto.FirstName,
-            LastName = userDto.LastName,
+            FirstName = userRegisterDto.FirstName,
+            LastName = userRegisterDto.LastName,
             Role = UserRole.Admin,
-            Phone = userDto.Phone,
-            Email = userDto.Email,
-            Gender = userDto.Gender,
-            Birthdate = userDto.Birthdate,
-            HomeAddress = userDto.HomeAddress
+            Phone = userRegisterDto.Phone,
+            Email = userRegisterDto.Email,
+            Gender = userRegisterDto.Gender,
+            Birthdate = userRegisterDto.Birthdate,
+            HomeAddress = userRegisterDto.HomeAddress
         };
 
         var createdAdmin = await _userRepo.CreateAsync(newAdmin);
@@ -79,7 +79,7 @@ public class AdminsController : ControllerBase
     // PATCH: /api/admins/{id}
     // Authorize: Admins
     [HttpPatch("{id}")]
-    public async Task<IActionResult> UpdateAdmin(long id,
+    public async Task<IActionResult> PatchAdmin(long id,
         [FromBody] JsonPatchDocument<UserPatchDto> patchDoc)
     {
         if (patchDoc == null)
