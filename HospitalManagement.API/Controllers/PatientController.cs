@@ -9,123 +9,145 @@ namespace HospitalManagement.API.Controllers;
 [ApiController]
 public class PatientsController : ControllerBase
 {
-private readonly IPatientRepository _repository;
-public PatientsController(IPatientRepository repository)
-{
-_repository = repository;
-}
+    private readonly IPatientRepository _repository;
+    public PatientsController(IPatientRepository repository)
+    {
+        _repository = repository;
+    }
 
-// GET: api/patients
-[HttpGet]
-public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
-{
-var patients = await _repository.GetAllAsync();
-return Ok(patients);
-}
+    // GET: api/patients
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
+    {
+        var patients = await _repository.GetAllAsync();
+        return Ok(patients);
+    }
 
-// GET: api/patients/{id}
-[HttpGet("{id}")]
-public async Task<ActionResult<Patient>> GetPatient(int id)
-{
-var patient = await _repository.GetByIdAsync(id);
-if (patient == null)
-{
-return NotFound(new { message = $"Patient with ID {id} not found" });
-}
-return Ok(patient);
-}
+    // GET: api/patients/{id}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Patient>> GetPatient(int id)
+    {
+        var patient = await _repository.GetByIdAsync(id);
+        if (patient == null)
+        {
+            return NotFound(new { message = $"Patient with ID {id} not found" });
+        }
+        return Ok(patient);
+    }
 
-
-
-// POST: api/patients
-[HttpPost]
-public async Task<ActionResult<Patient>> CreatePatient([FromBody] PatientCreateDto patientDto)
-{
-if (!ModelState.IsValid)
-{
-return BadRequest(ModelState);
-}
-var patient = new Patient
-{
-FirstName = patientDto.FirstName,
-LastName = patientDto.LastName,
-Gender = patientDto.Gender,
-HealthCard = patientDto.HealthCard,
-HomeAddress = patientDto.HomeAddress,
-Phone = patientDto.Phone,
-Email = patientDto.Email,
-};
-
-var createdPatient = await _repository.CreateAsync(patient);
-return CreatedAtAction(
-nameof(GetPatient),
-new { id = createdPatient.Id },
-createdPatient
-);
-}
+    // //Get: api/patients/appointments/{id}
+    // [HttpGet("appointments/{id}")]
+    // public async Task<ActionResult<IEnumerable<Appointment>>> GetPatientAppointments(int id)
+    // {
+    //     var appointments = await _repository.GetPatientAppointmentsAsync(id);
+    //     if (appointments == null || !appointments.Any())
+    //     {
+    //         return Ok(appointments);
+    //     }
+    //     return Ok(appointments);
+    // }
 
 
-// PUT: api/patients/{id}
-[HttpPut("{id}")]
-public async Task<IActionResult> UpdatePatient(int id, [FromBody] PatientUpdateDto patientDto)
-{
-if (!ModelState.IsValid)
-{
-return BadRequest(ModelState);
-}
-var exists = await _repository.ExistsAsync(id);
-if (!exists)
-{
-return NotFound(new { message = $"Patient with ID {id} not found" });
-}
-var patient = new Patient
-{
-Id = id,
-FirstName = patientDto.FirstName,
-LastName = patientDto.LastName,
-Gender = patientDto.Gender,
-HealthCard = patientDto.HealthCard,
-HomeAddress = patientDto.HomeAddress, 
-Phone = patientDto.Phone,
-Email = patientDto.Email,
-};
-var updatedPatient = await _repository.UpdateAsync(patient);
-return Ok(updatedPatient);
-}
+    // // Get: api/patients/reviews/{id}
+    // [HttpGet("reviews/{id}")]
+    // public async Task<ActionResult<IEnumerable<Review>>> GetPatientReviews(int id)
+    // {
+    //     var reviews = await _repository.GetPatientReviewsAsync(id);
+    //     if (reviews == null || !reviews.Any())
+    //     {
+    //         return Ok(reviews);
+    //     }
+    //     return Ok(reviews);
+    // }
 
-// PATCH: api/tasks/{id}
-[HttpPatch("{id}")]
-public async Task<IActionResult> PatchPatient(int id, [FromBody]
-JsonPatchDocument<Patient> patchDoc)
-{
-if (patchDoc == null)
-{
-return BadRequest(new { message = "Patch document is null" });
-}
-var patient = await _repository.GetByIdAsync(id);
-if (patient == null)
-{
-return NotFound(new { message = $"Patient with ID {id} not found" });
-}
-patchDoc.ApplyTo(patient, ModelState);
-if (!ModelState.IsValid)
-{
-return BadRequest(ModelState);
-}
+    // POST: api/patients
+    [HttpPost]
+    public async Task<ActionResult<Patient>> CreatePatient([FromBody] PatientCreateDto patientDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var patient = new Patient
+        {
+            FirstName = patientDto.FirstName,
+            LastName = patientDto.LastName,
+            Gender = patientDto.Gender,
+            HealthCard = patientDto.HealthCard,
+            HomeAddress = patientDto.HomeAddress,
+            Phone = patientDto.Phone,
+            Email = patientDto.Email,
+        };
 
-await _repository.UpdateAsync(patient);
-return Ok(patient);
-}
+        var createdPatient = await _repository.CreateAsync(patient);
+        return CreatedAtAction(
+            nameof(GetPatient),
+            new { id = createdPatient.Id },
+            createdPatient
+        );
+    }
 
-// DELETE: api/patients/{id}
-[HttpDelete("{id}")]
-public async Task<IActionResult> DeletePatient(int id)
-{
-var deleted = await _repository.DeleteAsync(id);
-if (!deleted)
-{
-return NotFound(new { message = $"Patient with ID {id} not found" });
-}
-return NoContent();
-}
+    // PUT: api/patients/{id}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePatient(int id, [FromBody] PatientUpdateDto patientDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var exists = await _repository.ExistsAsync(id);
+        if (!exists)
+        {
+            return NotFound(new { message = $"Patient with ID {id} not found" });
+        }
+        var patient = new Patient
+        {
+            Id = id,
+            FirstName = patientDto.FirstName,
+            LastName = patientDto.LastName,
+            Gender = patientDto.Gender,
+            HealthCard = patientDto.HealthCard,
+            HomeAddress = patientDto.HomeAddress, 
+            Phone = patientDto.Phone,
+            Email = patientDto.Email,
+        };
+        var updatedPatient = await _repository.UpdateAsync(patient);
+        return Ok(updatedPatient);
+    }
+
+    // PATCH: api/tasks/{id}
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> PatchPatient(int id, [FromBody]
+    JsonPatchDocument<Patient> patchDoc)
+    {
+        if (patchDoc == null)
+        {
+            return BadRequest(new { message = "Patch document is null" });
+        }
+        var patient = await _repository.GetByIdAsync(id);
+        if (patient == null)
+        {
+            return NotFound(new { message = $"Patient with ID {id} not found" });
+        }
+        patchDoc.ApplyTo(patient, ModelState);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        await _repository.UpdateAsync(patient);
+        return Ok(patient);
+    }
+
+    // DELETE: api/patients/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePatient(int id)
+    {
+        var deleted = await _repository.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new { message = $"Patient with ID {id} not found" });
+        }
+        return NoContent();
+    }
 }
