@@ -2,12 +2,11 @@
 Summary: This model is the parent class for all user types. */
 
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 namespace HospitalManagement.Core.Models;
 
-public class User
+public class User : IdentityUser<long>
 {
-    public long Id { get; set; }
-
     [Required(ErrorMessage = "First Name is required")]
     [StringLength(50, ErrorMessage = "First Name cannot exceed 50 characters")]
     public string FirstName { get; set; } = string.Empty;
@@ -42,4 +41,6 @@ public class User
     public string HomeAddress { get; set; } = string.Empty;
 
     public UserStatus Status { get; set; } = UserStatus.Active;
+
+    public DateTime? LastLoginAt { get; set; }
 }
