@@ -88,37 +88,37 @@ public class PatientsController : ControllerBase
     }
 
     // PUT: api/patients/{id}
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePatient(int id, [FromBody] PatientUpdateDto patientDto)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        var exists = await _repository.ExistsAsync(id);
-        if (!exists)
-        {
-            return NotFound(new { message = $"Patient with ID {id} not found" });
-        }
-        var patient = new Patient
-        {
-            Id = id,
-            FirstName = patientDto.FirstName,
-            LastName = patientDto.LastName,
-            Gender = patientDto.Gender,
-            HealthCard = patientDto.HealthCard,
-            HomeAddress = patientDto.HomeAddress, 
-            Phone = patientDto.Phone,
-            Email = patientDto.Email,
-        };
-        var updatedPatient = await _repository.UpdateAsync(patient);
-        return Ok(updatedPatient);
-    }
+    // [HttpPut("{id}")]
+    // public async Task<IActionResult> UpdatePatient(int id, [FromBody] UserUpdateDto patientDto)
+    // {
+    //     if (!ModelState.IsValid)
+    //     {
+    //         return BadRequest(ModelState);
+    //     }
+    //     var exists = await _repository.ExistsAsync(id);
+    //     if (!exists)
+    //     {
+    //         return NotFound(new { message = $"Patient with ID {id} not found" });
+    //     }
+    //     var patient = new Patient
+    //     {
+    //         Id = id,
+    //         FirstName = patientDto.FirstName,
+    //         LastName = patientDto.LastName,
+    //         Gender = patientDto.Gender,
+    //         HealthCard = patientDto.HealthCard,
+    //         HomeAddress = patientDto.HomeAddress, 
+    //         Phone = patientDto.Phone,
+    //         Email = patientDto.Email,
+    //     };
+    //     var updatedPatient = await _repository.UpdateAsync(patient);
+    //     return Ok(updatedPatient);
+    // }
 
-    // PATCH: api/tasks/{id}
+    // PATCH: api/patients/{id}
     [HttpPatch("{id}")]
     public async Task<IActionResult> PatchPatient(int id, [FromBody]
-    JsonPatchDocument<Patient> patchDoc)
+    JsonPatchDocument<UserPatchDto> patchDoc)
     {
         if (patchDoc == null)
         {
@@ -129,11 +129,11 @@ public class PatientsController : ControllerBase
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
         }
-        patchDoc.ApplyTo(patient, ModelState);
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        // patchDoc.ApplyTo(patient, ModelState);
+        // if (!ModelState.IsValid)
+        // {
+        //     return BadRequest(ModelState);
+        // }
 
         await _repository.UpdateAsync(patient);
         return Ok(patient);

@@ -31,7 +31,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterDto model)
+    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] UserRegisterDto model)
     {
         if (!ModelState.IsValid)
         {
@@ -46,7 +46,6 @@ public class AuthController : ControllerBase
 
         var user = new User
         {
-            UserName = model.UserName,
             Email = model.Email,
             FirstName = model.FirstName,
             LastName = model.LastName,

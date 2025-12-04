@@ -1,5 +1,5 @@
 /* Amy Zhang
-Summary: Interface for Doctor Repository defining CRUD operations and queries*/
+Summary: Interface for Doctor Repository defining CRUD operations and queries */
 
 using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.Interfaces;
