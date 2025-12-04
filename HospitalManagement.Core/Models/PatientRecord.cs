@@ -10,7 +10,7 @@ public class PatientRecord
     public int Id { get; set; } // Primary Key
 
     [Required (ErrorMessage = "PatientId is required")]
-    public string PatientId { get; set; } // Foreign Key: To which patient does this record belong to?
+    public int PatientId { get; set; } // Foreign Key: To which patient does this record belong to?
     public Patient? Patient { get; set; } 
 
     public string MedicationAllergyInfo { get; set; } = string.Empty;
