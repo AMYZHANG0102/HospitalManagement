@@ -41,20 +41,6 @@ public class ShiftRepository : IShiftRepository
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Shift>> GetByTypeAsync(ShiftType type)
-    {
-        return await _context.Shifts
-                             .Where(e => e.Type == type)
-                             .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Shift>> GetByStatusAsync(ShiftStatus status)
-    {
-        return await _context.Shifts
-                             .Where(e => e.Status == status)
-                             .ToListAsync();
-    }
-
     public async Task<Shift> CreateAsync(Shift shift)
     {
         _context.Shifts.Add(shift);
@@ -72,8 +58,6 @@ public class ShiftRepository : IShiftRepository
         existingShift.Date = shift.Date;
         existingShift.StartTime = shift.StartTime;
         existingShift.EndTime = shift.EndTime;
-        existingShift.Type = shift.Type;
-        existingShift.Status = shift.Status;
         await _context.SaveChangesAsync();
         return existingShift;
     }
