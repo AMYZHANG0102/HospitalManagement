@@ -17,7 +17,7 @@ public class PatientRepository : IPatientRepository
     {
         return await _context.Patients.ToListAsync();
     }
-    public async Task<Patient?> GetByIdAsync(long id)
+    public async Task<Patient?> GetByIdAsync(int id)
     {
         return await _context.Patients.FindAsync(id);
     }

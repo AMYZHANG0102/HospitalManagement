@@ -1,3 +1,6 @@
+/*Hira
+Summary: RegisterDto represents the data transfer object for user registration information.
+*/
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.DTOs;
 

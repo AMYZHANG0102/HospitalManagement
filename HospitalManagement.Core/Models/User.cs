@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 namespace HospitalManagement.Core.Models;
 
-public class User : IdentityUser<long>
+public class User : IdentityUser<int>
 {
     [Required(ErrorMessage = "First Name is required")]
     [StringLength(50, ErrorMessage = "First Name cannot exceed 50 characters")]

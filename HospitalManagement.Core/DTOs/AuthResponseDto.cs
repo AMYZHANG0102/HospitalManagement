@@ -1,3 +1,4 @@
+/*Hira*/
 namespace HospitalManagement.Core.DTOs;
 
 public class AuthResponseDto

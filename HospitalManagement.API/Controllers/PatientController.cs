@@ -1,3 +1,6 @@
+/*Hira
+Summary: PatientController represents the API controller for managing patient users.
+*/
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;
