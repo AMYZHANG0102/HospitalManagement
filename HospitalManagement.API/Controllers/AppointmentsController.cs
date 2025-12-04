@@ -1,8 +1,12 @@
+/* Amy Zhang
+Summary: AppointmentsController to manage appointment-related API endpoints */
+
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
