@@ -1,5 +1,7 @@
+/*Hira
+Summary: Data Transfer Object for updating an existing patient record.
+*/
 namespace HospitalManagement.Core.DTOs;
-
 public class PatientRecordUpdateDto
 {
     public string PatientId { get; set; }

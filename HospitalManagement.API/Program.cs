@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using IdentityManagement.Core.Models;
+using HospitalManagement.Infrastrucutre.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,6 +74,12 @@ builder.Services.AddAuthorization();
 // Register Repository
 builder.Services.AddScoped<IPatientRepository, PatientRepository>(); //dependency injection for patient repository
 builder.Services.AddScoped<IPatientRecordRepository, PatientRecordRepository>(); //dependency injection for patient record repository
+builder.Services.AddScoped<IUserRepository, UserRepository>(); //dependency injection for user repository
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); //dependency injection for doctor repository
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>(); //dependency injection for appointment repository
+builder.Services.AddScoped<IShiftRepository, ShiftRepository>(); //dependency injection for shift repository
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>(); //dependency injection for review repository
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

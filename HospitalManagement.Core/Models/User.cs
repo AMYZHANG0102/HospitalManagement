@@ -16,7 +16,7 @@ public class User : IdentityUser
     public string LastName { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "User role needs to be specified")]
-    public UserRole Role { get; set; } // Patient, Dcotor, or Admin
+    public UserRole Role { get; set; } // Patient, Doctor, or Admin
 
     [Required(ErrorMessage = "Phone is required")]
     [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Phone must be in format xxx-xxx-xxxx")]

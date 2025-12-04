@@ -1,3 +1,7 @@
+/*Hira
+Summary: Data Transfer Object for creating a new patient record.
+*/
+
 namespace HospitalManagement.Core.DTOs;
 
 public class PatientRecordCreateDto

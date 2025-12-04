@@ -1,4 +1,4 @@
-/* Amy Zhang
+/* Hira Ahmad 
 Summary: This class represents a patient record/medical history containing multiple entries.*/
 
 using System.ComponentModel.DataAnnotations;
