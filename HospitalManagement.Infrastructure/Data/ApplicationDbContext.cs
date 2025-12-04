@@ -129,8 +129,6 @@ public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, str
             entity.Property(e => e.Date).IsRequired();
             entity.Property(e => e.StartTime).IsRequired();
             entity.Property(e => e.EndTime).IsRequired();
-            entity.Property(e => e.Type).IsRequired();
-            entity.Property(e => e.Status);
             // Configure many-to-many relationship:
             entity.HasMany(e => e.Doctors) // Shift has one doctor
                   .WithMany(d => d.Shifts); // Doctor can have many shifts

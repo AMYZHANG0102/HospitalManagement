@@ -6,10 +6,10 @@ namespace HospitalManagement.Core.DTOs;
 
 public class LoginDto
 {
-    [Required]
+    [Required(ErrorMessage = "Email is required")]
     [EmailAddress]
     public string Email { get; set; } = string.Empty;
 
-    [Required]
+    [Required (ErrorMessage = "Password is required")]
     public string Password { get; set; } = string.Empty;
 }

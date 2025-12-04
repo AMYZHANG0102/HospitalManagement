@@ -49,7 +49,7 @@ public class AdminsController : ControllerBase
     // POST: /api/admins
     // Authorize: Admins
     [HttpPost]
-    public async Task<ActionResult<User>> CreateAdmin([FromBody] UserCreateDto userDto)
+    public async Task<ActionResult<User>> CreateAdmin([FromBody] UserRegisterDto userDto)
     {
         if (!ModelState.IsValid)
         {

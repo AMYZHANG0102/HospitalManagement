@@ -98,7 +98,7 @@ public class DoctorsController : ControllerBase
 
     // PUT: api/doctors/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDoctor(string id, [FromBody] DoctorUpdateDto doctorDto)
+    public async Task<IActionResult> UpdateDoctor(string id, [FromBody] DoctorPatchDto doctorDto)
     {
         if (!ModelState.IsValid)
         {
@@ -114,18 +114,16 @@ public class DoctorsController : ControllerBase
             Id = id,
             FirstName = doctorDto.FirstName,
             LastName = doctorDto.LastName,
-            Gender = doctorDto.Gender,
             HomeAddress = doctorDto.HomeAddress, 
             Phone = doctorDto.Phone,
-            Email = doctorDto.Email,
         };
         var updatedDoctor = await _repository.UpdateAsync(doctor);
         return Ok(updatedDoctor);
     }
 
-    // PATCH: api/tasks/{id}
+    // PATCH: api/doctor/{id}
     [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchDoctor(string id, [FromBody] JsonPatchDocument<Doctor> patchDoc)
+    public async Task<IActionResult> PatchDoctor(string id, [FromBody] JsonPatchDocument<DoctorPatchDto> patchDoc)
     {
         if (patchDoc == null)
         {
@@ -136,11 +134,11 @@ public class DoctorsController : ControllerBase
         {
             return NotFound(new { message = $"Doctor with ID {id} not found" });
         }
-        patchDoc.ApplyTo(doctor, ModelState);
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        // patchDoc.ApplyTo(doctor, ModelState);
+        // if (!ModelState.IsValid)
+        // {
+        //     return BadRequest(ModelState);
+        // }
 
         await _repository.UpdateAsync(doctor);
         return Ok(doctor);

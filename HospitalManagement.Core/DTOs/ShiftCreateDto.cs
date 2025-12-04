@@ -1,14 +1,13 @@
 /* Amy Zhang
-Summary: This class represents a work shift for doctors. */
+Summary: This DTO is used for creating new shifts. */
 
 using System.ComponentModel.DataAnnotations;
-namespace HospitalManagement.Core.Models;
+using HospitalManagement.Core.Models;
+namespace HospitalManagement.Core.DTOs;
 
-public class Shift
+public class ShiftCreateDto
 {
-    public int Id { get; set; }
-
-    [Required(ErrorMessage = "Specify doctors working on this shift")]
+    [Required (ErrorMessage = "Specify doctors working on this shift")]
     public List<Doctor> Doctors { get; set; } = new(); // Many-to-Many relationship
     
     [Required (ErrorMessage = "Shift date is required")]
@@ -17,6 +16,6 @@ public class Shift
     [Required (ErrorMessage = "Shift starting time is required")]
     public TimeOnly StartTime { get; set; }
     
-    [Required(ErrorMessage = "Shift ending time is required")]
+    [Required (ErrorMessage = "Shift ending time is required")]
     public TimeOnly EndTime { get; set; }
 }
