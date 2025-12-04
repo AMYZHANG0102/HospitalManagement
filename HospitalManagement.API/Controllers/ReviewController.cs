@@ -33,7 +33,7 @@ public class ReviewsController : ControllerBase
 
     // GET: api/reviews/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Review>> GetReview(long id)
+    public async Task<ActionResult<Review>> GetReview(int id)
     {
         var review = await _repository.GetByIdAsync(id);
         if (review == null)
@@ -104,7 +104,7 @@ public class ReviewsController : ControllerBase
         var review = new Review
         {
             //PatientId = reviewDto.PatientId,
-            //DoctorId = reviewDto.DoctorId,  //fix error, make sure data type matches 
+            DoctorId = reviewDto.DoctorId,  //fix error, make sure data type matches 
             Rating = reviewDto.Rating,
             Comment = reviewDto.Comment ?? string.Empty,
             Date = DateOnly.FromDateTime(DateTime.Now)
