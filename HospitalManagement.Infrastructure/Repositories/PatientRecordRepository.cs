@@ -1,4 +1,6 @@
-/* Hira Ahmad. */
+/* Hira Ahmad
+Summary: PatientRecordRepository implements IPatientRecordRepository to manage patient records in the database.
+It provides methods for CRUD operations on patient records.*/
 
 using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Core.Models;

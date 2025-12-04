@@ -1,4 +1,6 @@
-/*Hira*/
+/*Hira Ahmad
+Summary: AuthController handles user authentication and authorization. It provides endpoints for user registration, login, logout,
+password change, retrieving current user info, and account deactivation. It uses JWT for secure token-based authentication.*/
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -31,49 +33,49 @@ public class AuthController : ControllerBase
         _logger = logger;
     }
 
-    // [HttpPost("register")]
-    // public async Task<ActionResult<AuthResponseDto>> Register([FromBody] UserRegisterDto model)
-    // {
-    //     if (!ModelState.IsValid)
-    //     {
-    //         return BadRequest(new AuthResponseDto
-    //         {
-    //             Success = false,
-    //             Message = "Invalid registration data"
-    //         });
-    //     }
+    [HttpPost("register")]
+    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] UserRegisterDto model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new AuthResponseDto
+            {
+                Success = false,
+                Message = "Invalid registration data"
+            });
+        }
 
-    //     var user = new User
-    //     {
-    //         UserName = model.UserName,
-    //         Email = model.Email,
-    //         FirstName = model.FirstName,
-    //         LastName = model.LastName,
-    //     };
+        var user = new User
+        {
+            UserName = model.UserName,
+            Email = model.Email,
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+        };
 
-    //     var result = await _userManager.CreateAsync(user, model.Password);
-    //     if (!result.Succeeded)
-    //     {
-    //         var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-    //         return BadRequest(new AuthResponseDto
-    //         {
-    //             Success = false,
-    //             Message = $"Registration failed: {errors}"
-    //         });
-    //     }
+        var result = await _userManager.CreateAsync(user, model.Password);
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+            return BadRequest(new AuthResponseDto
+            {
+                Success = false,
+                Message = $"Registration failed: {errors}"
+            });
+        }
 
-    //     _logger.LogInformation("User {Email} registered successfully", user.Email);
+        _logger.LogInformation("User {Email} registered successfully", user.Email);
 
-    //     return Ok(new AuthResponseDto
-    //     {
-    //         Success = true,
-    //         Message = "User registered successfully",
-    //         UserId = user.Id,
-    //         Email = user.Email,
-    //         UserName = user.UserName
-    //     });
+        return Ok(new AuthResponseDto
+        {
+            Success = true,
+            Message = "User registered successfully",
+            UserId = user.Id,
+            Email = user.Email,
+            UserName = user.UserName
+        });
 
-    // }
+    }
 
     private async Task<string> GenerateJwtToken(User user)
     {
@@ -271,8 +273,8 @@ public class AuthController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("delete-account")]
-    public async Task<ActionResult<AuthResponseDto>> DeleteAccount()
+    [HttpPost("deactivate-account")]
+    public async Task<ActionResult<AuthResponseDto>> DeactivateAccount()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null)
@@ -294,25 +296,28 @@ public class AuthController : ControllerBase
             });
         }
 
-        var result = await _userManager.DeleteAsync(user);
-       
+        user.IsDeactivated = true;
+        var result = await _userManager.UpdateAsync(user);
         if (!result.Succeeded)
         {
             var errors = string.Join(", ", result.Errors.Select(e => e.Description));
             return BadRequest(new AuthResponseDto 
             { 
                 Success = false, 
-                Message = $"Account deletion failed: {errors}" 
+                Message = $"Account deactivation failed: {errors}" 
             });
         }
 
-        _logger.LogInformation("User {Email} deleted their account", user.Email);
+        _logger.LogInformation("User {Email} deactivated their account", user.Email);
+
+       
+        await _signInManager.SignOutAsync();  // Optional: sign out the user
 
         return Ok(new AuthResponseDto 
         { 
             Success = true, 
-            Message = "Account deleted successfully" 
+            Message = "Account deactivated successfully" 
         });
-
     }
+
 }

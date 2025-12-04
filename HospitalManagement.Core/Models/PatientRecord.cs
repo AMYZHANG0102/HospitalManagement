@@ -1,5 +1,6 @@
 /* Hira Ahmad 
-Summary: This class represents a patient record/medical history containing multiple entries.*/
+Summary: This class represents a patient record/medical history containing multiple entries.
+It includes properties for patient details and a list of record entries. */
 
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
@@ -10,7 +11,7 @@ public class PatientRecord
 
     [Required (ErrorMessage = "PatientId is required")]
     public string PatientId { get; set; } // Foreign Key: To which patient does this record belong to?
-    public Patient? Patient { get; set; } // Navigation property
+    public Patient? Patient { get; set; } 
 
     public string MedicationAllergyInfo { get; set; } = string.Empty;
 

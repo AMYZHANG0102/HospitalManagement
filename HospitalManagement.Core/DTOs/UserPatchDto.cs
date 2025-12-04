@@ -18,5 +18,7 @@ public class UserPatchDto
 
     [StringLength (100, ErrorMessage = "Home Address cannot exceed 100 characters")]
     public string HomeAddress { get; set; } = string.Empty;
+
+    public UserStatus? Status { get; set; }
     
 }

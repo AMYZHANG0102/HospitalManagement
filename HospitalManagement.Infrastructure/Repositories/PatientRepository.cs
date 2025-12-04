@@ -1,4 +1,5 @@
-/* Hira Ahmad. */
+/* Hira Ahmad
+Summary: PatientRepository implements IPatientRepository to manage patients in the database. */
 
 using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Core.Models;

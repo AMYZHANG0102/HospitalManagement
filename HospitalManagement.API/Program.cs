@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+/* Hira Ahmad
+Summary: This is the main program file for the Hospital Management API. It configures services, JWT Validation, 
+and dependency injection for the application. */
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
