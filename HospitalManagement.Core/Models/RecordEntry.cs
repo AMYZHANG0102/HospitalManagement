@@ -6,13 +6,13 @@ namespace HospitalManagement.Core.Models;
 
 public class RecordEntry
 {
-    public long Id { get; set; } // Primary Key
+    public int Id { get; set; } // Primary Key
 
     [Required]
-    public long PatientRecordId { get; set; } // Foreign Key: To which patient record does this entry belong to?
+    public int PatientRecordId { get; set; } // Foreign Key: To which patient record does this entry belong to?
 
     [Required]
-    public long DoctorId { get; set; } // Doctor who created the entry
+    public int DoctorId { get; set; } // Doctor who created the entry
 
     [Required (ErrorMessage = "Provide a description for this entry")]
     public string Description { get; set; } = string.Empty;

@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Register Repository
 builder.Services.AddScoped<IPatientRepository, PatientRepository>(); //dependency injection for patient repository
+builder.Services.AddScoped<IPatientRecordRepository, PatientRecordRepository>(); //dependency injection for patient record repository
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

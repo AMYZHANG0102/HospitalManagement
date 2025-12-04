@@ -6,7 +6,7 @@ namespace HospitalManagement.Core.Models;
 
 public class Shift
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [Required(ErrorMessage = "Specify doctors working on this shift")]
     public List<Doctor> Doctors { get; set; } = new(); // Many-to-Many relationship
