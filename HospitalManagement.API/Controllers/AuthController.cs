@@ -31,49 +31,49 @@ public class AuthController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost("register")]
-    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] UserRegisterDto model)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new AuthResponseDto
-            {
-                Success = false,
-                Message = "Invalid registration data"
-            });
-        }
+    // [HttpPost("register")]
+    // public async Task<ActionResult<AuthResponseDto>> Register([FromBody] UserRegisterDto model)
+    // {
+    //     if (!ModelState.IsValid)
+    //     {
+    //         return BadRequest(new AuthResponseDto
+    //         {
+    //             Success = false,
+    //             Message = "Invalid registration data"
+    //         });
+    //     }
 
-        var user = new User
-        {
-            UserName = model.UserName,
-            Email = model.Email,
-            FirstName = model.FirstName,
-            LastName = model.LastName,
-        };
+    //     var user = new User
+    //     {
+    //         UserName = model.UserName,
+    //         Email = model.Email,
+    //         FirstName = model.FirstName,
+    //         LastName = model.LastName,
+    //     };
 
-        var result = await _userManager.CreateAsync(user, model.Password);
-        if (!result.Succeeded)
-        {
-            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-            return BadRequest(new AuthResponseDto
-            {
-                Success = false,
-                Message = $"Registration failed: {errors}"
-            });
-        }
+    //     var result = await _userManager.CreateAsync(user, model.Password);
+    //     if (!result.Succeeded)
+    //     {
+    //         var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+    //         return BadRequest(new AuthResponseDto
+    //         {
+    //             Success = false,
+    //             Message = $"Registration failed: {errors}"
+    //         });
+    //     }
 
-        _logger.LogInformation("User {Email} registered successfully", user.Email);
+    //     _logger.LogInformation("User {Email} registered successfully", user.Email);
 
-        return Ok(new AuthResponseDto
-        {
-            Success = true,
-            Message = "User registered successfully",
-            UserId = user.Id,
-            Email = user.Email,
-            UserName = user.UserName
-        });
+    //     return Ok(new AuthResponseDto
+    //     {
+    //         Success = true,
+    //         Message = "User registered successfully",
+    //         UserId = user.Id,
+    //         Email = user.Email,
+    //         UserName = user.UserName
+    //     });
 
-    }
+    // }
 
     private async Task<string> GenerateJwtToken(User user)
     {

@@ -6,16 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
+using Microsoft.AspNetCore.Identity;
 namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class PatientsController : ControllerBase
 {
+    private readonly UserManager<User> _userManager;
+    private readonly ILogger<PatientsController> _logger;
     private readonly IPatientRepository _repository;
-    public PatientsController(IPatientRepository repository)
+    public PatientsController(
+        IPatientRepository repository,
+        UserManager<User> userManager,
+        ILogger<PatientsController> logger)
     {
         _repository = repository;
+        _userManager = userManager;
+        _logger = logger;
     }
 
     // GET: api/patients
@@ -73,6 +81,7 @@ public class PatientsController : ControllerBase
         }
         var patient = new Patient
         {
+            UserName = patientDto.UserName,
             FirstName = patientDto.FirstName,
             LastName = patientDto.LastName,
             Gender = patientDto.Gender,
@@ -82,12 +91,27 @@ public class PatientsController : ControllerBase
             Email = patientDto.Email,
         };
 
-        var createdPatient = await _repository.CreateAsync(patient);
-        return CreatedAtAction(
-            nameof(GetPatient),
-            new { id = createdPatient.Id },
-            createdPatient
-        );
+        var result = await _userManager.CreateAsync(patient, patientDto.Password);
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+            return BadRequest(new AuthResponseDto
+            {
+                Success = false,
+                Message = $"Registration failed: {errors}"
+            });
+        }
+
+        _logger.LogInformation("User {Email} registered successfully", patient.Email);
+
+        return Ok(new AuthResponseDto
+        {
+            Success = true,
+            Message = "User registered successfully",
+            UserId = patient.Id,
+            Email = patient.Email,
+            UserName = patient.UserName
+        });
     }
 
     // PUT: api/patients/{id}
