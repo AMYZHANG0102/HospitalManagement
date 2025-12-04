@@ -30,15 +30,15 @@ public class PatientsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
     {
-        var patients = await _repository.GetAllAsync();
+        var patients = await _repository.GetAllPatientsAsync();
         return Ok(patients);
     }
 
     // GET: api/patients/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Patient>> GetPatient(string id)
+    public async Task<ActionResult<Patient>> GetPatientById(string id)
     {
-        var patient = await _repository.GetByIdAsync(id);
+        var patient = await _repository.GetPatientByIdAsync(id);
         if (patient == null)
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
@@ -46,30 +46,30 @@ public class PatientsController : ControllerBase
         return Ok(patient);
     }
 
-    // //Get: api/patients/appointments/{id}
-    // [HttpGet("appointments/{id}")]
-    // public async Task<ActionResult<IEnumerable<Appointment>>> GetPatientAppointments(int id)
-    // {
-    //     var appointments = await _repository.GetPatientAppointmentsAsync(id);
-    //     if (appointments == null || !appointments.Any())
-    //     {
-    //         return Ok(appointments);
-    //     }
-    //     return Ok(appointments);
-    // }
+    //Get: api/patients/appointments/{id}
+    [HttpGet("appointments/{id}")]
+    public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPatientAppointments(int id)
+    {
+        var appointments = await _repository.GetAllPatientAppointmentsAsync(id);
+        if (appointments == null || !appointments.Any())
+        {
+            return Ok(appointments);
+        }
+        return Ok(appointments);
+    }
 
 
-    // // Get: api/patients/reviews/{id}
-    // [HttpGet("reviews/{id}")]
-    // public async Task<ActionResult<IEnumerable<Review>>> GetPatientReviews(int id)
-    // {
-    //     var reviews = await _repository.GetPatientReviewsAsync(id);
-    //     if (reviews == null || !reviews.Any())
-    //     {
-    //         return Ok(reviews);
-    //     }
-    //     return Ok(reviews);
-    // }
+    // Get: api/patients/reviews/{id}
+    [HttpGet("reviews/{id}")]
+    public async Task<ActionResult<IEnumerable<Review>>> GetAllPatientReviews(int id)
+    {
+        var reviews = await _repository.GetAllPatientReviewsAsync(id);
+        if (reviews == null || !reviews.Any())
+        {
+            return Ok(reviews);
+        }
+        return Ok(reviews);
+    }
 
     // POST: api/patients
     [HttpPost]
@@ -151,7 +151,7 @@ public class PatientsController : ControllerBase
         {
             return BadRequest(new { message = "Patch document is null" });
         }
-        var patient = await _repository.GetByIdAsync(id);
+        var patient = await _repository.GetPatientByIdAsync(id);
         if (patient == null)
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
@@ -162,19 +162,25 @@ public class PatientsController : ControllerBase
         //     return BadRequest(ModelState);
         // }
 
-        await _repository.UpdateAsync(patient);
+        await _repository.UpdatePatientAsync(patient);
         return Ok(patient);
     }
 
-    // DELETE: api/patients/{id}
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePatient(string id)
+    // Deactivate: api/patients/deactivate/{id}
+    [HttpPost("deactivate/{id}")]
+    public async Task<IActionResult> DeactivatePatient(string id)
     {
-        var deleted = await _repository.DeleteAsync(id);
-        if (!deleted)
+        var patient = await _repository.GetPatientByIdAsync(id);
+        if (patient == null)
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
         }
-        return NoContent();
+
+        patient.IsDeactivated = true;
+        await _repository.UpdatePatientAsync(patient);
+
+        _logger.LogInformation("Patient {Id} deactivated their account", patient.Id);
+
+        return Ok(new { message = "Account deactivated successfully" });
     }
 }
