@@ -23,3 +23,5 @@ public class RecordEntry
     public PatientRecord? PatientRecord { get; set; }
     public Doctor? Doctor { get; set; }
 }
+
+//Are we still keeping this?? Ask Amy 
