@@ -17,7 +17,7 @@ public class PatientRepository : IPatientRepository
     {
         return await _context.Patients.ToListAsync();
     }
-    public async Task<Patient?> GetByIdAsync(int id)
+    public async Task<Patient?> GetByIdAsync(string id)
     {
         return await _context.Patients.FindAsync(id);
     }
@@ -49,7 +49,7 @@ public class PatientRepository : IPatientRepository
         return existingPatient;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(string id)
     {
         var patient = await _context.Patients.FindAsync(id);
         if (patient == null)
@@ -60,7 +60,7 @@ public class PatientRepository : IPatientRepository
         await _context.SaveChangesAsync();
         return true;
     }
-    public async Task<bool> ExistsAsync(int id)
+    public async Task<bool> ExistsAsync(string id)
     {
         return await _context.Patients.AnyAsync(p => p.Id == id);
     }

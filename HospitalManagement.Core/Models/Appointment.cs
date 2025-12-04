@@ -9,11 +9,11 @@ public class Appointment
     public int Id { get; set; }
 
     [Required (ErrorMessage = "Must specify patient")]
-    public int PatientId { get; set; } // Foreign Key
+    public string PatientId { get; set; } // Foreign Key
 
     [Required (ErrorMessage = "Must specify doctor")]
-    public int DoctorId { get; set; } // Foreign Key
-
+    public string DoctorId { get; set; } // Foreign Key
+    
     [Required (ErrorMessage = "Must specify appointment type")]
     public AppointmentType Type { get; set; }
 

@@ -12,9 +12,9 @@ public class Review
     public int Id { get; set; }
 
     [Required]
-    public int PatientId { get; set; }
+    public string PatientId { get; set; }
 
-    public int? DoctorId { get; set; } // Optional
+    public string? DoctorId { get; set; } // Optional
 
     [Required (ErrorMessage = "Please provide a rating")]
     public Rating Rating { get; set; }

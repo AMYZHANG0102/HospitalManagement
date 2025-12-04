@@ -4,9 +4,9 @@ namespace HospitalManagement.Core.Interfaces;
 public interface IPatientRepository
 {
     Task<IEnumerable<Patient>> GetAllAsync();
-    Task<Patient?> GetByIdAsync(int id);
+    Task<Patient?> GetByIdAsync(string id);
     Task<Patient> CreateAsync(Patient patient);
     Task<Patient?> UpdateAsync(Patient patient);
-    Task<bool> DeleteAsync(int id);
-    Task<bool> ExistsAsync(int id);
+    Task<bool> DeleteAsync(string id);
+    Task<bool> ExistsAsync(string id);
 }

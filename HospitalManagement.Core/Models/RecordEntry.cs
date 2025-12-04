@@ -12,7 +12,7 @@ public class RecordEntry
     public int PatientRecordId { get; set; } // Foreign Key: To which patient record does this entry belong to?
 
     [Required]
-    public int DoctorId { get; set; } // Doctor who created the entry
+    public string DoctorId { get; set; } // Doctor who created the entry
 
     [Required (ErrorMessage = "Provide a description for this entry")]
     public string Description { get; set; } = string.Empty;

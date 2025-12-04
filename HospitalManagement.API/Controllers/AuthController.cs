@@ -32,16 +32,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterDto model)
+    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] UserRegisterDto model)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(new AuthResponseDto
-
             {
                 Success = false,
                 Message = "Invalid registration data"
-
             });
         }
 

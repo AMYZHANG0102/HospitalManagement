@@ -1,10 +1,10 @@
 /*Hira
-Summary: RegisterDto represents the data transfer object for user registration information.
+Summary: UserRegisterDto represents the data transfer object for user registration information.
 */
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.DTOs;
 
-public class RegisterDto
+public class UserRegisterDto
 {
     [Required]
     [EmailAddress]

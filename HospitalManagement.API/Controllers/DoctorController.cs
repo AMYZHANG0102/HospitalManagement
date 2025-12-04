@@ -25,7 +25,7 @@ public class DoctorsController : ControllerBase
 
     // GET: api/doctors/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Doctor>> GetDoctor(int id)
+    public async Task<ActionResult<Doctor>> GetDoctor(string id)
     {
         var doctor = await _repository.GetByIdAsync(id);
         if (doctor == null)
@@ -98,7 +98,7 @@ public class DoctorsController : ControllerBase
 
     // PUT: api/doctors/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateDoctor(int id, [FromBody] DoctorUpdateDto doctorDto)
+    public async Task<IActionResult> UpdateDoctor(string id, [FromBody] DoctorUpdateDto doctorDto)
     {
         if (!ModelState.IsValid)
         {
@@ -125,7 +125,7 @@ public class DoctorsController : ControllerBase
 
     // PATCH: api/tasks/{id}
     [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchDoctor(int id, [FromBody] JsonPatchDocument<Doctor> patchDoc)
+    public async Task<IActionResult> PatchDoctor(string id, [FromBody] JsonPatchDocument<Doctor> patchDoc)
     {
         if (patchDoc == null)
         {
@@ -148,7 +148,7 @@ public class DoctorsController : ControllerBase
 
     // DELETE: api/doctors/{id}
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteDoctor(int id)
+    public async Task<IActionResult> DeleteDoctor(string id)
     {
         var deleted = await _repository.DeleteAsync(id);
         if (!deleted)

@@ -4,9 +4,11 @@ It defines the DbSets for each entity and configures their relationships. */
 
 using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Core.Models;
+using IdentityManagement.Core.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace HospitalManagement.Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, string>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : base(options)
@@ -148,6 +150,11 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.Doctor) // Review can be about a one Doctor
                     .WithMany(d => d.ReviewsReceived) // Doctor can receive many reviews
                     .HasForeignKey(e => e.DoctorId); // Foreign key linking Doctor
+        });
+
+        modelBuilder.Entity<ApplicationRole>(entity=>
+        {
+            entity.ToTable("Roles");
         });
     }
 }

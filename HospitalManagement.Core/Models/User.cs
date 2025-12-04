@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 namespace HospitalManagement.Core.Models;
 
-public class User : IdentityUser<int>
+public class User : IdentityUser
 {
     [Required(ErrorMessage = "First Name is required")]
     [StringLength(50, ErrorMessage = "First Name cannot exceed 50 characters")]
@@ -21,11 +21,6 @@ public class User : IdentityUser<int>
     [Required(ErrorMessage = "Phone is required")]
     [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "Phone must be in format xxx-xxx-xxxx")]
     public string Phone { get; set; } = string.Empty;
-
-    [Required(ErrorMessage = "Email is required")]
-    [EmailAddress(ErrorMessage = "Invalid email format")]
-    [StringLength(100, ErrorMessage = "Address cannot exceed 100 characters")]
-    public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Password is required")]
     public string Password { get; set; } = string.Empty;

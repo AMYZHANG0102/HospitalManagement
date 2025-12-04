@@ -29,7 +29,7 @@ public class UserRepository : IUserRepository
                              .ToListAsync();
     }
 
-    public async Task<User?> GetByIdAsync(long id)
+    public async Task<User?> GetByIdAsync(string id)
     {
         return await _context.Users
                              .FirstOrDefaultAsync(u => u.Id == id);
@@ -66,7 +66,7 @@ public class UserRepository : IUserRepository
         return existingUser;
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(string id)
     {
         var existingUser = await _context.Users.FindAsync(id);
         if (existingUser == null)
@@ -78,7 +78,7 @@ public class UserRepository : IUserRepository
         return true;
     }
 
-    public async Task<bool> ExistsAsync(long id)
+    public async Task<bool> ExistsAsync(string id)
     {
         return await _context.Users.AnyAsync(u => u.Id == id);
     }
