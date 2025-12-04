@@ -18,7 +18,7 @@ public class ReviewRepository : IReviewRepository
         return await _context.Reviews.ToListAsync();
     }
 
-    public async Task<Review?> GetByIdAsync(long id)
+    public async Task<Review?> GetByIdAsync(int id)
     {
         return await _context.Reviews.FindAsync(id);
     }
@@ -63,7 +63,7 @@ public class ReviewRepository : IReviewRepository
         await _context.SaveChangesAsync();
         return Review;
     }
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(int id)
     {
         var Review = await _context.Reviews.FindAsync(id);
         if (Review == null)
@@ -76,7 +76,7 @@ public class ReviewRepository : IReviewRepository
         return true;
     }
 
-    public async Task<bool> ExistsAsync(long id)
+    public async Task<bool> ExistsAsync(int id)
     {
         return await _context.Reviews.AnyAsync(f => f.Id == id);
     }
