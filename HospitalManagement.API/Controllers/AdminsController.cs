@@ -24,6 +24,7 @@ public class AdminsController : ControllerBase
     }
 
     // GET: /api/admins
+    // Authorize: Admins
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetAllAdmins()
     {
@@ -33,6 +34,7 @@ public class AdminsController : ControllerBase
     }
 
     // GET: /api/admins/{id}
+    // Authorize: Admins
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetAdmin(long id)
     {
@@ -45,6 +47,7 @@ public class AdminsController : ControllerBase
     }
 
     // POST: /api/admins
+    // Authorize: Admins
     [HttpPost]
     public async Task<ActionResult<User>> CreateAdmin([FromBody] UserCreateDto userDto)
     {
@@ -74,6 +77,7 @@ public class AdminsController : ControllerBase
     }
 
     // PATCH: /api/admins/{id}
+    // Authorize: Admins
     [HttpPatch("{id}")]
     public async Task<IActionResult> UpdateAdmin(long id,
         [FromBody] JsonPatchDocument<UserPatchDto> patchDoc)

@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: UserPatchDto defines the properties that can be updated for a user via PATCH. */
+
 using System.ComponentModel.DataAnnotations;
 using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.DTOs;

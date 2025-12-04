@@ -1,3 +1,8 @@
+/* Amy Zhang
+Summary: ReviewCreateDto defines the data needed for a patient to create a review.
+It includes an optional DoctorId (the reivew can be doctor-specific or about the hospital in general),
+a required Rating, and an optional Comment with length validation. */
+
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 

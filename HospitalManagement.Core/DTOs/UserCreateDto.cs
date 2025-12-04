@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: UserCreateDto defines the common properties required to create a user. */
+
 using System.ComponentModel.DataAnnotations;
 using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.DTOs;

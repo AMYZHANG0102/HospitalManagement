@@ -1,3 +1,8 @@
+/* Amy Zhang
+Summary: UserRepository implements the IUserRepository interface for managing
+general user data in the database.
+It provides methods for CRUD operations and querying users by role, email, or ID. */
+
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;

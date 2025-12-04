@@ -1,3 +1,7 @@
+/* Amy Zhang
+Summary: UserReadDto defines the properties returned when reading user data.
+It includes personal details, contact information, and user role. */
+
 using System.ComponentModel.DataAnnotations;
 using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.DTOs;

@@ -118,14 +118,14 @@ return Ok(patient);
 }
 
 // DELETE: api/patients/{id}
-[HttpDelete("{id}")]
-public async Task<IActionResult> DeletePatient(int id)
-{
-var deleted = await _repository.DeleteAsync(id);
-if (!deleted)
-{
-return NotFound(new { message = $"Patient with ID {id} not found" });
-}
-return NoContent();
-}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePatient(int id)
+    {
+    var deleted = await _repository.DeleteAsync(id);
+    if (!deleted)
+    {
+    return NotFound(new { message = $"Patient with ID {id} not found" });
+    }
+    return NoContent();
+    }
 }

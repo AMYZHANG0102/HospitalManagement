@@ -7,4 +7,6 @@ public interface IPatientRepository
     Task<Patient?> GetByIdAsync(long id);
     Task<Patient> CreateAsync(Patient patient);
     Task<Patient?> UpdateAsync(Patient patient);
+    Task<bool> DeleteAsync(int id);
+    Task<bool> ExistsAsync(int id);
 }

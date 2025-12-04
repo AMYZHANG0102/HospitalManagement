@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: UserUpdateDto defines the common properties required to update a user. */
+
 using System.ComponentModel.DataAnnotations;
 using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.DTOs;
