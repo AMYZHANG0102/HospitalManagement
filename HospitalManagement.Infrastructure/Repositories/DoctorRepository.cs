@@ -22,7 +22,7 @@ public class DoctorRepository : IDoctorRepository
         return await _context.Doctors.ToListAsync();
     }
 
-    public async Task<Doctor?> GetByIdAsync(long id)
+    public async Task<Doctor?> GetByIdAsync(string id)
     {
         return await _context.Doctors.FindAsync(id);
     }
@@ -59,7 +59,7 @@ public class DoctorRepository : IDoctorRepository
         return existingDoctor;
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(string id)
     {
         var doctor = await _context.Doctors.FindAsync(id);
         if (doctor == null)
@@ -71,7 +71,7 @@ public class DoctorRepository : IDoctorRepository
         return true;
     }
 
-    public async Task<bool> ExistsAsync(long id)
+    public async Task<bool> ExistsAsync(string id)
     {
         return await _context.Doctors.AnyAsync(e => e.Id == id);
     }

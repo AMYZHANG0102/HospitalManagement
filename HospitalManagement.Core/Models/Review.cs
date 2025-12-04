@@ -9,12 +9,12 @@ namespace HospitalManagement.Core.Models;
 
 public class Review
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
-    public long PatientId { get; set; }
+    public string PatientId { get; set; }
 
-    public long? DoctorId { get; set; } // Optional
+    public string? DoctorId { get; set; } // Optional
 
     [Required (ErrorMessage = "Please provide a rating")]
     public Rating Rating { get; set; }

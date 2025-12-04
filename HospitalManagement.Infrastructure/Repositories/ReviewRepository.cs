@@ -22,7 +22,7 @@ public class ReviewRepository : IReviewRepository
     {
         return await _context.Reviews.FindAsync(id);
     }
-    public async Task<IEnumerable<Review>> GetByDoctorIdAsync(long doctorId)
+    public async Task<IEnumerable<Review>> GetByDoctorIdAsync(string doctorId)
     {
         return await _context.Reviews
             .Where(f => f.DoctorId == doctorId)
@@ -42,7 +42,7 @@ public class ReviewRepository : IReviewRepository
             .Where(f => f.Date == date)
             .ToListAsync();
     }
-    public async Task<double> GetAverageDoctorRatingAsync(long doctorId)
+    public async Task<double> GetAverageDoctorRatingAsync(string doctorId)
     {
         var Reviews = await _context.Reviews
             .Where(f => f.DoctorId == doctorId)

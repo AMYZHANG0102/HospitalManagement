@@ -36,7 +36,7 @@ public class AdminsController : ControllerBase
     // GET: /api/admins/{id}
     // Authorize: Admins
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetAdmin(long id)
+    public async Task<ActionResult<User>> GetAdmin(string id)
     {
         var user = await _userRepo.GetByIdAsync(id);
         if (user == null || user.Role != UserRole.Admin)
@@ -79,7 +79,7 @@ public class AdminsController : ControllerBase
     // PATCH: /api/admins/{id}
     // Authorize: Admins
     [HttpPatch("{id}")]
-    public async Task<IActionResult> UpdateAdmin(long id,
+    public async Task<IActionResult> UpdateAdmin(string id,
         [FromBody] JsonPatchDocument<UserPatchDto> patchDoc)
     {
         if (patchDoc == null)

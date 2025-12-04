@@ -1,3 +1,4 @@
+/*Hira*/
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -36,16 +37,15 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
         {
             return BadRequest(new AuthResponseDto
-
             {
                 Success = false,
                 Message = "Invalid registration data"
-
             });
         }
 
         var user = new User
         {
+            UserName = model.UserName,
             Email = model.Email,
             FirstName = model.FirstName,
             LastName = model.LastName,

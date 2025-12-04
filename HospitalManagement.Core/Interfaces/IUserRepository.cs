@@ -9,11 +9,11 @@ public interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllAsync();
     Task<IEnumerable<User>> GetByRoleAsync(UserRole role);
-    Task<User?> GetByIdAsync(long id);
+    Task<User?> GetByIdAsync(string id);
     Task<User?> GetByEmailAsync(string email);
     Task<User> CreateAsync(User user);
     Task<User?> UpdateAsync(User user);
-    Task<bool> DeleteAsync(long id);
-    Task<bool> ExistsAsync(long id);
+    Task<bool> DeleteAsync(string id);
+    Task<bool> ExistsAsync(string id);
     Task<bool> EmailExistsAsync(string email);
 }

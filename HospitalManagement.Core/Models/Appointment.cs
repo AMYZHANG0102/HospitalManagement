@@ -6,14 +6,14 @@ namespace HospitalManagement.Core.Models;
 
 public class Appointment
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [Required (ErrorMessage = "Must specify patient")]
-    public long PatientId { get; set; } // Foreign Key
+    public string PatientId { get; set; } // Foreign Key
 
     [Required (ErrorMessage = "Must specify doctor")]
-    public long DoctorId { get; set; } // Foreign Key
-
+    public string DoctorId { get; set; } // Foreign Key
+    
     [Required (ErrorMessage = "Must specify appointment type")]
     public AppointmentType Type { get; set; }
 

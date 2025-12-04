@@ -27,14 +27,14 @@ public class AppointmentRepository : IAppointmentRepository
         return await _context.Appointments.FindAsync(id);
     }
 
-    public async Task<IEnumerable<Appointment>> GetByDoctorIdAsync(long id)
+    public async Task<IEnumerable<Appointment>> GetByDoctorIdAsync(string id)
     {
         return await _context.Appointments
                              .Where(e => e.DoctorId == id)
                              .ToListAsync();
     }
 
-    public async Task<IEnumerable<Appointment>> GetByPatientIdAsync(long id)
+    public async Task<IEnumerable<Appointment>> GetByPatientIdAsync(string id)
     {
         return await _context.Appointments
                              .Where(e => e.PatientId == id)
