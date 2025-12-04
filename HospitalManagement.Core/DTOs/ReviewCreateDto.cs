@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.Models;
 
 public class ReviewCreateDto
-{   //add patient id
+{
     public long? DoctorId { get; set; } // Optional
 
     [Required (ErrorMessage = "Please provide a rating")]
