@@ -6,18 +6,18 @@ public class AuthService : IAuthService
 {
     private readonly HttpClient _http;
     private readonly string _baseUrl;
+    private readonly IJWTService _jwtService;
 
-    public AuthService(HttpClient http, IConfiguration configuration)
+    public AuthService(HttpClient http, IConfiguration configuration, IJWTService jwtService)
     {
         _http = http;
         _baseUrl = configuration["HospitalManagementApi:BaseUrl"];
+        _jwtService = jwtService;
     }
 
     public async Task<string> RegisterAsync(RegisterModel request)
     {
-        var url = $"{_baseUrl}/api/patients";
-        var json = System.Text.Json.JsonSerializer.Serialize(request);
-        var response = await _http.PostAsJsonAsync(url, request);
+        var response = await _http.PostAsJsonAsync("api/patients", request);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -30,17 +30,19 @@ public class AuthService : IAuthService
 
     public async Task<string> LoginAsync(UserLoginModel request)
     {
-        var url = $"{_baseUrl}/api/auth/login";
-        var json = System.Text.Json.JsonSerializer.Serialize(request);
-        var response = await _http.PostAsJsonAsync(url, request);
+        var response = await _http.PostAsJsonAsync("api/auth/login", request);
 
         if (!response.IsSuccessStatusCode)
         {
-            var content = await response.Content.ReadAsStringAsync();
             return "Login failed!";
         }
 
-        var token = await response.Content.ReadAsStringAsync();
-        return token;
+        var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+         if (result == null || !result.Success)
+            return "Login failed!";
+
+        _jwtService.SetToken(result.Token);
+        
+        return "Success";
     }
 }
