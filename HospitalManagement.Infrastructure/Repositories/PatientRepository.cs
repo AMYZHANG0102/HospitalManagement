@@ -46,16 +46,16 @@ public class PatientRepository : IPatientRepository
         return existingPatient;
     }
 
-    public async Task<Patient?> DeactivatePatientAsync(string id)
+    public async Task<bool> DeleteAsync(string id)
     {
         var patient = await _context.Patients.FindAsync(id);
         if (patient == null)
         {
-            return null;
+            return false;
         }
-        patient.IsDeactivated = true;
+        _context.Patients.Remove(patient);
         await _context.SaveChangesAsync();
-        return patient;
+        return true;
     }
 
     public async Task<IEnumerable<Appointment>> GetAllPatientAppointmentsAsync(string id)

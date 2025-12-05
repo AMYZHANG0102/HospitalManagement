@@ -173,22 +173,16 @@ public class PatientsController : ControllerBase
         return Ok(patient);
     }
 
-    // Deactivate: api/patients/deactivate/{id}
-    [HttpPost("deactivate/{id}")]
+    // DELETE: api/patients/{id}
+    [HttpDelete("{id}")]
     [Authorize]
-    public async Task<IActionResult> DeactivatePatient(string id)
+    public async Task<IActionResult> DeletePatient(string id)
     {
-        var patient = await _repository.GetPatientByIdAsync(id);
-        if (patient == null)
+        var deleted = await _repository.DeleteAsync(id);
+        if (!deleted)
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
         }
-
-        patient.IsDeactivated = true;
-        await _repository.UpdatePatientAsync(patient);
-
-        _logger.LogInformation("Patient {Id} deactivated their account", patient.Id);
-
-        return Ok(new { message = "Account deactivated successfully" });
+        return NoContent();
     }
 }
