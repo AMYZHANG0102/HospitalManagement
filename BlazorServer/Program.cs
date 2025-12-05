@@ -1,11 +1,12 @@
 using BlazorServer.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+    
 builder.Services.AddScoped<ShiftService>();
 builder.Services.AddScoped<AppointmentsService>();
 

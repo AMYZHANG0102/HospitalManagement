@@ -95,6 +95,7 @@ public class AdminsController : ControllerBase
         // Map DTO to shift entity
         var admin = new User
         {
+            Id = id,
             FirstName = userUpdateDto.FirstName,
             LastName = userUpdateDto.LastName,
             Phone = userUpdateDto.Phone,

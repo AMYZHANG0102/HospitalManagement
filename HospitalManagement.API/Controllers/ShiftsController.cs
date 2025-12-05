@@ -83,6 +83,7 @@ public class ShiftsController : ControllerBase
         // Map DTO to shift entity
         var shift = new Shift
         {
+            Id = id,
             DoctorId = shiftUpdateDto.DoctorId,
             StartDateTime = shiftUpdateDto.StartDateTime,
             EndDateTime = shiftUpdateDto.EndDateTime
@@ -121,9 +122,9 @@ public class ShiftsController : ControllerBase
         // Apply the patch to the DTO
         patchDoc.ApplyTo(existingShift, ModelState);
 
-        if (!TryValidateModel(existingShift))
+        if (!ModelState.IsValid)
         {
-            return ValidationProblem(ModelState);
+            return BadRequest(ModelState);
         }
 
         // Update the existing shift with patched values

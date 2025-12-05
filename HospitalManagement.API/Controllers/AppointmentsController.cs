@@ -103,6 +103,7 @@ public class AppointmentsController : ControllerBase
         // Map DTO to appointment entity
         var appointment = new Appointment
         {
+            Id = id,
             PatientId = appointmentUpdateDto.PatientId,
             DoctorId = appointmentUpdateDto.DoctorId,
             Type = appointmentUpdateDto.Type,
