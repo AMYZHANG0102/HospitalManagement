@@ -6,8 +6,10 @@ using HospitalManagement.Core.Models;
 using HospitalManagement.Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
+[Authorize] // All endpoints are accessible through JWT token
 [Route("api/[controller]")]
 [ApiController]
 public class AppointmentsController : ControllerBase
@@ -20,7 +22,7 @@ public class AppointmentsController : ControllerBase
     }
 
     // GET: /api/appointments
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments(
         [FromQuery] AppointmentStatus? status,
@@ -33,7 +35,7 @@ public class AppointmentsController : ControllerBase
     }
 
     // GET: /api/appointments/unavailabledoctor
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpGet("unavailabledoctor")]
     public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointmentsWhereDoctorIsUnavailable()
     {
@@ -42,7 +44,6 @@ public class AppointmentsController : ControllerBase
     }
 
     // GET: /api/appointments/{id}
-    // Authorize admins, patients, and doctors
     [HttpGet("{id}")]
     public async Task<ActionResult<Appointment>> GetAppointment(int id)
     {
@@ -55,7 +56,7 @@ public class AppointmentsController : ControllerBase
     }
 
     // POST: /api/appointments
-    // Authorize admins and patients
+    [Authorize(Roles = "Admin, Patient")]
     [HttpPost]
     public async Task<ActionResult<Appointment>> CreateAppointment(
         [FromBody] AppointmentCreateDto appointmentCreateDto)
@@ -82,7 +83,7 @@ public class AppointmentsController : ControllerBase
     }
 
     // PATCH: /api/appointments/{id}
-    // Authorize admins and patients
+    [Authorize(Roles = "Admin, Patient")]
     [HttpPatch("{id}")]
     public async Task<IActionResult> PatchAppointment(int id,
         [FromBody] JsonPatchDocument<AppointmentPatchDto> patchDoc)

@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.JsonPatch;
 using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
+[Authorize(Roles = "Admin")] // Only admins can access these endpoints with a JWT token
 [Route("api/[controller]")]
 [ApiController]
 public class AdminsController : ControllerBase
@@ -24,7 +26,6 @@ public class AdminsController : ControllerBase
     }
 
     // GET: /api/admins
-    // Authorize: Admins
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetAllAdmins()
     {
@@ -34,7 +35,6 @@ public class AdminsController : ControllerBase
     }
 
     // GET: /api/admins/{id}
-    // Authorize: Admins
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetAdmin(string id)
     {
@@ -47,7 +47,6 @@ public class AdminsController : ControllerBase
     }
 
     // POST: /api/admins
-    // Authorize: Admins
     [HttpPost]
     public async Task<ActionResult<User>> CreateAdmin([FromBody] UserRegisterDto userRegisterDto)
     {
@@ -77,7 +76,6 @@ public class AdminsController : ControllerBase
     }
 
     // PATCH: /api/admins/{id}
-    // Authorize: Admins
     [HttpPatch("{id}")]
     public async Task<IActionResult> PatchAdmin(string id,
         [FromBody] JsonPatchDocument<UserPatchDto> patchDoc)

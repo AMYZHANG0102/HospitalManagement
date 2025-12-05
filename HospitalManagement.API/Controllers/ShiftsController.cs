@@ -6,8 +6,10 @@ using HospitalManagement.Core.Models;
 using HospitalManagement.Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class ShiftsController : ControllerBase
@@ -20,7 +22,7 @@ public class ShiftsController : ControllerBase
     }
 
     // GET: /api/shifts
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Shift>>> GetAllShifts()
     {
@@ -29,7 +31,7 @@ public class ShiftsController : ControllerBase
     }
 
     // GET: /api/shifts/{id}
-    // Authorize admins and doctors
+    [Authorize(Roles = "Admin, Doctor")]
     [HttpGet("{id}")]
     public async Task<ActionResult<Shift>> GetShiftById(int id)
     {
@@ -42,7 +44,7 @@ public class ShiftsController : ControllerBase
     }
 
     // POST: /api/shifts
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<Shift>> CreateShift([FromBody] ShiftCreateDto shiftCreateDto)
     {
@@ -61,7 +63,7 @@ public class ShiftsController : ControllerBase
     }
 
     // PATCH: /api/shifts/{id}
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpPatch("{id}")]
     public async Task<ActionResult<Shift>> UpdateShift(int id,
         [FromBody] JsonPatchDocument<Shift> patchDoc)

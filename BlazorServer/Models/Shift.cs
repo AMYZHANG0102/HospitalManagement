@@ -9,8 +9,6 @@ public class ShiftModel
 
     public int DoctorId { get; set; }
 
-    public Doctor Doctor { get; set; }
-
     public DateTime StartDateTime { get; set; }
     
     public DateTime EndDateTime { get; set; }
