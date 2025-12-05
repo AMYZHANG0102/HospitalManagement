@@ -18,7 +18,7 @@ public class AppointmentService
         _baseUrl = configuration["HospitalManagement:BaseUrl"] ?? "http://localhost:5000/api/";
     }
 
-    public async Task<ShiftsGetResponse> GetShiftsAsync()
+    public async Task<List<Appointment>> GetAppointmentsAsync()
     {
         try
         {
@@ -56,5 +56,4 @@ public class AppointmentService
             return null;
         }
     }
-
 }

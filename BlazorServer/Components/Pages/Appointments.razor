@@ -1,0 +1,35 @@
+@page "/appointments"
+@inject AppointmentsService AppointmentsService
+
+<h3> Appointments </h3>
+
+if (appointments.Count == 0) {
+    <p> No appointments found </p>
+}
+else {
+    <ul>
+        @foreach (var a in appointments) {
+            <li>
+                <strong> ID: </strong> @a.Id
+                <strong> Date: </strong> @a.Date
+                <strong> Patient ID: </strong> @a.PatientId
+                <strong> Doctor ID: </strong> @a.DoctorId
+                <strong> Status: </strong> @a.Status
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    public List<Appointments>? appointments;
+    public string? errorMessage = null;
+
+    protected override async Task OnInitializedAsync() {
+        try {
+            appointments = await AppointmentsService.GetAppointmentsAsync();
+        }
+        catch (Exception ex) {
+            errorMessage = ex.Message;
+        }
+    }
+}
