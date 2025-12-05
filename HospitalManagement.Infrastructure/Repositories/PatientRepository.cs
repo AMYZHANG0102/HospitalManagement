@@ -14,30 +14,27 @@ public class PatientRepository : IPatientRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<Patient>> GetAllAsync()
+    public async Task<IEnumerable<Patient>> GetAllPatientsAsync()
     {
         return await _context.Patients.ToListAsync();
     }
-    public async Task<Patient?> GetByIdAsync(string id)
+    public async Task<Patient?> GetPatientByIdAsync(string id)
     {
         return await _context.Patients.FindAsync(id);
     }
-    public async Task<Patient> CreateAsync(Patient patient)
+    public async Task<Patient> CreatePatientAsync(Patient patient)
     {
         _context.Patients.Add(patient);
         await _context.SaveChangesAsync();
         return patient;
     }
-    public async Task<Patient?> UpdateAsync(Patient patient)
+    public async Task<Patient?> UpdatePatientAsync(Patient patient)
     {
         var existingPatient = await _context.Patients.FindAsync(patient.Id);
         if (existingPatient == null)
         {
             return null;
         }
-        existingPatient.FirstName = patient.FirstName;
-        existingPatient.LastName = patient.LastName;
-        existingPatient.Birthdate = patient.Birthdate;
         existingPatient.Gender = patient.Gender;
         existingPatient.HealthCard = patient.HealthCard;
         existingPatient.Phone = patient.Phone;
@@ -45,24 +42,33 @@ public class PatientRepository : IPatientRepository
         existingPatient.Password = patient.Password;
         existingPatient.HomeAddress = patient.HomeAddress;
         existingPatient.Status = patient.Status;
-        existingPatient.Role = patient.Role;
         await _context.SaveChangesAsync();
         return existingPatient;
     }
 
-    public async Task<bool> DeleteAsync(string id)
+    public async Task<Patient?> DeactivatePatientAsync(string id)
     {
         var patient = await _context.Patients.FindAsync(id);
         if (patient == null)
         {
-            return false;
+            return null;
         }
-        _context.Patients.Remove(patient);
+        patient.IsDeactivated = true;
         await _context.SaveChangesAsync();
-        return true;
+        return patient;
     }
-    public async Task<bool> ExistsAsync(string id)
+
+    public async Task<IEnumerable<Appointment>> GetAllPatientAppointmentsAsync(string id)
     {
-        return await _context.Patients.AnyAsync(p => p.Id == id);
+        return await _context.Appointments
+            .Where(a => a.PatientId == id)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Review>> GetAllPatientReviewsAsync(string id)
+    {
+        return await _context.Reviews
+            .Where(r => r.PatientId == id)
+            .ToListAsync();
     }
 }
