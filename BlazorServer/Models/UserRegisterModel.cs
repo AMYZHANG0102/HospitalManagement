@@ -1,3 +1,5 @@
+/* Hira Ahmad
+Summary: RegisterModel class to represent user registration data with validation. */
 using System.ComponentModel.DataAnnotations;
 namespace BlazorServer.Models;
 
@@ -12,9 +14,9 @@ public class RegisterModel
     [Required(ErrorMessage = "UserName is required")]
     public string UserName { get; set; }
 
-    [Required(ErrorMessage = "Email is required")]
+    [Required(ErrorMessage = "Email Address is required")]
     [EmailAddress(ErrorMessage = "Invalid email address")]
-    public string Email { get; set; }
+    public string EmailAddress { get; set; }
 
     [Required(ErrorMessage = "Password is required")]
     public string Password { get; set; }
@@ -23,12 +25,12 @@ public class RegisterModel
     [Compare("Password", ErrorMessage = "Passwords do not match")]
     public string ConfirmPassword { get; set; }
 
-    [Required(ErrorMessage = "Phone is required")]
-    public string Phone { get; set; }
+    [Required(ErrorMessage = "Phone Number is required")]
+    public string PhoneNumber { get; set; }
 
-    [Required(ErrorMessage = "HealthCard is required")]
+    [Required(ErrorMessage = "Health Card is required")]
     public string HealthCard { get; set; }
 
-    [Required(ErrorMessage = "HomeAddress is required")]
+    [Required(ErrorMessage = "Home Address is required")]
     public string HomeAddress { get; set; }
 }

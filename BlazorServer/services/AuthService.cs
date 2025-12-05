@@ -27,4 +27,20 @@ public class AuthService : IAuthService
 
         return "Success";
     }
+
+    public async Task<string> LoginAsync(UserLoginModel request)
+    {
+        var url = $"{_baseUrl}/api/patients/login";
+        var json = System.Text.Json.JsonSerializer.Serialize(request);
+        var response = await _http.PostAsJsonAsync(url, request);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            return "Login failed!";
+        }
+
+        var token = await response.Content.ReadAsStringAsync();
+        return token;
+    }
 }
