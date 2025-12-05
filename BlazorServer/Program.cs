@@ -11,9 +11,10 @@ builder.Services.AddScoped(sp =>
     var client = new HttpClient { BaseAddress = new Uri("http://localhost:5237/") };
     return client;
 });
+builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPatientRecordService, PatientRecordService>();
-builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 
 var app = builder.Build();
 

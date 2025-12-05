@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class PatientRecordsController : ControllerBase
 {
     private readonly IPatientRecordRepository _repository;

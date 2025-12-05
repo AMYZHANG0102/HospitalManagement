@@ -1,20 +1,20 @@
-
 using BlazorServer.Models;
 using System.Net.Http.Headers;
+
 namespace BlazorServer.Services;
 
-public class PatientRecordService : IPatientRecordService
+public class DoctorService : IDoctorService
 {
     private readonly HttpClient _http;
     private readonly IJWTService _jwtService;
 
-    public PatientRecordService(HttpClient http, IJWTService jwtService)
+    public DoctorService(HttpClient http, IJWTService jwtService)
     {
         _http = http;
         _jwtService = jwtService;
     }
     
-    public async Task<List<PatientRecord>> GetAllPatientRecordsAsync()
+    public async Task<List<Doctor>> GetAllDoctorsAsync()
     {
         if (!string.IsNullOrEmpty(_jwtService.Token))
         {
@@ -22,8 +22,8 @@ public class PatientRecordService : IPatientRecordService
                 new AuthenticationHeaderValue("Bearer", _jwtService.Token);
         }
 
-        var result = await _http.GetFromJsonAsync<List<PatientRecord>>("api/patientrecords");
+        var result = await _http.GetFromJsonAsync<List<Doctor>>("api/doctors");
 
-        return result ?? new List<PatientRecord>();
+        return result ?? new List<Doctor>();
     }
 }

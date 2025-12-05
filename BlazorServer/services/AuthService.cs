@@ -5,13 +5,11 @@ namespace BlazorServer.Services;
 public class AuthService : IAuthService
 {
     private readonly HttpClient _http;
-    private readonly string _baseUrl;
     private readonly IJWTService _jwtService;
 
-    public AuthService(HttpClient http, IConfiguration configuration, IJWTService jwtService)
+    public AuthService(HttpClient http, IJWTService jwtService)
     {
         _http = http;
-        _baseUrl = configuration["HospitalManagementApi:BaseUrl"];
         _jwtService = jwtService;
     }
 
@@ -40,7 +38,7 @@ public class AuthService : IAuthService
         var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
          if (result == null || !result.Success)
             return "Login failed!";
-
+            
         _jwtService.SetToken(result.Token);
         
         return "Success";

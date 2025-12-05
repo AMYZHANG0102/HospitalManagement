@@ -1,0 +1,61 @@
+@page "/doctors"
+@using BlazorServer.Models
+@using BlazorServer.Services
+@inject IDoctorService DoctorService
+
+<h3 class="text-center mt-4">Doctors</h3>
+
+<div class="container mt-4">
+    @if (doctors == null)
+    {
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p>Loading doctors...</p>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-info">
+                <tr>
+                    <th>Name</th>
+                    <th>Specialty</th>
+                    @* <th>Available Time Slots</th> *@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doctor in doctors)
+                {
+                    <tr>
+                        <td>@doctor.FirstName @doctor.LastName</td>
+                        <td>@doctor.Speciality</td>
+                        @* <td>
+                            @if (doctor.TimeSlots.Any())
+                            {
+                                <ul class="mb-0">
+                                    @foreach (var slot in doctor.TimeSlots)
+                                    {
+                                        <li>@slot</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span class="text-muted">No slots available</span>
+                            }
+                        </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<Doctor>? doctors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        doctors = await DoctorService.GetAllDoctorsAsync();
+    }
+}
