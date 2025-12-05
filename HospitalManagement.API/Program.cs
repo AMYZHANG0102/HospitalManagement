@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using IdentityManagement.Core.Models;
-using HospitalManagement.Infrastrucutre.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);

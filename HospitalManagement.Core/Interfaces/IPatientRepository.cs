@@ -10,5 +10,4 @@ public interface IPatientRepository
     Task<Patient?> DeactivatePatientAsync(string id);
     Task<IEnumerable<Appointment>> GetAllPatientAppointmentsAsync(string id);
     Task<IEnumerable<Review>> GetAllPatientReviewsAsync(string id);
-    
 }

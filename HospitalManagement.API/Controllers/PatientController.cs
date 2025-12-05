@@ -48,7 +48,7 @@ public class PatientsController : ControllerBase
 
     //Get: api/patients/appointments/{id}
     [HttpGet("appointments/{id}")]
-    public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPatientAppointments(int id)
+    public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPatientAppointments(string id)
     {
         var appointments = await _repository.GetAllPatientAppointmentsAsync(id);
         if (appointments == null || !appointments.Any())
@@ -61,7 +61,7 @@ public class PatientsController : ControllerBase
 
     // Get: api/patients/reviews/{id}
     [HttpGet("reviews/{id}")]
-    public async Task<ActionResult<IEnumerable<Review>>> GetAllPatientReviews(int id)
+    public async Task<ActionResult<IEnumerable<Review>>> GetAllPatientReviews(string id)
     {
         var reviews = await _repository.GetAllPatientReviewsAsync(id);
         if (reviews == null || !reviews.Any())
