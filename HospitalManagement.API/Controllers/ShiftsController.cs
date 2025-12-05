@@ -62,10 +62,40 @@ public class ShiftsController : ControllerBase
             createdShift);
     }
 
+    // PUT: /api/shifts/{id}
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Shift>> UpdateShift(int id,
+        [FromBody] ShiftPatchDto updateDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var exists = await _shiftRepo.ExistsAsync(id);
+
+        if (!exists)
+        {
+            return NotFound(new {message = $"Post with {id} not found"});
+        }
+
+        // Map DTO to shift entity
+        var shift = new Shift
+        {
+            DoctorId = updateDto.DoctorId,
+            StartDateTime = updateDto.StartDateTime,
+            EndDateTime = updateDto.EndDateTime
+        };
+
+        var updatedShift = await _shiftRepo.UpdateAsync(shift);
+        return Ok(updatedShift);
+    }
+
     // PATCH: /api/shifts/{id}
     [Authorize(Roles = "Admin")]
     [HttpPatch("{id}")]
-    public async Task<ActionResult<Shift>> UpdateShift(int id,
+    public async Task<ActionResult<Shift>> PatchShift(int id,
         [FromBody] JsonPatchDocument<Shift> patchDoc)
     {
         if (patchDoc == null)
@@ -103,5 +133,18 @@ public class ShiftsController : ControllerBase
 
         var updatedShift = await _shiftRepo.UpdateAsync(existingShift);
         return Ok(updatedShift);
+    }
+
+    // DELETE: /api/shifts/{id}
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteShift(int id)
+    {
+        var deleted = await _shiftRepo.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new {message = $"Post with {id} not found"});
+        }
+        return NoContent();
     }
 }
