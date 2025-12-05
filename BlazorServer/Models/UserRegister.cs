@@ -16,7 +16,7 @@ public class RegisterModel
 
     [Required(ErrorMessage = "Email Address is required")]
     [EmailAddress(ErrorMessage = "Invalid email address")]
-    public string EmailAddress { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Password is required")]
     public string Password { get; set; } = string.Empty;
@@ -26,7 +26,7 @@ public class RegisterModel
     public string ConfirmPassword { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Phone Number is required")]
-    public string PhoneNumber { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Health Card is required")]
     public string HealthCard { get; set; } = string.Empty;

@@ -89,6 +89,7 @@ public class DoctorsController : ControllerBase
             HomeAddress = doctorDto.HomeAddress,
             Phone = doctorDto.Phone,
             Email = doctorDto.Email,
+            Specialization = doctorDto.Specialization
         };
 
         var createdDoctor = await _repository.CreateAsync(doctor);

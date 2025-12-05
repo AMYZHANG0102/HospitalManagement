@@ -20,30 +20,17 @@
                 <tr>
                     <th>Name</th>
                     <th>Specialty</th>
-                    @* <th>Available Time Slots</th> *@
+                    <th>Gender</th>
+                
                 </tr>
             </thead>
             <tbody>
                 @foreach (var doctor in doctors)
                 {
                     <tr>
-                        <td>@doctor.FirstName @doctor.LastName</td>
+                        <td> Dr. @doctor.FirstName @doctor.LastName</td>
                         <td>@doctor.specialization</td>
-                        @* <td>
-                            @if (doctor.TimeSlots.Any())
-                            {
-                                <ul class="mb-0">
-                                    @foreach (var slot in doctor.TimeSlots)
-                                    {
-                                        <li>@slot</li>
-                                    }
-                                </ul>
-                            }
-                            else
-                            {
-                                <span class="text-muted">No slots available</span>
-                            }
-                        </td> *@
+                        <td>@doctor.Gender</td>
                     </tr>
                 }
             </tbody>

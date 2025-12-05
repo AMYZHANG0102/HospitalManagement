@@ -17,6 +17,9 @@ public class Doctor
     public string specialization { get; set; } = string.Empty;
 
     [Required]
+    public string Gender { get; set; } = string.Empty;
+
+    [Required]
     public bool IsAvailable { get; set; } = false;
 
     public string TimeSlot { get; set; } = string.Empty;
