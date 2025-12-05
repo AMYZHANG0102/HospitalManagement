@@ -103,8 +103,7 @@ public class ReviewsController : ControllerBase
 
         var review = new Review
         {
-            //PatientId = reviewDto.PatientId,
-            DoctorId = reviewDto.DoctorId,  //fix error, make sure data type matches 
+            DoctorId = reviewDto.DoctorId,  
             Rating = reviewDto.Rating,
             Comment = reviewDto.Comment ?? string.Empty,
             Date = DateOnly.FromDateTime(DateTime.Now)
@@ -112,12 +111,33 @@ public class ReviewsController : ControllerBase
 
         var createdReview = await _repository.CreateAsync(review);
 
-        _logger.LogInformation("Review {Id} created successfully for Doctor {DoctorId}", 
-            createdReview.Id, createdReview.DoctorId);
+        _logger.LogInformation("Review {Id} created successfully", 
+            createdReview.Id);
 
         return CreatedAtAction(
             nameof(GetReview), 
             new { id = createdReview.Id }, 
             createdReview);
     }
+
+    // DELETE: api/reviews/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteReview(int id)
+    {
+        var exists = await _repository.ExistsAsync(id);
+        if (!exists)
+        {
+            return NotFound(new { message = $"Review with ID {id} was not found" });
+        }
+
+        var deleted = await _repository.DeleteAsync(id);
+        if (!deleted)
+        {
+            return StatusCode(500, new { message = "Failed to delete the review" });
+        }
+
+        _logger.LogInformation("Review {Id} deleted successfully", id);
+        return NoContent();
+    }
+
 }
