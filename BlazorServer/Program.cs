@@ -8,7 +8,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped(sp =>
 {
-    var client = new HttpClient { BaseAddress = new Uri("http://localhost:5237/") };
+    var client = new HttpClient { BaseAddress = new Uri("http://localhost:5000/") };
     return client;
 });
 builder.Services.AddScoped<IJWTService, JWTService>();
