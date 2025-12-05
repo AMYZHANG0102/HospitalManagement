@@ -1,0 +1,56 @@
+@page "/reviews"
+@using HospitalManagement.BlazorServer.Models
+@inject ReviewService ReviewService
+
+<h3> Reviews </h3>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">@errorMessage</div>
+}
+else if (reviews == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (reviews.Count == 0)
+{
+    <p> No reviews found </p>
+}
+else
+{
+    <ul class="list-unstyled">
+        @foreach (var r in reviews)
+        {
+            <li class="mb-3 p-2 border rounded">
+                <div><strong>ID:</strong> @r.Id</div>
+                <div><strong>Patient ID:</strong> @r.PatientId</div>
+                <div><strong>Doctor ID:</strong> @(string.IsNullOrEmpty(r.DoctorId) ? "(hospital)" : r.DoctorId)</div>
+                <div><strong>Rating:</strong> @r.Rating (@((int)r.Rating))</div>
+                <div><strong>Comment:</strong> @(string.IsNullOrWhiteSpace(r.Comment) ? "(none)" : r.Comment)</div>
+                <div><strong>Date:</strong> @r.Date.ToString("yyyy-MM-dd")</div>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Review>? reviews;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {   // fetch all reviews from the API
+            var result = await ReviewService.GetReviewsAsync();
+            reviews = result?.ToList() ?? new List<Review>();
+        }
+        catch (HttpRequestException httpEx)
+        {
+            errorMessage = $"Network error: {httpEx.Message}";
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}
