@@ -1,23 +1,18 @@
 /* Amy Zhang
-Summary: This class represents an appointment between a patient and a doctor. It has two foreign keys. */
+Summary: This class represents appointment entity received from API */
 
-using System.ComponentModel.DataAnnotations;
-namespace HospitalManagement.Core.Models;
+namespace HospitalManagement.BlazorServer.Models;
 
 public class Appointment
 {
     public int Id { get; set; }
 
-    [Required (ErrorMessage = "Must specify patient")]
-    public string PatientId { get; set; } // Foreign Key
+    public string PatientId { get; set; }
 
-    [Required (ErrorMessage = "Must specify doctor")]
-    public string DoctorId { get; set; } // Foreign Key
+    public string DoctorId { get; set; }
     
-    [Required (ErrorMessage = "Must specify appointment type")]
     public AppointmentType Type { get; set; }
 
-    [Required (ErrorMessage = "Date and time are required")]
     public DateTime DateTime { get; set; }
 
     public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
@@ -26,8 +21,4 @@ public class Appointment
     // But doctors may mark themselves as unavalable for an appointment later on, which changes this property to true.
     // The admin resolves doctor unavailability by re-assigning another docotr for the patient in the admin interface.
     public bool DoctorIsUnavailable { get; set; } = false;
-
-    // Navigation properties
-    public Doctor? Doctor { get; set; }
-    public Patient? Patient { get; set; }
 }

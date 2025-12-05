@@ -72,6 +72,9 @@ builder.Services.AddAuthorization();
 // Register Repository
 builder.Services.AddScoped<IPatientRepository, PatientRepository>(); //dependency injection for patient repository
 builder.Services.AddScoped<IPatientRecordRepository, PatientRecordRepository>(); //dependency injection for patient record repository
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IShiftRepository, IShiftRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

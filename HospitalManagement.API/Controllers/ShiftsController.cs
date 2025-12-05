@@ -48,10 +48,9 @@ public class ShiftsController : ControllerBase
     {
         var shift = new Shift
         {
-            Doctors = shiftCreateDto.Doctors,
-            Date = shiftCreateDto.Date,
-            StartTime = shiftCreateDto.StartTime,
-            EndTime = shiftCreateDto.EndTime
+            DoctorId = shiftCreateDto.DoctorId,
+            StartDateTime = shiftCreateDto.StartDateTime,
+            EndDateTime = shiftCreateDto.EndDateTime
         };
 
         var createdShift = await _shiftRepo.CreateAsync(shift);
@@ -82,10 +81,9 @@ public class ShiftsController : ControllerBase
         // Map DTO to existing shift
         ShiftPatchDto shiftToPatch = new ShiftPatchDto
         {
-            Doctors = existingShift.Doctors,
-            Date = existingShift.Date,
-            StartTime = existingShift.StartTime,
-            EndTime = existingShift.EndTime
+            DoctorId = existingShift.DoctorId,
+            StartDateTime = existingShift.StartDateTime,
+            EndDateTime = existingShift.EndDateTime
         };
 
         // Apply the patch to the DTO
@@ -97,10 +95,9 @@ public class ShiftsController : ControllerBase
         }
 
         // Update the existing shift with patched values
-        existingShift.Doctors = shiftToPatch.Doctors;
-        existingShift.Date = shiftToPatch.Date;
-        existingShift.StartTime = shiftToPatch.StartTime;
-        existingShift.EndTime = shiftToPatch.EndTime;
+        existingShift.DoctorId = shiftToPatch.DoctorId;
+        existingShift.StartDateTime = shiftToPatch.StartDateTime;
+        existingShift.EndDateTime = shiftToPatch.EndDateTime;
 
         var updatedShift = await _shiftRepo.UpdateAsync(existingShift);
         return Ok(updatedShift);
