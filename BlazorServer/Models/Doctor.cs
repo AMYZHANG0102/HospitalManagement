@@ -14,7 +14,7 @@ public class Doctor
     public string LastName { get; set; } = string.Empty;
 
     [Required]
-    public string Speciality { get; set; } = string.Empty;
+    public string specialization { get; set; } = string.Empty;
 
     [Required]
     public bool IsAvailable { get; set; } = false;

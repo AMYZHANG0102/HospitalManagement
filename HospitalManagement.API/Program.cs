@@ -26,6 +26,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // https://stackoverflow.com/questions/13510204/json-net-self-referencing-loop-detected
+        options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
     }); // Required for JSON Patch support
 // Configure SQLite Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

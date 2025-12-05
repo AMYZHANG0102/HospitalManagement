@@ -8,7 +8,7 @@ namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+// [Authorize]
 public class PatientRecordsController : ControllerBase
 {
     private readonly IPatientRecordRepository _repository;

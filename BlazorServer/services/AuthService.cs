@@ -36,7 +36,7 @@ public class AuthService : IAuthService
         }
 
         var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
-         if (result == null || !result.Success)
+        if (result == null || !result.Success)
             return "Login failed!";
             
         _jwtService.SetToken(result.Token);

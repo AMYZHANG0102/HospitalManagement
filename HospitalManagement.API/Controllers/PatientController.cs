@@ -29,7 +29,7 @@ public class PatientsController : ControllerBase
 
     // GET: api/patients
     [HttpGet]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
     {
         var patients = await _repository.GetAllPatientsAsync();
@@ -38,7 +38,7 @@ public class PatientsController : ControllerBase
 
     // GET: api/patients/{id}
     [HttpGet("{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<Patient>> GetPatientById(string id)
     {
         var patient = await _repository.GetPatientByIdAsync(id);
@@ -51,7 +51,7 @@ public class PatientsController : ControllerBase
 
     //Get: api/patients/appointments/{id}
     [HttpGet("appointments/{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPatientAppointments(string id)
     {
         var appointments = await _repository.GetAllPatientAppointmentsAsync(id);
@@ -65,7 +65,7 @@ public class PatientsController : ControllerBase
 
     // Get: api/patients/reviews/{id}
     [HttpGet("reviews/{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<IEnumerable<Review>>> GetAllPatientReviews(string id)
     {
         var reviews = await _repository.GetAllPatientReviewsAsync(id);
@@ -150,7 +150,7 @@ public class PatientsController : ControllerBase
 
     // PATCH: api/patients/{id}
     [HttpPatch("{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> PatchPatient(string id, [FromBody]
     JsonPatchDocument<UserPatchDto> patchDoc)
     {
@@ -175,7 +175,7 @@ public class PatientsController : ControllerBase
 
     // DELETE: api/patients/{id}
     [HttpDelete("{id}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> DeletePatient(string id)
     {
         var deleted = await _repository.DeleteAsync(id);
