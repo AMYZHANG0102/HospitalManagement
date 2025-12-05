@@ -5,7 +5,7 @@
 @rendermode InteractiveServer
 
 <div class="text-center mt-4 bg-info p-3 rounded">
-    <h3>Sign Up To Register!</h3>
+    <h3>Create an Account</h3>
 </div>
 
 
@@ -26,22 +26,22 @@
                         <DataAnnotationsValidator />
 
                         <div class="mb-3">
-                            <label>First Name</label>
+                            <label>First Name*</label>
                             <InputText class="form-control" @bind-Value="registerModel.FirstName" />
                         </div>
                         
                         <div class="mb-3">
-                            <label>Last Name</label>
+                            <label>Last Name*</label>
                             <InputText class="form-control" @bind-Value="registerModel.LastName" />
                         </div>
                         
                         <div class="mb-3">
-                            <label>Phone Number</label>
-                            <InputText class="form-control" @bind-Value="registerModel.Phone" />
+                            <label>Phone Number*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.PhoneNumber" />
                         </div>
                         
                         <div class="mb-3">
-                            <label>Health Card</label>
+                            <label>Health Card*</label>
                             <InputText class="form-control" @bind-Value="registerModel.HealthCard" />
                         </div>
                         
@@ -51,22 +51,22 @@
                         </div>
 
                         <div class="mb-3">
-                            <label>Email Address</label>
-                            <InputText class="form-control" @bind-Value="registerModel.Email" />
+                            <label>Email Address*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.EmailAddress" />
                         </div>
 
                         <div class="mb-3">
-                            <label>Username</label>
+                            <label>Username*</label>
                             <InputText class="form-control" @bind-Value="registerModel.Username" />
                         </div>
 
                         <div class="mb-3">
-                            <label>Password</label>
+                            <label>Password*</label>
                             <InputText type="password" class="form-control" @bind-Value="registerModel.Password" />
                         </div>
 
                         <div class="mb-3">
-                            <label>Confirm Password</label>
+                            <label>Confirm Password*</label>
                             <InputText type="password" class="form-control" @bind-Value="registerModel.ConfirmPassword" />
                         </div>
 

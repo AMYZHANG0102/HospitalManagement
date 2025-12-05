@@ -6,31 +6,31 @@ namespace BlazorServer.Models;
 public class RegisterModel
 {
     [Required(ErrorMessage = "FirstName is required")]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "LastName is required")]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "UserName is required")]
-    public string UserName { get; set; }
+    [Required(ErrorMessage = "Username is required")]
+    public string Username { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Email Address is required")]
     [EmailAddress(ErrorMessage = "Invalid email address")]
-    public string EmailAddress { get; set; }
+    public string EmailAddress { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Password is required")]
-    public string Password { get; set; }
+    public string Password { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Confirm Password is required")]
     [Compare("Password", ErrorMessage = "Passwords do not match")]
-    public string ConfirmPassword { get; set; }
+    public string ConfirmPassword { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Phone Number is required")]
-    public string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Health Card is required")]
-    public string HealthCard { get; set; }
+    public string HealthCard { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Home Address is required")]
-    public string HomeAddress { get; set; }
+    public string HomeAddress { get; set; } = string.Empty;
 }
