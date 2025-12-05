@@ -10,9 +10,13 @@ namespace HospitalManagement.API.Controllers;
 public class DoctorsController : ControllerBase
 {
     private readonly IDoctorRepository _repository;
-    public DoctorsController(IDoctorRepository repository)
+    private readonly IAppointmentRepository _appRepo;
+    private readonly IShiftRepository _shiftRepo;
+    public DoctorsController(IDoctorRepository repository, IAppointmentRepository apprepo, IShiftRepository shiftRepo)
     {
+        _appRepo = apprepo;
         _repository = repository;
+        _shiftRepo = shiftRepo;
     }
 
     // GET: api/doctors
@@ -34,6 +38,35 @@ public class DoctorsController : ControllerBase
         }
         return Ok(doctor);
     }
+
+    // GET: /api/doctors/{id}/appointments
+    [HttpGet("{id}/appointments")]
+    public async Task<ActionResult<Doctor>> GetDoctorAppointments(
+        string id,
+        [FromQuery] AppointmentStatus? status,
+        [FromQuery] DateOnly? date,
+        [FromQuery] AppointmentType? type)
+    {
+        var doctor = await _appRepo.GetAllAsync(null, id, status, date, type);
+        if (doctor == null)
+        {
+            return NotFound(new { message = $"Doctor with ID {id} not found" });
+        }
+        return Ok(doctor);
+    }
+
+    // GET: /api/doctors/{id}/shifts
+    [HttpGet("{id}/shifts")]
+    public async Task<ActionResult<Doctor>> GetDoctorShifts(string id)
+    {
+        var doctor = await _shiftRepo.GetByDoctorIdAsync(id);
+        if (doctor == null)
+        {
+            return NotFound(new { message = $"Doctor with ID {id} not found" });
+        }
+        return Ok(doctor);
+    }
+
 
     // POST: api/doctors
     [HttpPost]
