@@ -22,18 +22,18 @@
             <div class="card shadow-sm">
                 <div class="card-body">
 
-                    <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister" FormName="RegisterForm">
+                    <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin" FormName="LoginForm">
                         <DataAnnotationsValidator />
 
 
                         <div class="mb-3">
-                            <label>Username</label>
-                            <InputText class="form-control" @bind-Value="registerModel.Username" />
+                            <label>Email</label>
+                            <InputText class="form-control" @bind-Value="loginModel.Email" />
                         </div>
 
                         <div class="mb-3">
                             <label>Password</label>
-                            <InputText type="password" class="form-control" @bind-Value="registerModel.Password" />
+                            <InputText type="password" class="form-control" @bind-Value="loginModel.Password" />
                         </div>
 
                         <button type="submit" class="btn btn-info w-100">Login</button>
@@ -48,12 +48,12 @@
 </div>
 
 @code {
-    private RegisterModel registerModel = new();
+    private UserLoginModel loginModel = new();
     private string? Message;
 
-    private async Task HandleRegister()
+    private async Task HandleLogin()
     {
-        Message = await AuthService.RegisterAsync(registerModel);
+        Message = await AuthService.LoginAsync(loginModel);
     }
 }
     

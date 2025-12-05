@@ -30,7 +30,7 @@ public class AuthService : IAuthService
 
     public async Task<string> LoginAsync(UserLoginModel request)
     {
-        var url = $"{_baseUrl}/api/patients/login";
+        var url = $"{_baseUrl}/api/auth/login";
         var json = System.Text.Json.JsonSerializer.Serialize(request);
         var response = await _http.PostAsJsonAsync(url, request);
 
