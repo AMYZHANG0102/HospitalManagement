@@ -1,0 +1,89 @@
+@page "/register"
+@using BlazorServer.Models
+@using BlazorServer.Services
+@inject IAuthService AuthService
+@rendermode InteractiveServer
+
+<h3 class="text-center mt-4">Patient Registration</h3>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            @if (!string.IsNullOrEmpty(Message))
+            {
+                <div class="alert alert-info">@Message</div>
+            }
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister" FormName="RegisterForm">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-3">
+                            <label>First Name</label>
+                            <InputText class="form-control" @bind-Value="registerModel.FirstName" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Last Name</label>
+                            <InputText class="form-control" @bind-Value="registerModel.LastName" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Phone</label>
+                            <InputText class="form-control" @bind-Value="registerModel.Phone" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Health Card</label>
+                            <InputText class="form-control" @bind-Value="registerModel.HealthCard" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Home Address</label>
+                            <InputText class="form-control" @bind-Value="registerModel.HomeAddress" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <InputText class="form-control" @bind-Value="registerModel.Email" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>UserName</label>
+                            <InputText class="form-control" @bind-Value="registerModel.UserName" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <InputText type="password" class="form-control" @bind-Value="registerModel.Password" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Confirm Password</label>
+                            <InputText type="password" class="form-control" @bind-Value="registerModel.ConfirmPassword" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+
+                    </EditForm>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterModel registerModel = new();
+    private string? Message;
+
+    private async Task HandleRegister()
+    {
+        Message = await AuthService.RegisterAsync(registerModel);
+    }
+}
+    
