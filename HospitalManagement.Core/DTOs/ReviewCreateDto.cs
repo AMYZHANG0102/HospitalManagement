@@ -8,7 +8,7 @@ namespace HospitalManagement.Core.Models;
 
 public class ReviewCreateDto
 {
-    public long? DoctorId { get; set; } // Optional
+    public string DoctorId { get; set; } // Optional
 
     [Required (ErrorMessage = "Please provide a rating")]
     public Rating Rating { get; set; }

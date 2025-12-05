@@ -1,4 +1,4 @@
-using ManagementUI.Components;
+using BlazorServer.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
