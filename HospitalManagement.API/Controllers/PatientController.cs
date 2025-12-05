@@ -7,6 +7,7 @@ using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
@@ -28,6 +29,7 @@ public class PatientsController : ControllerBase
 
     // GET: api/patients
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
     {
         var patients = await _repository.GetAllPatientsAsync();
@@ -36,6 +38,7 @@ public class PatientsController : ControllerBase
 
     // GET: api/patients/{id}
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<Patient>> GetPatientById(string id)
     {
         var patient = await _repository.GetPatientByIdAsync(id);
@@ -48,6 +51,7 @@ public class PatientsController : ControllerBase
 
     //Get: api/patients/appointments/{id}
     [HttpGet("appointments/{id}")]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPatientAppointments(string id)
     {
         var appointments = await _repository.GetAllPatientAppointmentsAsync(id);
@@ -61,6 +65,7 @@ public class PatientsController : ControllerBase
 
     // Get: api/patients/reviews/{id}
     [HttpGet("reviews/{id}")]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Review>>> GetAllPatientReviews(string id)
     {
         var reviews = await _repository.GetAllPatientReviewsAsync(id);
@@ -72,6 +77,7 @@ public class PatientsController : ControllerBase
     }
 
     // POST: api/patients
+    // No Authorize here because this is used for registration
     [HttpPost]
     public async Task<ActionResult<Patient>> CreatePatient([FromBody] PatientCreateDto patientDto)
     {
@@ -144,6 +150,7 @@ public class PatientsController : ControllerBase
 
     // PATCH: api/patients/{id}
     [HttpPatch("{id}")]
+    [Authorize]
     public async Task<IActionResult> PatchPatient(string id, [FromBody]
     JsonPatchDocument<UserPatchDto> patchDoc)
     {
@@ -168,6 +175,7 @@ public class PatientsController : ControllerBase
 
     // Deactivate: api/patients/deactivate/{id}
     [HttpPost("deactivate/{id}")]
+    [Authorize]
     public async Task<IActionResult> DeactivatePatient(string id)
     {
         var patient = await _repository.GetPatientByIdAsync(id);
