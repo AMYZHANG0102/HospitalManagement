@@ -1,0 +1,53 @@
+<-- Amy Zhang --></>
+
+@page "/shifts"
+@using HospitalManagement.BlazorServer.Models
+@using HospitalManagement.BlazorServer.Services
+@inject ShiftService ShiftService
+@inject NavigationManager Nav
+
+<h3> Shifts </h3>
+
+@if (shifts.Count == 0) {
+    <p> No shifts found </p>
+}
+else {
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Doctor</th>
+                <th>Start</th>
+                <th>End</th>
+                <th style="width: 120px;"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var s in shifts)
+            {
+                <tr>
+                    <td>@s.DoctorId</td>
+                    <td>@s.Start</td>
+                    <td>@s.End</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary w-100"
+                                @onclick="() => EditShift(s.Id)">
+                            Edit
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Shift>? shifts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        shifts = await ShiftService.GetShiftsAsync();
+    }
+
+    void EditShift(int id) => Nav.NavigateTo($"/shifts/edit/{id}");
+}

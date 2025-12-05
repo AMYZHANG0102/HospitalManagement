@@ -1,13 +1,13 @@
 <-- Amy Zhang --></>
 
-@page "/appointments"
+@page "/appointments/unavailabledoctors"
 @using HospitalManagement.BlazorServer.Models
 @using HospitalManagement.BlazorServer.Services
 @inject AppointmentService AppointmentService
 
 <h3> Appointments </h3>
 
-@if (appointments.Count == 0) {
+if (appointments.Count == 0) {
     <p> No appointments found </p>
 }
 else {
@@ -29,12 +29,12 @@ else {
 }
 
 @code {
-    public List<Shifts>? shifts;
+    public List<Appointments>? appointments;
     public string? errorMessage = null;
 
     protected override async Task OnInitializedAsync() {
         try {
-            appointments = await AppointmentsService.GetAppointmentsAsync();
+            appointments = await AppointmentsService.GetAppointmentsWhereDocIsUnavalable();
         }
         catch (Exception ex) {
             errorMessage = ex.Message;

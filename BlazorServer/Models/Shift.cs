@@ -3,7 +3,7 @@ Summary: Model for shift, represents the shift entity received in the API */
 
 namespace HospitalManagement.BlazorServer.Models;
 
-public class ShiftModel
+public class Shift
 {
     public int Id { get; set; }
 

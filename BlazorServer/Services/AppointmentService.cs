@@ -8,7 +8,6 @@ namespace HospitalManagement.BlazorServer.Services;
 public class AppointmentService
 {
     private readonly HttpClient _httpClient;
-    private readonly AuthenticationStateProvider _authStateProvider;
     private readonly string _baseUrl;
 
     public AppointmentService(

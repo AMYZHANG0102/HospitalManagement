@@ -5,13 +5,13 @@ using System.Net.Http.Json;
 using HospitalManagement.BlazorServer.Models;
 namespace HospitalManagement.BlazorServer.Services;
 
-public class AppointmentService
+public class ShiftService
 {
     private readonly HttpClient _httpClient;
     private readonly AuthenticationStateProvider _authStateProvider;
     private readonly string _baseUrl;
 
-    public AppointmentService(
+    public ShiftService(
         HttpClient httpClient,
         IConfiguration configuration,
         AuthenticationStateProvider authStateProvider)
@@ -99,5 +99,4 @@ public class AppointmentService
             return null;
         }         
     }
-
 }

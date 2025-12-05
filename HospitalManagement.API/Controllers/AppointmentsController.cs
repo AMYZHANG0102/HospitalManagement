@@ -107,7 +107,7 @@ public class AppointmentsController : ControllerBase
             DoctorId = appointmentUpdateDto.DoctorId,
             Type = appointmentUpdateDto.Type,
             DateTime = appointmentUpdateDto.DateTime
-        }
+        };
 
         var updatedAppointment = await _appointmentRepo.UpdateAsync(appointment);
         return Ok(updatedAppointment);
