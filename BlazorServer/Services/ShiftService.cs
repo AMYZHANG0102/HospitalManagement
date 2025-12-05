@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: Service class that interacts with the API for shift-related operations. */
+
 using System.Net.Http.Json;
 using HospitalManagement.BlazorServer.Models;
 namespace HospitalManagement.BlazorServer.Services;
@@ -96,5 +99,5 @@ public class AppointmentService
             return null;
         }         
     }
-    
+
 }

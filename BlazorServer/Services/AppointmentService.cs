@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: Service class that interacts with the API for appointment-related operations. */
+
 using System.Net.Http.Json;
 using HospitalManagement.BlazorServer.Models;
 namespace HospitalManagement.BlazorServer.Services;
@@ -47,7 +50,22 @@ public class AppointmentService
                     throw new Exception("Unknown role");
             }
 
-            var response = await _httpClient.GetFromJsonAsync<List<Shfit>>(url);
+            var response = await _httpClient.GetFromJsonAsync<List<Appointment>>(url);
+            return response;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: ", ex);
+            return null;
+        }
+    }
+
+    public async Task<List<Appointment>> GetAppointmentsWhereDocIsUnavalable()
+    {
+        try
+        {
+            string url = $"{_baseUrl}/appointments/unavailabledoctor";
+            var response = await _httpClient.GetFromJsonAsync<List<Appointment>>(url);
             return response;
         }
         catch (Exception ex)
