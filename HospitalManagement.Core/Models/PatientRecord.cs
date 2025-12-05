@@ -2,6 +2,7 @@
 Summary: This class represents a patient record/medical history containing multiple entries.*/
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace HospitalManagement.Core.Models;
 
 public class PatientRecord
@@ -10,6 +11,8 @@ public class PatientRecord
 
     [Required (ErrorMessage = "PatientId is required")]
     public string PatientId { get; set; } // Foreign Key: To which patient does this record belong to?
+    
+    [JsonIgnore]
     public Patient? Patient { get; set; } // Navigation property
 
     public string MedicationAllergyInfo { get; set; } = string.Empty;
@@ -24,5 +27,6 @@ public class PatientRecord
 
     public string Diagnosis { get; set; } = string.Empty;
 
+    [JsonIgnore]
     public List<RecordEntry> Entries { get; set; } = new(); // Initially empty
 }

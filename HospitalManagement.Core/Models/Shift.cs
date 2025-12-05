@@ -2,6 +2,7 @@
 Summary: This class represents a work shift for doctors. */
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace HospitalManagement.Core.Models;
 
 public class Shift
@@ -10,7 +11,8 @@ public class Shift
 
     [Required(ErrorMessage = "Specify doctors working on this shift")]
     public string DoctorId { get; set; } // Foreign Key
-
+    
+    [JsonIgnore]
     public Doctor Doctor { get; set; } // Navigation property
     
     [Required (ErrorMessage = "Shift starting time is required")]

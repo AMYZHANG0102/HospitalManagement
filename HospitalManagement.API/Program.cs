@@ -15,15 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-//map the controllers and inject the dependencies
-
-
-// Add services to the container.
-builder.Services.AddControllers().AddNewtonsoftJson(); // Required for JSON Patch support
+builder.Services.AddControllers().AddNewtonsoftJson(); // For JSON Patch
 // Configure SQLite Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 // Configure Identity 
 builder.Services.AddIdentity<User, ApplicationRole>(options => 
@@ -74,7 +69,9 @@ builder.Services.AddScoped<IPatientRepository, PatientRepository>(); //dependenc
 builder.Services.AddScoped<IPatientRecordRepository, PatientRecordRepository>(); //dependency injection for patient record repository
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-builder.Services.AddScoped<IShiftRepository, IShiftRepository>();
+builder.Services.AddScoped<IShiftRepository, ShiftRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

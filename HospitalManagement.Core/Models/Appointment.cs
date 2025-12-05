@@ -2,6 +2,7 @@
 Summary: This class represents an appointment between a patient and a doctor. It has two foreign keys. */
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace HospitalManagement.Core.Models;
 
 public class Appointment
@@ -28,6 +29,8 @@ public class Appointment
     public bool DoctorIsUnavailable { get; set; } = false;
 
     // Navigation properties
+    [JsonIgnore]
     public Doctor? Doctor { get; set; }
+    [JsonIgnore]
     public Patient? Patient { get; set; }
 }

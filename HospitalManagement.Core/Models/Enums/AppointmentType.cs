@@ -6,12 +6,12 @@ namespace HospitalManagement.Core.Models;
 
 public enum AppointmentType
 {
-    General,
-    Procedure,
-    Followup,
-    Preventive,
-    Diagnostic,
-    Screening,
-    Acute,
-    Specialist
+    General = 0,
+    Procedure = 1,
+    Followup = 2,
+    Preventive = 3,
+    Diagnostic = 4,
+    Screening = 5,
+    Acute = 6,
+    Specialist = 7
 }

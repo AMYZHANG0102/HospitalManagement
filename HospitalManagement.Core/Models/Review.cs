@@ -5,6 +5,7 @@ Patients can provide a comment on their review (optional),
 but the rating is necessary. */
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace HospitalManagement.Core.Models;
 
 public class Review
@@ -25,6 +26,8 @@ public class Review
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     // Navigation properties
+    [JsonIgnore]
     public Patient? Patient { get; set; }
+    [JsonIgnore]
     public Doctor? Doctor { get; set; }
 }

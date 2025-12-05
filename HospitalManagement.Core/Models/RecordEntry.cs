@@ -2,6 +2,7 @@
 Summary: This class represents a record entry made by a doctor for a patient. */
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 namespace HospitalManagement.Core.Models;
 
 public class RecordEntry
@@ -20,7 +21,9 @@ public class RecordEntry
     public DateTime DateTime { get; set; } = DateTime.Now;
 
     // Navigation properties
+    [JsonIgnore]
     public PatientRecord? PatientRecord { get; set; }
+    [JsonIgnore]
     public Doctor? Doctor { get; set; }
 }
 

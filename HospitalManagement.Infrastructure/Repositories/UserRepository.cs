@@ -7,7 +7,7 @@ using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-namespace HospitalManagement.Infrastrucutre.Repositories;
+namespace HospitalManagement.Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {
