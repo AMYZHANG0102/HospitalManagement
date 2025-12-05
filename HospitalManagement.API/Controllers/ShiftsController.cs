@@ -66,7 +66,7 @@ public class ShiftsController : ControllerBase
     [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<ActionResult<Shift>> UpdateShift(int id,
-        [FromBody] ShiftPatchDto updateDto)
+        [FromBody] ShiftUpdateDto shiftUpdateDto)
     {
         if (!ModelState.IsValid)
         {
@@ -77,15 +77,15 @@ public class ShiftsController : ControllerBase
 
         if (!exists)
         {
-            return NotFound(new {message = $"Post with {id} not found"});
+            return NotFound(new {message = $"Shift with {id} not found"});
         }
 
         // Map DTO to shift entity
         var shift = new Shift
         {
-            DoctorId = updateDto.DoctorId,
-            StartDateTime = updateDto.StartDateTime,
-            EndDateTime = updateDto.EndDateTime
+            DoctorId = shiftUpdateDto.DoctorId,
+            StartDateTime = shiftUpdateDto.StartDateTime,
+            EndDateTime = shiftUpdateDto.EndDateTime
         };
 
         var updatedShift = await _shiftRepo.UpdateAsync(shift);
@@ -143,7 +143,7 @@ public class ShiftsController : ControllerBase
         var deleted = await _shiftRepo.DeleteAsync(id);
         if (!deleted)
         {
-            return NotFound(new {message = $"Post with {id} not found"});
+            return NotFound(new {message = $"Shift with {id} not found"});
         }
         return NoContent();
     }

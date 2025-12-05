@@ -75,6 +75,38 @@ public class AdminsController : ControllerBase
         );
     }
 
+    // PUT: /api/admins/{id}
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Shift>> UpdateAdmin(string id,
+        [FromBody] UserUpdateDto userUpdateDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var exists = await _userRepo.ExistsAsync(id);
+
+        if (!exists)
+        {
+            return NotFound(new {message = $"Admin with {id} not found"});
+        }
+
+        // Map DTO to shift entity
+        var admin = new User
+        {
+            FirstName = userUpdateDto.FirstName,
+            LastName = userUpdateDto.LastName,
+            Phone = userUpdateDto.Phone,
+            Gender = userUpdateDto.Gender,
+            Birthdate = userUpdateDto.Birthdate,
+            HomeAddress = userUpdateDto.HomeAddress
+        };
+
+        var updatedShift = await _userRepo.UpdateAsync(admin);
+        return Ok(updatedShift);
+    }
+
     // PATCH: /api/admins/{id}
     [HttpPatch("{id}")]
     public async Task<IActionResult> PatchAdmin(string id,
@@ -98,6 +130,8 @@ public class AdminsController : ControllerBase
             FirstName = existingAdmin.FirstName,
             LastName = existingAdmin.LastName,
             Phone = existingAdmin.Phone,
+            Gender = existingAdmin.Gender,
+            Birthdate = existingAdmin.Birthdate,
             HomeAddress = existingAdmin.HomeAddress
         };
 
@@ -113,9 +147,23 @@ public class AdminsController : ControllerBase
         existingAdmin.FirstName = adminToPatch.FirstName;
         existingAdmin.LastName = adminToPatch.LastName;
         existingAdmin.Phone = adminToPatch.Phone;
+        existingAdmin.Gender = adminToPatch.Gender;
+        existingAdmin.Birthdate = adminToPatch.Birthdate;
         existingAdmin.HomeAddress = adminToPatch.HomeAddress;
         
         var patchedAdmin = await _userRepo.UpdateAsync(existingAdmin);
         return Ok(patchedAdmin);
+    }
+
+    // DELETE: /api/admins/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAdmin(string id)
+    {
+        var deleted = await _userRepo.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new {message = $"Admin with {id} not found"});
+        }
+        return NoContent();
     }
 }

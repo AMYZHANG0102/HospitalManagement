@@ -82,10 +82,41 @@ public class AppointmentsController : ControllerBase
         );
     }
 
+    // PUT: /api/appointments/{id}
+    [Authorize(Roles = "Admin, Patient")]
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Appointment>> UpdateAppointment(int id,
+        [FromBody] AppointmentCreateDto appointmentUpdateDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var exisits = await _appointmentRepo.ExistsAsync(id);
+
+        if (!exisits)
+        {
+            return NotFound(new {message = $"Appointment with {id} not found"});
+        }
+
+        // Map DTO to appointment entity
+        var appointment = new Appointment
+        {
+            PatientId = appointmentUpdateDto.PatientId,
+            DoctorId = appointmentUpdateDto.DoctorId,
+            Type = appointmentUpdateDto.Type,
+            DateTime = appointmentUpdateDto.DateTime
+        }
+
+        var updatedAppointment = await _appointmentRepo.UpdateAsync(appointment);
+        return Ok(updatedAppointment);
+    }
+
     // PATCH: /api/appointments/{id}
     [Authorize(Roles = "Admin, Patient")]
     [HttpPatch("{id}")]
-    public async Task<IActionResult> PatchAppointment(int id,
+    public async Task<ActionResult<Appointment>> PatchAppointment(int id,
         [FromBody] JsonPatchDocument<AppointmentPatchDto> patchDoc)
     {
         if (patchDoc == null)
@@ -128,6 +159,19 @@ public class AppointmentsController : ControllerBase
         // Save updates
         var patchedAppointment = await _appointmentRepo.UpdateAsync(existingAppointment);
         return Ok(patchedAppointment);
+    }
+
+    // DELETE: /api/appointments/{id}
+    [Authorize(Roles = "Admin")]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAppointment(int id)
+    {
+        var deleted = await _appointmentRepo.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new {message = $"Appointment with {id} not found"});
+        }
+        return NoContent();
     }
 
 }
