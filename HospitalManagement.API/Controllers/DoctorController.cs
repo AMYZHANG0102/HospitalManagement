@@ -81,6 +81,8 @@ public class DoctorsController : ControllerBase
         {
             FirstName = doctorDto.FirstName,
             LastName = doctorDto.LastName,
+            Email = doctorDto.Email,
+            Role = UserRole.Doctor,
             Phone = doctorDto.Phone,
             Gender = doctorDto.Gender,
             Birthdate = doctorDto.Birthdate,
