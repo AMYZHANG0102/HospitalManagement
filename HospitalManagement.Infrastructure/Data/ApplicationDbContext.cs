@@ -67,12 +67,10 @@ public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, str
             // Configure one-to-many relationships:
             entity.HasMany(e => e.Appointments) // Doctor can have many appointments
                   .WithOne(a => a.Doctor); // Navigation property on Appointment entity   
-            entity.HasMany(e => e.ReviewsReceived) // Doctor can receive many reviews
-                  .WithOne(r => r.Doctor); // Navigation property on Review entity
-            // Configure many-to-many relationship:
             entity.HasMany(e => e.Shifts) // Doctor can have many shifts
-                  .WithMany(s => s.Doctors); // Shift can have many doctors
-
+                  .WithOne(s => s.Doctor); // Shift is only for one doctor
+            entity.HasMany(e => e.ReviewsReceived) // Doctor can receive many reviews
+                  .WithOne(r => r.Doctor); // Navigation property on Review entity      
          });
         #endregion
 
@@ -111,6 +109,7 @@ public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, str
             entity.Property(e => e.Type).IsRequired();
             entity.Property(e => e.DateTime).IsRequired();
             entity.Property(e => e.Status).HasDefaultValue(AppointmentStatus.Pending);
+            entity.Property(e => e.DoctorIsUnavailable).HasDefaultValue(false);
             // Configure many-to-one relationships:
             entity.HasOne(e => e.Doctor) // Appointment has one Doctor
                   .WithMany(d => d.Appointments) // Doctor can have many appointments
@@ -125,12 +124,13 @@ public class ApplicationDbContext : IdentityDbContext<User, ApplicationRole, str
         modelBuilder.Entity<Shift>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Date).IsRequired();
-            entity.Property(e => e.StartTime).IsRequired();
-            entity.Property(e => e.EndTime).IsRequired();
-            // Configure many-to-many relationship:
-            entity.HasMany(e => e.Doctors) // Shift has one doctor
-                  .WithMany(d => d.Shifts); // Doctor can have many shifts
+            entity.Property(e => e.StartDateTime).IsRequired();
+            entity.Property(e => e.EndDateTime).IsRequired();
+            // Configure one-to-many relationship:
+            entity.HasOne(e => e.Doctor) // Shift has one doctor
+                  .WithMany(d => d.Shifts) // Doctor can have many shifts
+                  .HasForeignKey(entity => entity.DoctorId)
+                  .IsRequired();
         });
 
         modelBuilder.Entity<Review>(entity =>

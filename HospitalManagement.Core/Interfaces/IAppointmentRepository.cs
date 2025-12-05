@@ -12,6 +12,9 @@ public interface IAppointmentRepository
         AppointmentStatus? status,
         DateOnly? date,
         AppointmentType? type);
+
+    Task<IEnumerable<Appointment>> GetAllWhereDoctorIsUnavailable();
+        
     Task<Appointment?> GetByIdAsync(int id);
     Task<Appointment> CreateAsync(Appointment appointment);
     Task<Appointment?> UpdateAsync(Appointment appointment);

@@ -45,12 +45,27 @@ public class AppointmentRepository : IAppointmentRepository
         {
             appointments = appointments.Where(e => e.Type == type);
         }
-        return await appointments.ToListAsync();
+        return await appointments
+                                .Include(e => e.Patient)
+                                .Include(e => e.Doctor)
+                                .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Appointment>> GetAllWhereDoctorIsUnavailable()
+    {
+        return await _context.Appointments.AsQueryable()
+                                          .Where(e => e.DoctorIsUnavailable == true)
+                                          .Include(e => e.Patient)
+                                          .Include(e => e.Doctor)
+                                          .ToListAsync();
     }
 
     public async Task<Appointment?> GetByIdAsync(int id) // For admins, doctors, and patients
     {
-        return await _context.Appointments.FindAsync(id);
+        return await _context.Appointments
+                                          .Include(e => e.Patient)
+                                          .Include(e => e.Doctor)
+                                          .FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<Appointment> CreateAsync(Appointment appointment)
@@ -71,6 +86,7 @@ public class AppointmentRepository : IAppointmentRepository
         existingAppointment.Type = appointment.Type;
         existingAppointment.DateTime = appointment.DateTime;
         existingAppointment.Status = appointment.Status;
+        existingAppointment.DoctorIsUnavailable = appointment.DoctorIsUnavailable;
         await _context.SaveChangesAsync();
         return existingAppointment;
     }
