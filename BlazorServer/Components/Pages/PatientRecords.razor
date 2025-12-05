@@ -20,7 +20,6 @@
             <thead class="table-info">
                 <tr>
                     <th>Name</th>
-                    <th>Patient ID</th>
                     <th>Diagnosis</th>
                     <th>Medications</th>
                     <th>Allergies</th>
@@ -34,11 +33,10 @@
                 @foreach (var record in patientRecords)
                 {
                     <tr>
-                        <td>@record.Name</td>
-                        <td>@record.PatientId</td>
+                        <td>@record.patient.FirstName @record.patient.LastName</td>
                         <td>@record.Diagnosis</td>
-                        <td>@record.Medications</td>
-                        <td>@record.MedicationAllergies</td>
+                        <td>@record.CurrentMedications</td>
+                        <td>@record.MedicationAllergyInfo</td>
                         <td>@record.BloodType</td>
                         <td>@record.LabTestsResults</td>
                         <td>@record.Notes</td>

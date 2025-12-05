@@ -3,5 +3,5 @@ namespace BlazorServer.Services;
 
 public interface IPatientService
 {
-    Task<string> EditPatientProfileAsync(EditPatientProfile request);
+    Task<string> EditPatientProfileAsync(Patient request);
 }

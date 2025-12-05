@@ -47,6 +47,13 @@ public class PatientRecordsController : ControllerBase
         var patientRecord = new PatientRecord
         {
             PatientId = patientRecordDto.PatientId,
+            Diagnosis = patientRecordDto.Diagnosis,
+            CurrentMedications = patientRecordDto.CurrentMedications,
+            MedicationAllergyInfo = patientRecordDto.MedicationAllergies,
+            BloodType = patientRecordDto.BloodType,
+            PastMedicalHistory = patientRecordDto.PastMedicalHistory,
+            LabTestsResults = patientRecordDto.LabTestsResults,
+            // Notes = patientRecordDto.Notes
         };
 
         var createdPatientRecord = await _repository.CreateAsync(patientRecord);

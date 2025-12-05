@@ -17,7 +17,7 @@ public class PatientRecordRepository : IPatientRecordRepository
     }
     public async Task<IEnumerable<PatientRecord>> GetAllAsync()
     {
-        return await _context.PatientRecords.ToListAsync();
+        return await _context.PatientRecords.Include(pr => pr.Patient).ToListAsync();
     }
     public async Task<PatientRecord?> GetByIdAsync(int id)
     {

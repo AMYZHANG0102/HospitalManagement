@@ -23,7 +23,10 @@ builder.Services.AddOpenApi();
 
 
 // Add services to the container.
-builder.Services.AddControllers().AddNewtonsoftJson(); // Required for JSON Patch support
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // https://stackoverflow.com/questions/13510204/json-net-self-referencing-loop-detected
+    }); // Required for JSON Patch support
 // Configure SQLite Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
