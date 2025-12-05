@@ -32,6 +32,14 @@ public class AppointmentsController : ControllerBase
         return Ok(appointments);
     }
 
+    // GET: /api/appointments/unavailabledoctor
+    // Authorize admins
+    [HttpGet("unavailabledoctor")]
+    public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointmentsWhereDoctorIsUnavailable()
+    {
+        var appointments = await _appointmentRepo.GetAllWhereDoctorIsUnavailable();
+        return Ok(appointments);
+    }
 
     // GET: /api/appointments/{id}
     // Authorize admins, patients, and doctors
@@ -97,7 +105,8 @@ public class AppointmentsController : ControllerBase
             DoctorId = existingAppointment.DoctorId,
             Type = existingAppointment.Type,
             DateTime = existingAppointment.DateTime,
-            Status = existingAppointment.Status
+            Status = existingAppointment.Status,
+            DoctorIsUnavaliable = existingAppointment.DoctorIsUnavailable
         };
 
         // Apply patch
@@ -113,6 +122,7 @@ public class AppointmentsController : ControllerBase
         existingAppointment.Type = appointmentToPatch.Type;
         existingAppointment.DateTime = appointmentToPatch.DateTime;
         existingAppointment.Status = appointmentToPatch.Status;
+        existingAppointment.DoctorIsUnavailable = appointmentToPatch.DoctorIsUnavaliable;
 
         // Save updates
         var patchedAppointment = await _appointmentRepo.UpdateAsync(existingAppointment);

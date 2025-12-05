@@ -6,7 +6,7 @@ namespace HospitalManagement.Core.Models;
 
 public enum UserRole
 {
-    Patient,
-    Doctor,
-    Admin
+    Patient = 0,
+    Doctor = 1,
+    Admin = 2
 }

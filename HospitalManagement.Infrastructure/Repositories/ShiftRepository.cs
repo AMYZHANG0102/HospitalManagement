@@ -19,25 +19,24 @@ public class ShiftRepository : IShiftRepository
 
     public async Task<IEnumerable<Shift>> GetAllAsync()
     {
-        return await _context.Shifts.ToListAsync();
+        return await _context.Shifts
+                             .Include(e => e.Doctor)
+                             .ToListAsync();
     }
 
     public async Task<Shift?> GetByIdAsync(int id)
     {
-        return await _context.Shifts.FindAsync(id);
+        return await _context.Shifts
+                                    .Include(e => e.Doctor)
+                                    .FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public async Task<IEnumerable<Shift>> GetByDoctorIdAsync(string id)
     {
         return await _context.Shifts
-                             .Where(e => e.Doctors.Any(doc => doc.Id == id))
-                             .ToListAsync();
-    }
-
-    public async Task<IEnumerable<Shift>> GetByDateAsync(DateOnly date)
-    {
-        return await _context.Shifts
-                             .Where(e => e.Date == date)
+                             .AsQueryable()
+                             .Where(e => e.DoctorId == id)
+                             .Include(e => e.Doctor)
                              .ToListAsync();
     }
 
@@ -55,10 +54,9 @@ public class ShiftRepository : IShiftRepository
         {
             return null;
         }
-        existingShift.Doctors = shift.Doctors;
-        existingShift.Date = shift.Date;
-        existingShift.StartTime = shift.StartTime;
-        existingShift.EndTime = shift.EndTime;
+        existingShift.DoctorId = shift.DoctorId;
+        existingShift.StartDateTime = shift.StartDateTime;
+        existingShift.EndDateTime = shift.EndDateTime;
         await _context.SaveChangesAsync();
         return existingShift;
     }

@@ -13,4 +13,6 @@ public class AppointmentPatchDto
     public DateTime DateTime { get; set; }
 
     public AppointmentStatus Status { get; set; }
+
+    public bool DoctorIsUnavaliable { get; set; } // When doctor marks unavailability
 }

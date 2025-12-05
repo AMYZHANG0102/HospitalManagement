@@ -6,6 +6,6 @@ namespace HospitalManagement.Core.Models;
 
 public enum Gender
 {
-    Female,
-    Male
+    Female = 0,
+    Male = 1
 }

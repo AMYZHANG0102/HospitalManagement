@@ -19,9 +19,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-//map the controllers and inject the dependencies
-
-
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     {
@@ -31,7 +28,6 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 // Configure SQLite Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 // Configure Identity 
 builder.Services.AddIdentity<User, ApplicationRole>(options => 
@@ -80,11 +76,10 @@ builder.Services.AddAuthorization();
 // Register Repository
 builder.Services.AddScoped<IPatientRepository, PatientRepository>(); //dependency injection for patient repository
 builder.Services.AddScoped<IPatientRecordRepository, PatientRecordRepository>(); //dependency injection for patient record repository
-builder.Services.AddScoped<IUserRepository, UserRepository>(); //dependency injection for user repository
-builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); //dependency injection for doctor repository
-builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>(); //dependency injection for appointment repository
-builder.Services.AddScoped<IShiftRepository, ShiftRepository>(); //dependency injection for shift repository
-builder.Services.AddScoped<IReviewRepository, ReviewRepository>(); //dependency injection for review repository
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IShiftRepository, ShiftRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

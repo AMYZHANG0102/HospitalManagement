@@ -9,7 +9,6 @@ public interface IShiftRepository
     Task<IEnumerable<Shift>> GetAllAsync();
     Task<Shift?> GetByIdAsync(int id);
     Task<IEnumerable<Shift>> GetByDoctorIdAsync(string id);
-    Task<IEnumerable<Shift>> GetByDateAsync(DateOnly date);
     Task<Shift> CreateAsync(Shift shift);
     Task<Shift?> UpdateAsync(Shift shift);
     Task<bool> DeleteAsync(int id);
