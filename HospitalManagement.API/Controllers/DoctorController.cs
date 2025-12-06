@@ -47,24 +47,58 @@ public class DoctorsController : ControllerBase
         [FromQuery] DateOnly? date,
         [FromQuery] AppointmentType? type)
     {
-        var doctor = await _appRepo.GetAllAsync(null, id, status, date, type);
+        var doctor = _repository.GetByIdAsync(id);
         if (doctor == null)
         {
             return NotFound(new { message = $"Doctor with ID {id} not found" });
         }
-        return Ok(doctor);
+
+        var appointments = await _appRepo.GetAllAsync(null, id, status, date, type);
+        List<AppointmentReadDto> appointmentsToReturn = new();
+        foreach (var a in appointments)
+        {
+            var appointmentReadDto = new AppointmentReadDto
+            {
+                Id = a.Id,
+                PatientId = a.PatientId,
+                PatientName = a.Patient?.FirstName,
+                DoctorId = a.DoctorId,
+                DoctorName = a.Doctor?.FirstName,
+                AppType = a.Type,
+                DateTime = a.DateTime,
+                Status = a.Status,
+                DoctorIsUnavailable = a.DoctorIsUnavailable
+            };
+            appointmentsToReturn.Add(appointmentReadDto);
+        }
+        return Ok(appointmentsToReturn);
     }
 
     // GET: /api/doctors/{id}/shifts
     [HttpGet("{id}/shifts")]
     public async Task<ActionResult<Doctor>> GetDoctorShifts(string id)
     {
-        var doctor = await _shiftRepo.GetByDoctorIdAsync(id);
+        var doctor = _repository.GetByIdAsync(id);
         if (doctor == null)
         {
             return NotFound(new { message = $"Doctor with ID {id} not found" });
         }
-        return Ok(doctor);
+
+        var shifts = await _shiftRepo.GetByDoctorIdAsync(id);
+        List<ShiftReadDto> shiftsToReturn = new();
+        foreach (var s in shifts)
+        {
+            var shiftReadDto = new ShiftReadDto
+            {
+                Id = s.Id,
+                DoctorId = s.DoctorId,
+                DoctorName = s.Doctor?.FirstName,
+                StartDateTime = s.StartDateTime,
+                EndDateTime = s.EndDateTime
+            };
+            shiftsToReturn.Add(shiftReadDto);
+        }
+        return Ok(shiftsToReturn);
     }
 
 

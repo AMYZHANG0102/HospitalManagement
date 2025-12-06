@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
-[Authorize] // All endpoints are accessible through JWT token
+//[Authorize] // All endpoints are accessible through JWT token
 [Route("api/[controller]")]
 [ApiController]
 public class AppointmentsController : ControllerBase
@@ -21,42 +21,79 @@ public class AppointmentsController : ControllerBase
         _appointmentRepo = appointmentRepository;
     }
 
+    private IEnumerable<AppointmentReadDto> MapToReadDto(IEnumerable<Appointment> appointments)
+    {
+        List<AppointmentReadDto> appointmentsToReturn = new();
+        foreach (var a in appointments)
+        {
+            var appointmentReadDto = new AppointmentReadDto
+            {
+                Id = a.Id,
+                PatientId = a.PatientId,
+                PatientName = a.Patient?.FirstName,
+                DoctorId = a.DoctorId,
+                DoctorName = a.Doctor?.FirstName,
+                AppType = a.Type,
+                DateTime = a.DateTime,
+                Status = a.Status,
+                DoctorIsUnavailable = a.DoctorIsUnavailable
+            };
+            appointmentsToReturn.Add(appointmentReadDto);
+        }
+        return appointmentsToReturn;
+    }
+
     // GET: /api/appointments
-    [Authorize(Roles = "Admin")]
+    //Authorize(Roles = "Admin")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments(
+    public async Task<ActionResult<IEnumerable<AppointmentReadDto>>> GetAllAppointments(
         [FromQuery] AppointmentStatus? status,
         [FromQuery] DateOnly? date,
         [FromQuery] AppointmentType? type
     )
     {
         var appointments = await _appointmentRepo.GetAllAsync(null, null, status, date, type);
-        return Ok(appointments);
+        var appointmentsToReturn = MapToReadDto(appointments);
+        return Ok(appointmentsToReturn);
     }
 
     // GET: /api/appointments/unavailabledoctor
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpGet("unavailabledoctor")]
-    public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointmentsWhereDoctorIsUnavailable()
+    public async Task<ActionResult<IEnumerable<AppointmentReadDto>>> GetAppointmentsWhereDoctorIsUnavailable()
     {
         var appointments = await _appointmentRepo.GetAllWhereDoctorIsUnavailable();
-        return Ok(appointments);
+        var appointmentsToReturn = MapToReadDto(appointments);
+        return Ok(appointmentsToReturn);
     }
 
     // GET: /api/appointments/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Appointment>> GetAppointment(int id)
+    public async Task<ActionResult<AppointmentReadDto>> GetAppointment(int id)
     {
         var appointment = await _appointmentRepo.GetByIdAsync(id);
         if (appointment == null)
         {
             return NotFound(new {message = $"Appointment with id {id} not found"});
         }
-        return Ok(appointment);
+
+        var appointmentReadDto = new AppointmentReadDto
+        {
+            Id = appointment.Id,
+            PatientId = appointment.PatientId,
+            PatientName = appointment.Patient?.FirstName,
+            DoctorId = appointment.DoctorId,
+            DoctorName = appointment.Doctor?.FirstName,
+            AppType = appointment.Type,
+            DateTime = appointment.DateTime,
+            Status = appointment.Status,
+            DoctorIsUnavailable = appointment.DoctorIsUnavailable
+        };
+        return Ok(appointmentReadDto);
     }
 
     // POST: /api/appointments
-    [Authorize(Roles = "Admin, Patient")]
+    //[Authorize(Roles = "Admin, Patient")]
     [HttpPost]
     public async Task<ActionResult<Appointment>> CreateAppointment(
         [FromBody] AppointmentCreateDto appointmentCreateDto)
@@ -83,19 +120,19 @@ public class AppointmentsController : ControllerBase
     }
 
     // PUT: /api/appointments/{id}
-    [Authorize(Roles = "Admin, Patient")]
+    //[Authorize(Roles = "Admin, Patient")]
     [HttpPut("{id}")]
     public async Task<ActionResult<Appointment>> UpdateAppointment(int id,
-        [FromBody] AppointmentCreateDto appointmentUpdateDto)
+        [FromBody] AppointmentUpdateDto appointmentUpdateDto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var exisits = await _appointmentRepo.ExistsAsync(id);
+        var existingAppointment = await _appointmentRepo.GetByIdAsync(id);
 
-        if (!exisits)
+        if (existingAppointment == null)
         {
             return NotFound(new {message = $"Appointment with {id} not found"});
         }
@@ -104,7 +141,7 @@ public class AppointmentsController : ControllerBase
         var appointment = new Appointment
         {
             Id = id,
-            PatientId = appointmentUpdateDto.PatientId,
+            PatientId = existingAppointment.PatientId,
             DoctorId = appointmentUpdateDto.DoctorId,
             Type = appointmentUpdateDto.Type,
             DateTime = appointmentUpdateDto.DateTime
@@ -115,7 +152,7 @@ public class AppointmentsController : ControllerBase
     }
 
     // PATCH: /api/appointments/{id}
-    [Authorize(Roles = "Admin, Patient")]
+    //[Authorize(Roles = "Admin, Patient")]
     [HttpPatch("{id}")]
     public async Task<ActionResult<Appointment>> PatchAppointment(int id,
         [FromBody] JsonPatchDocument<AppointmentPatchDto> patchDoc)
@@ -163,7 +200,7 @@ public class AppointmentsController : ControllerBase
     }
 
     // DELETE: /api/appointments/{id}
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpDelete]
     public async Task<IActionResult> DeleteAppointment(int id)
     {

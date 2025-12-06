@@ -13,6 +13,7 @@ public class Patient : User
     [MaxLength(12)]
     public string HealthCard { get; set; } = string.Empty;
 
+    [JsonIgnore]
     public PatientRecord? PatientRecord { get; set; } // Navigation property
 
     [JsonIgnore]

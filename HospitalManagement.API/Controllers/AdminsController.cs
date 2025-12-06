@@ -13,7 +13,7 @@ using HospitalManagement.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
-[Authorize(Roles = "Admin")] // Only admins can access these endpoints with a JWT token
+//[Authorize(Roles = "Admin")] // Only admins can access these endpoints with a JWT token
 [Route("api/[controller]")]
 [ApiController]
 public class AdminsController : ControllerBase
