@@ -1,0 +1,60 @@
+@* /*Hira Ahmad
+Summary: PatientRecords represents the page component for displaying patient records.
+*/ *@
+@page "/patient-records"
+
+@using HospitalManagement.BlazorServer.Models
+@using HospitalManagement.BlazorServer.Services
+@inject IPatientRecordService PatientRecordService
+
+<h3 class="text-center mt-4">Patient Records</h3>
+
+<div class="container mt-4">
+    @if (patientRecords == null)
+    {
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p>Loading patient records...</p>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-info">
+                <tr>
+                    <th>Name</th>
+                    <th>Diagnosis</th>
+                    <th>Medications</th>
+                    <th>Allergies</th>
+                    <th>Blood Type</th>
+                    <th>Lab Tests</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var record in patientRecords)
+                {
+                    <tr>
+                        <td>@record.patient.FirstName @record.patient.LastName</td>
+                        <td>@record.Diagnosis</td>
+                        <td>@record.CurrentMedications</td>
+                        <td>@record.MedicationAllergyInfo</td>
+                        <td>@record.BloodType</td>
+                        <td>@record.LabTestsResults</td>
+                        <td>@record.Notes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<PatientRecord>? patientRecords;
+
+    protected override async Task OnInitializedAsync()
+    {
+        patientRecords = await PatientRecordService.GetAllPatientRecordsAsync();
+    }
+}

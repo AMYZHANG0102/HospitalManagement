@@ -1,4 +1,8 @@
+/*Hira Ahmad
+Summary: Program.cs configures and runs the Blazor Server application.
+*/
 using BlazorServer.Components;
+using HospitalManagement.BlazorServer.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,9 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped(sp =>
+{
+    var client = new HttpClient { BaseAddress = new Uri("http://localhost:5000/") };
+    return client;
+});
+builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPatientRecordService, PatientRecordService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
     
 builder.Services.AddScoped<ShiftService>();
-builder.Services.AddScoped<AppointmentsService>();
+builder.Services.AddScoped<AppointmentService>();
 
 var app = builder.Build();
 

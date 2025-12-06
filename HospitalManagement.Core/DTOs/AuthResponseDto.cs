@@ -1,4 +1,6 @@
-/*Hira*/
+/*Hira Ahmad
+Summary: AuthResponseDto represents the data transfer object for authentication responses.
+*/
 namespace HospitalManagement.Core.DTOs;
 
 public class AuthResponseDto

@@ -1,12 +1,17 @@
+/*Hira Ahmad
+Summary: PatientRecordController represents the API controller for managing patient records.
+*/
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+// [Authorize]
 public class PatientRecordsController : ControllerBase
 {
     private readonly IPatientRecordRepository _repository;
@@ -47,6 +52,13 @@ public class PatientRecordsController : ControllerBase
         var patientRecord = new PatientRecord
         {
             PatientId = patientRecordDto.PatientId,
+            Diagnosis = patientRecordDto.Diagnosis,
+            CurrentMedications = patientRecordDto.CurrentMedications,
+            MedicationAllergyInfo = patientRecordDto.MedicationAllergies,
+            BloodType = patientRecordDto.BloodType,
+            PastMedicalHistory = patientRecordDto.PastMedicalHistory,
+            LabTestsResults = patientRecordDto.LabTestsResults,
+            // Notes = patientRecordDto.Notes
         };
 
         var createdPatientRecord = await _repository.CreateAsync(patientRecord);

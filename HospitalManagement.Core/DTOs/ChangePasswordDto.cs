@@ -1,4 +1,5 @@
-/*Hira*/
+/*Hira Ahmad
+Summary: ChangePasswordDto represents the data transfer object for changing a user's password.*/
 using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagement.Core.DTOs

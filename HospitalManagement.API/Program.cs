@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+/* Hira Ahmad
+Summary: This is the main program file for the Hospital Management API. It configures services, JWT Validation, 
+and dependency injection for the application. */
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using HospitalManagement.Infrastructure.Data;
@@ -9,13 +12,19 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using IdentityManagement.Core.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddControllers().AddNewtonsoftJson(); // For JSON Patch
+// Add services to the container.
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; // https://stackoverflow.com/questions/13510204/json-net-self-referencing-loop-detected
+        options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+    }); // Required for JSON Patch support
 // Configure SQLite Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
