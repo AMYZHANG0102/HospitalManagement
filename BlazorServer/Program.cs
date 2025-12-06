@@ -12,7 +12,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped(sp =>
 {
-    var client = new HttpClient { BaseAddress = new Uri("http://localhost:5000/") };
+    var client = new HttpClient { BaseAddress = new Uri("https://hospitalmanagement-gzepa2cecra5dkhc.eastus2-01.azurewebsites.net") };
     return client;
 });
 builder.Services.AddScoped<IJWTService, JWTService>();
