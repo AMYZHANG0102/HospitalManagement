@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-namespace BlazorServer.Services;
+namespace HospitalManagement.BlazorServer.Services;
 
 public class JWTService : IJWTService
 {

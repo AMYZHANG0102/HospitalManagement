@@ -1,6 +1,6 @@
-using BlazorServer.Models;
+using HospitalManagement.BlazorServer.Models;
 
-namespace BlazorServer.Services;
+namespace HospitalManagement.BlazorServer.Services;
 
 public interface IDoctorService
 {

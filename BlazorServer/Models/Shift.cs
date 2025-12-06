@@ -1,7 +1,7 @@
 /* Amy Zhang
 Summary: Model for shift, represents the shift entity received in the API */
 
-namespace BlazorServer.Models;
+namespace HospitalManagement.BlazorServer.Models;
 
 public class Shift
 {

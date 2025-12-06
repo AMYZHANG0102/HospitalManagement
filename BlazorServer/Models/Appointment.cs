@@ -1,7 +1,7 @@
 /* Amy Zhang
 Summary: This class represents appointment entity received from API */
 
-namespace BlazorServer.Models;
+namespace HospitalManagement.BlazorServer.Models;
 
 public class Appointment
 {

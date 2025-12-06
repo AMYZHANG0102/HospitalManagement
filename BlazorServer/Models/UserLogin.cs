@@ -2,7 +2,7 @@
 Summary: UserLoginModel class to represent user login data. */
 
 using System.ComponentModel.DataAnnotations;
-namespace BlazorServer.Models;
+namespace HospitalManagement.BlazorServer.Models;
 
 public class UserLoginModel 
 {

@@ -1,5 +1,5 @@
 using BlazorServer.Components;
-using BlazorServer.Services;
+using HospitalManagement.BlazorServer.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +18,7 @@ builder.Services.AddScoped<IPatientRecordService, PatientRecordService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
     
 builder.Services.AddScoped<ShiftService>();
-builder.Services.AddScoped<AppointmentsService>();
+builder.Services.AddScoped<AppointmentService>();
 
 var app = builder.Build();
 

@@ -2,6 +2,7 @@
 Summary: Service class that interacts with the API for shift-related operations. */
 
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.Authorization;
 using HospitalManagement.BlazorServer.Models;
 namespace HospitalManagement.BlazorServer.Services;
 
@@ -21,13 +22,13 @@ public class ShiftService
         _baseUrl = configuration["HospitalManagement:BaseUrl"] ?? "http://localhost:5000/api/";
     }
 
-    public async Task<List<Appointment>> GetShiftsAsync()
+    public async Task<List<Shift>> GetShiftsAsync()
     {
         try
         {
             // Check if user is authenticated
             var authState = await _authStateProvider.GetAuthenticationStateAsync();
-            var user = authState.user;
+            var user = authState.User;
 
             // Get user role and ID
             string? role = user.FindFirst("role")?.Value;
@@ -77,12 +78,12 @@ public class ShiftService
         try {
             var response = await _httpClient
                                 .PostAsJsonAsync($"{_baseUrl}/shifts", shift);
-            return response;
+            return true;
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error: ", ex);
-            return null;
+            return false;
         }         
     }
 
@@ -91,12 +92,12 @@ public class ShiftService
         try {
             var response = await _httpClient
                                 .PutAsJsonAsync($"{_baseUrl}/shifts/{shift.Id}", shift);
-            return response;
+            return true;
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error: ", ex);
-            return null;
+            return false;
         }         
     }
 }

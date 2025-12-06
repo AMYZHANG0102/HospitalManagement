@@ -17,10 +17,10 @@ else {
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-2"><strong>ID:</strong> @a.Id</div>
-                    <div class="col-md-2"><strong>Date:</strong> @a.Date</div>
+                    <div class="col-md-2"><strong>Date:</strong> @a.DateTime</div>
                     <div class="col-md-2"><strong>Patient:</strong> @a.PatientId</div>
                     <div class="col-md-2"><strong>Doctor:</strong> @a.DoctorId</div>
-                    <div class="col-md-2"><strong>Status:</strong> @a.Status</div>
+                    @* <div class="col-md-2"><strong>Status:</strong> @a.Status</div> *@
                     <div class="col-md-2"><strong>Doctor is Unavailable:</strong> @a.DoctorIsUnavailable</div>
                 </div>
             </li>
@@ -29,12 +29,12 @@ else {
 }
 
 @code {
-    public List<Shifts>? shifts;
+    public List<Appointment>? appointments;
     public string? errorMessage = null;
 
     protected override async Task OnInitializedAsync() {
         try {
-            appointments = await AppointmentsService.GetAppointmentsAsync();
+            appointments = await AppointmentService.GetAppointmentsAsync();
         }
         catch (Exception ex) {
             errorMessage = ex.Message;

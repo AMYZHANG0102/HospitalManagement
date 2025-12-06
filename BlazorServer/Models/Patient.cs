@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace BlazorServer.Models;
+namespace HospitalManagement.BlazorServer.Models;
 
 public class Patient
 {

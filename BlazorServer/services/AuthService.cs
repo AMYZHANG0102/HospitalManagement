@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
-using BlazorServer.Models;
-namespace BlazorServer.Services;
+using HospitalManagement.BlazorServer.Models;
+namespace HospitalManagement.BlazorServer.Services;
 
 public class AuthService : IAuthService
 {

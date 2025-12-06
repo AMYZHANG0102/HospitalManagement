@@ -1,7 +1,7 @@
 /* Hira Ahmad
 Summary: RegisterModel class to represent user registration data with validation. */
 using System.ComponentModel.DataAnnotations;
-namespace BlazorServer.Models;
+namespace HospitalManagement.BlazorServer.Models;
 
 public class RegisterModel
 {

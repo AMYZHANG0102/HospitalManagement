@@ -1,7 +1,7 @@
 
-using BlazorServer.Models;
+using HospitalManagement.BlazorServer.Models;
 using System.Net.Http.Headers;
-namespace BlazorServer.Services;
+namespace HospitalManagement.BlazorServer.Services;
 
 public class PatientRecordService : IPatientRecordService
 {
