@@ -1,0 +1,43 @@
+<-- Amy Zhang --></>
+
+@page "/appointments/unavailabledoctors"
+@using HospitalManagement.BlazorServer.Models
+@using HospitalManagement.BlazorServer.Services
+@inject AppointmentService AppointmentService
+
+<h3> Appointments </h3>
+
+if (appointments.Count == 0) {
+    <p> No appointments found </p>
+}
+else {
+    <ul class="list-group">
+        @foreach (var a in appointments)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-2"><strong>ID:</strong> @a.Id</div>
+                    <div class="col-md-2"><strong>Date:</strong> @a.Date</div>
+                    <div class="col-md-2"><strong>Patient:</strong> @a.PatientId</div>
+                    <div class="col-md-2"><strong>Doctor:</strong> @a.DoctorId</div>
+                    <div class="col-md-2"><strong>Status:</strong> @a.Status</div>
+                    <div class="col-md-2"><strong>Doctor is Unavailable:</strong> @a.DoctorIsUnavailable</div>
+                </div>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    public List<Appointments>? appointments;
+    public string? errorMessage = null;
+
+    protected override async Task OnInitializedAsync() {
+        try {
+            appointments = await AppointmentsService.GetAppointmentsWhereDocIsUnavalable();
+        }
+        catch (Exception ex) {
+            errorMessage = ex.Message;
+        }
+    }
+}

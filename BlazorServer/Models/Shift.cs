@@ -3,13 +3,11 @@ Summary: Model for shift, represents the shift entity received in the API */
 
 namespace BlazorServer.Models;
 
-public class ShiftModel
+public class Shift
 {
     public int Id { get; set; }
 
     public int DoctorId { get; set; }
-
-    public Doctor Doctor { get; set; }
 
     public DateTime StartDateTime { get; set; }
     

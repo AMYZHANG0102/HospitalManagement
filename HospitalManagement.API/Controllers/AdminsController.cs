@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.JsonPatch;
 using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
+[Authorize(Roles = "Admin")] // Only admins can access these endpoints with a JWT token
 [Route("api/[controller]")]
 [ApiController]
 public class AdminsController : ControllerBase
@@ -24,7 +26,6 @@ public class AdminsController : ControllerBase
     }
 
     // GET: /api/admins
-    // Authorize: Admins
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetAllAdmins()
     {
@@ -34,7 +35,6 @@ public class AdminsController : ControllerBase
     }
 
     // GET: /api/admins/{id}
-    // Authorize: Admins
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetAdmin(string id)
     {
@@ -47,7 +47,6 @@ public class AdminsController : ControllerBase
     }
 
     // POST: /api/admins
-    // Authorize: Admins
     [HttpPost]
     public async Task<ActionResult<User>> CreateAdmin([FromBody] UserRegisterDto userRegisterDto)
     {
@@ -76,8 +75,40 @@ public class AdminsController : ControllerBase
         );
     }
 
+    // PUT: /api/admins/{id}
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Shift>> UpdateAdmin(string id,
+        [FromBody] UserUpdateDto userUpdateDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var exists = await _userRepo.ExistsAsync(id);
+
+        if (!exists)
+        {
+            return NotFound(new {message = $"Admin with {id} not found"});
+        }
+
+        // Map DTO to shift entity
+        var admin = new User
+        {
+            Id = id,
+            FirstName = userUpdateDto.FirstName,
+            LastName = userUpdateDto.LastName,
+            Phone = userUpdateDto.Phone,
+            Gender = userUpdateDto.Gender,
+            Birthdate = userUpdateDto.Birthdate,
+            HomeAddress = userUpdateDto.HomeAddress
+        };
+
+        var updatedShift = await _userRepo.UpdateAsync(admin);
+        return Ok(updatedShift);
+    }
+
     // PATCH: /api/admins/{id}
-    // Authorize: Admins
     [HttpPatch("{id}")]
     public async Task<IActionResult> PatchAdmin(string id,
         [FromBody] JsonPatchDocument<UserPatchDto> patchDoc)
@@ -100,6 +131,8 @@ public class AdminsController : ControllerBase
             FirstName = existingAdmin.FirstName,
             LastName = existingAdmin.LastName,
             Phone = existingAdmin.Phone,
+            Gender = existingAdmin.Gender,
+            Birthdate = existingAdmin.Birthdate,
             HomeAddress = existingAdmin.HomeAddress
         };
 
@@ -115,9 +148,23 @@ public class AdminsController : ControllerBase
         existingAdmin.FirstName = adminToPatch.FirstName;
         existingAdmin.LastName = adminToPatch.LastName;
         existingAdmin.Phone = adminToPatch.Phone;
+        existingAdmin.Gender = adminToPatch.Gender;
+        existingAdmin.Birthdate = adminToPatch.Birthdate;
         existingAdmin.HomeAddress = adminToPatch.HomeAddress;
         
         var patchedAdmin = await _userRepo.UpdateAsync(existingAdmin);
         return Ok(patchedAdmin);
+    }
+
+    // DELETE: /api/admins/{id}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAdmin(string id)
+    {
+        var deleted = await _userRepo.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new {message = $"Admin with {id} not found"});
+        }
+        return NoContent();
     }
 }

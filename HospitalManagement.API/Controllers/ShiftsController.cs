@@ -6,8 +6,10 @@ using HospitalManagement.Core.Models;
 using HospitalManagement.Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class ShiftsController : ControllerBase
@@ -20,7 +22,7 @@ public class ShiftsController : ControllerBase
     }
 
     // GET: /api/shifts
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Shift>>> GetAllShifts()
     {
@@ -29,7 +31,7 @@ public class ShiftsController : ControllerBase
     }
 
     // GET: /api/shifts/{id}
-    // Authorize admins and doctors
+    [Authorize(Roles = "Admin, Doctor")]
     [HttpGet("{id}")]
     public async Task<ActionResult<Shift>> GetShiftById(int id)
     {
@@ -42,7 +44,7 @@ public class ShiftsController : ControllerBase
     }
 
     // POST: /api/shifts
-    // Authorize admins
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<Shift>> CreateShift([FromBody] ShiftCreateDto shiftCreateDto)
     {
@@ -60,10 +62,41 @@ public class ShiftsController : ControllerBase
             createdShift);
     }
 
-    // PATCH: /api/shifts/{id}
-    // Authorize admins
-    [HttpPatch("{id}")]
+    // PUT: /api/shifts/{id}
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{id}")]
     public async Task<ActionResult<Shift>> UpdateShift(int id,
+        [FromBody] ShiftUpdateDto shiftUpdateDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var exists = await _shiftRepo.ExistsAsync(id);
+
+        if (!exists)
+        {
+            return NotFound(new {message = $"Shift with {id} not found"});
+        }
+
+        // Map DTO to shift entity
+        var shift = new Shift
+        {
+            Id = id,
+            DoctorId = shiftUpdateDto.DoctorId,
+            StartDateTime = shiftUpdateDto.StartDateTime,
+            EndDateTime = shiftUpdateDto.EndDateTime
+        };
+
+        var updatedShift = await _shiftRepo.UpdateAsync(shift);
+        return Ok(updatedShift);
+    }
+
+    // PATCH: /api/shifts/{id}
+    [Authorize(Roles = "Admin")]
+    [HttpPatch("{id}")]
+    public async Task<ActionResult<Shift>> PatchShift(int id,
         [FromBody] JsonPatchDocument<Shift> patchDoc)
     {
         if (patchDoc == null)
@@ -89,9 +122,9 @@ public class ShiftsController : ControllerBase
         // Apply the patch to the DTO
         patchDoc.ApplyTo(existingShift, ModelState);
 
-        if (!TryValidateModel(existingShift))
+        if (!ModelState.IsValid)
         {
-            return ValidationProblem(ModelState);
+            return BadRequest(ModelState);
         }
 
         // Update the existing shift with patched values
@@ -101,5 +134,18 @@ public class ShiftsController : ControllerBase
 
         var updatedShift = await _shiftRepo.UpdateAsync(existingShift);
         return Ok(updatedShift);
+    }
+
+    // DELETE: /api/shifts/{id}
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteShift(int id)
+    {
+        var deleted = await _shiftRepo.DeleteAsync(id);
+        if (!deleted)
+        {
+            return NotFound(new {message = $"Shift with {id} not found"});
+        }
+        return NoContent();
     }
 }

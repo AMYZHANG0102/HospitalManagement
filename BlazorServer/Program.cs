@@ -1,5 +1,6 @@
 using BlazorServer.Components;
 using BlazorServer.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPatientRecordService, PatientRecordService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+    
+builder.Services.AddScoped<ShiftService>();
+builder.Services.AddScoped<AppointmentsService>();
 
 var app = builder.Build();
 

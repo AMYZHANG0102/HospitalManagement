@@ -11,9 +11,13 @@ namespace HospitalManagement.API.Controllers;
 public class DoctorsController : ControllerBase
 {
     private readonly IDoctorRepository _repository;
-    public DoctorsController(IDoctorRepository repository)
+    private readonly IAppointmentRepository _appRepo;
+    private readonly IShiftRepository _shiftRepo;
+    public DoctorsController(IDoctorRepository repository, IAppointmentRepository apprepo, IShiftRepository shiftRepo)
     {
+        _appRepo = apprepo;
         _repository = repository;
+        _shiftRepo = shiftRepo;
     }
 
     // GET: api/doctors
@@ -38,39 +42,34 @@ public class DoctorsController : ControllerBase
         return Ok(doctor);
     }
 
-    // // GET: api/doctors/schedule/{id}
-    // [HttpGet("schedule/{id}")]
-    // public async Task<ActionResult<DoctorScheduleDto>> GetDoctorSchedule(int id)
-    // {
-    //     var schedule = await _repository.GetDoctorScheduleAsync(id);
-    //     if (schedule == null)
-    //     {
-    //         return NotFound(new { message = $"Schedule for Doctor with ID {id} not found" });
-    //     }
-    //     return Ok(schedule);
-    // }
+    // GET: /api/doctors/{id}/appointments
+    [HttpGet("{id}/appointments")]
+    public async Task<ActionResult<Doctor>> GetDoctorAppointments(
+        string id,
+        [FromQuery] AppointmentStatus? status,
+        [FromQuery] DateOnly? date,
+        [FromQuery] AppointmentType? type)
+    {
+        var doctor = await _appRepo.GetAllAsync(null, id, status, date, type);
+        if (doctor == null)
+        {
+            return NotFound(new { message = $"Doctor with ID {id} not found" });
+        }
+        return Ok(doctor);
+    }
 
-    // // Get: api/doctors/appointments/{id}
-    // [HttpGet("appointments/{id}")]
-    // public async Task<ActionResult<IEnumerable<Appointment>>> GetDoctorAppointments(int id)
-    // {
-    //     var appointments = await _repository.GetDoctorAppointmentsAsync(id);
-    //     if (appointments == null || !appointments.Any())
-    //     {
-    //         return Ok(appointments);
-    //     }
-    // }
+    // GET: /api/doctors/{id}/shifts
+    [HttpGet("{id}/shifts")]
+    public async Task<ActionResult<Doctor>> GetDoctorShifts(string id)
+    {
+        var doctor = await _shiftRepo.GetByDoctorIdAsync(id);
+        if (doctor == null)
+        {
+            return NotFound(new { message = $"Doctor with ID {id} not found" });
+        }
+        return Ok(doctor);
+    }
 
-    // // Get: api/doctors/{id}/reviews
-    // [HttpGet("{id}/reviews")]
-    // public async Task<ActionResult<IEnumerable<Review>>> GetDoctorReviews(int id)
-    // {
-    //     var reviews = await _repository.GetDoctorReviewsAsync(id);
-    //     if (reviews == null || !reviews.Any())
-    //     {
-    //         return Ok(reviews);
-    //     }
-    // }
 
     // POST: api/doctors
     [HttpPost]
@@ -85,10 +84,12 @@ public class DoctorsController : ControllerBase
         {
             FirstName = doctorDto.FirstName,
             LastName = doctorDto.LastName,
-            Gender = doctorDto.Gender,
-            HomeAddress = doctorDto.HomeAddress,
-            Phone = doctorDto.Phone,
             Email = doctorDto.Email,
+            Role = UserRole.Doctor,
+            Phone = doctorDto.Phone,
+            Gender = doctorDto.Gender,
+            Birthdate = doctorDto.Birthdate,
+            HomeAddress = doctorDto.HomeAddress,
             Specialization = doctorDto.Specialization
         };
 
@@ -102,8 +103,8 @@ public class DoctorsController : ControllerBase
 
     // PUT: api/doctors/{id}
     [HttpPut("{id}")]
-    // [Authorize]
-    public async Task<IActionResult> UpdateDoctor(string id, [FromBody] DoctorPatchDto doctorDto)
+    public async Task<ActionResult<Doctor>> UpdateDoctor(string id,
+        [FromBody] DoctorUpdateDto doctorDto)
     {
         if (!ModelState.IsValid)
         {
@@ -119,37 +120,68 @@ public class DoctorsController : ControllerBase
             Id = id,
             FirstName = doctorDto.FirstName,
             LastName = doctorDto.LastName,
-            HomeAddress = doctorDto.HomeAddress, 
             Phone = doctorDto.Phone,
+            Gender = doctorDto.Gender,
+            Birthdate = doctorDto.Birthdate,
+            HomeAddress = doctorDto.HomeAddress,
+            Specialization = doctorDto.Specialization
         };
         var updatedDoctor = await _repository.UpdateAsync(doctor);
         return Ok(updatedDoctor);
     }
 
-    // PATCH: api/doctor/{id}
+    // PATCH: /api/doctors/{id}
     [HttpPatch("{id}")]
-    // [Authorize]
-    public async Task<IActionResult> PatchDoctor(string id, [FromBody] JsonPatchDocument<DoctorPatchDto> patchDoc)
+    public async Task<ActionResult<Doctor>> PatchDoctor(string id,
+        [FromBody] JsonPatchDocument<Doctor> patchDoc)
     {
         if (patchDoc == null)
         {
-            return BadRequest(new { message = "Patch document is null" });
+            return BadRequest(new { message = "Patch document is null"});
         }
-        var doctor = await _repository.GetByIdAsync(id);
-        if (doctor == null)
+
+        var existingDoctor = await _repository.GetByIdAsync(id);
+        
+        if (existingDoctor == null)
         {
-            return NotFound(new { message = $"Doctor with ID {id} not found" });
+            return NotFound(new {message = $"Doctor with id {id} not found"});
         }
-        // patchDoc.ApplyTo(doctor, ModelState);
-        // if (!ModelState.IsValid)
-        // {
-        //     return BadRequest(ModelState);
-        // }
 
-        await _repository.UpdateAsync(doctor);
-        return Ok(doctor);
+        // Map DTO to existing doctor
+        DoctorPatchDto doctorToPatch = new DoctorPatchDto
+        {
+            FirstName = existingDoctor.FirstName,
+            LastName = existingDoctor.LastName,
+            Phone = existingDoctor.Phone,
+            Gender = existingDoctor.Gender,
+            Birthdate = existingDoctor.Birthdate,
+            HomeAddress = existingDoctor.HomeAddress,
+            Specialization = existingDoctor.Specialization
+        };
+
+        // Apply the patch to the DTO
+        patchDoc.ApplyTo(existingDoctor, ModelState);
+
+        // Apply the patch to the DTO
+        patchDoc.ApplyTo(existingDoctor, ModelState);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Update the existing doctor with patched values
+        existingDoctor.FirstName = doctorToPatch.FirstName;
+        existingDoctor.LastName = doctorToPatch.LastName;
+        existingDoctor.Phone = doctorToPatch.Phone;
+        existingDoctor.Gender = doctorToPatch.Gender;
+        existingDoctor.Birthdate = doctorToPatch.Birthdate;
+        existingDoctor.Specialization = doctorToPatch.Specialization;
+
+        var patchedDoctor = await _repository.UpdateAsync(existingDoctor);
+        return Ok(patchedDoctor);
     }
-
+    
     // DELETE: api/doctors/{id}
     [HttpDelete("{id}")]
     // [Authorize]
