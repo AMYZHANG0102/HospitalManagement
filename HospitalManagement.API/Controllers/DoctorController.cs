@@ -1,3 +1,6 @@
+/* Amy Zhang
+Summary: Controller for Doctor-related requests */
+
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;
