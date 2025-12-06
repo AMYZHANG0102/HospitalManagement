@@ -1,4 +1,6 @@
-
+/*Hira Ahmad
+Summary: PatientRecordService represents the service for managing patient record data.
+*/
 using HospitalManagement.BlazorServer.Models;
 using System.Net.Http.Headers;
 namespace HospitalManagement.BlazorServer.Services;

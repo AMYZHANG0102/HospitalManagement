@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: PatientRecordController represents the API controller for managing patient records.
+*/
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;

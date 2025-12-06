@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: LoginResponseDto represents the model for login response data.
+*/
 using System;
 using System.Collections.Generic;
 using System.Linq;

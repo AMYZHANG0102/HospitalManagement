@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: DoctorService represents the service for managing doctor data.
+*/
 using HospitalManagement.BlazorServer.Models;
 using System.Net.Http.Headers;
 

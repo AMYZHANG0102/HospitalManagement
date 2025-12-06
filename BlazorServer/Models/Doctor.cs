@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: Doctor represents the model for doctor data.
+*/
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.BlazorServer.Models;
 

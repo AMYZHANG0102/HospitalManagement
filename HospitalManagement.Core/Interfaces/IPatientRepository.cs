@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: IPatientRepository represents the interface for managing patient data.
+*/
 using HospitalManagement.Core.Models;
 namespace HospitalManagement.Core.Interfaces;
 

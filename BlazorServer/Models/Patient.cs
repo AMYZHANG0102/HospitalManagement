@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: Patient represents the model for patient data.
+*/
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.BlazorServer.Models;
 

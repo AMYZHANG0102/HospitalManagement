@@ -1,4 +1,4 @@
-/*Hira
+/*Hira Ahmad
 Summary: PatientController represents the API controller for managing patient users.
 */
 using Microsoft.AspNetCore.JsonPatch;

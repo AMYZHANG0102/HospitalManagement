@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: PatientRecord represents the model for patient record data.
+*/
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.BlazorServer.Models;
 

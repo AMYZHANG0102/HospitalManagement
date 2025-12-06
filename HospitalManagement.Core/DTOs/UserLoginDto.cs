@@ -1,4 +1,4 @@
-/*Hira
+/*Hira Ahmad
 Summary: UserLoginDto represents the data transfer object for user login information.*/
 using System.ComponentModel.DataAnnotations;
 namespace HospitalManagement.Core.DTOs;

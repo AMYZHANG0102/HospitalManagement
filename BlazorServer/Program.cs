@@ -1,3 +1,6 @@
+/*Hira Ahmad
+Summary: Program.cs configures and runs the Blazor Server application.
+*/
 using BlazorServer.Components;
 using HospitalManagement.BlazorServer.Services;
 using Microsoft.AspNetCore.Components.Authorization;
