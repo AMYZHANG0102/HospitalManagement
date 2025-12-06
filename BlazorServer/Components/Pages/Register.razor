@@ -1,0 +1,96 @@
+@* /*Hira Ahmad
+Summary: Register represents the page component for user registration.
+*/ *@
+@page "/register"
+@using HospitalManagement.BlazorServer.Models
+@using HospitalManagement.BlazorServer.Services
+@inject IAuthService AuthService
+@rendermode InteractiveServer
+
+<div class="text-center mt-4 bg-info p-3 rounded">
+    <h3>Create an Account</h3>
+</div>
+
+
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            @if (!string.IsNullOrEmpty(Message))
+            {
+                <div class="alert alert-info">@Message</div>
+            }
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <EditForm Model="@registerModel" OnValidSubmit="@HandleRegister" FormName="RegisterForm">
+                        <DataAnnotationsValidator />
+
+                        <div class="mb-3">
+                            <label>First Name*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.FirstName" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Last Name*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.LastName" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Phone Number*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.Phone" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Health Card*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.HealthCard" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label>Home Address</label>
+                            <InputText class="form-control" @bind-Value="registerModel.HomeAddress" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Email Address*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.Email" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Username*</label>
+                            <InputText class="form-control" @bind-Value="registerModel.Username" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Password*</label>
+                            <InputText type="password" class="form-control" @bind-Value="registerModel.Password" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Confirm Password*</label>
+                            <InputText type="password" class="form-control" @bind-Value="registerModel.ConfirmPassword" />
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-100">Register</button>
+
+                    </EditForm>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterModel registerModel = new();
+    private string? Message;
+
+    private async Task HandleRegister()
+    {
+        Message = await AuthService.RegisterAsync(registerModel);
+    }
+}
+    

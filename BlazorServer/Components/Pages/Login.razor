@@ -1,0 +1,62 @@
+@* /*Hira Ahmad
+Summary: Login represents the page component for user login.
+*/ *@
+@page "/login"
+@using HospitalManagement.BlazorServer.Models
+@using HospitalManagement.BlazorServer.Services
+@inject IAuthService AuthService
+@rendermode InteractiveServer
+
+<div class="text-center mt-4 bg-info p-3 rounded">
+    <h3>Login Into Your Account</h3>
+</div>
+
+
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            @if (!string.IsNullOrEmpty(Message))
+            {
+                <div class="alert alert-info">@Message</div>
+            }
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin" FormName="LoginForm">
+                        <DataAnnotationsValidator />
+
+
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <InputText class="form-control" @bind-Value="loginModel.Email" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <InputText type="password" class="form-control" @bind-Value="loginModel.Password" />
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-100">Login</button>
+
+                    </EditForm>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private UserLoginModel loginModel = new();
+    private string? Message;
+
+    private async Task HandleLogin()
+    {
+        Message = await AuthService.LoginAsync(loginModel);
+    }
+}
+    

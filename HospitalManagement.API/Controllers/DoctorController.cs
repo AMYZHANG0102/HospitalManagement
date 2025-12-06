@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
@@ -21,6 +22,7 @@ public class DoctorsController : ControllerBase
 
     // GET: api/doctors
     [HttpGet]
+    // [Authorize]
     public async Task<ActionResult<IEnumerable<Doctor>>> GetAllDoctors()
     {
         var doctors = await _repository.GetAllAsync();
@@ -29,6 +31,7 @@ public class DoctorsController : ControllerBase
 
     // GET: api/doctors/{id}
     [HttpGet("{id}")]
+    // [Authorize]
     public async Task<ActionResult<Doctor>> GetDoctor(string id)
     {
         var doctor = await _repository.GetByIdAsync(id);
@@ -181,6 +184,7 @@ public class DoctorsController : ControllerBase
     
     // DELETE: api/doctors/{id}
     [HttpDelete("{id}")]
+    // [Authorize]
     public async Task<IActionResult> DeleteDoctor(string id)
     {
         var deleted = await _repository.DeleteAsync(id);

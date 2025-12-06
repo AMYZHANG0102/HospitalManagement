@@ -2,12 +2,14 @@
 Summary: Service class that interacts with the API for appointment-related operations. */
 
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.Authorization;
 using HospitalManagement.BlazorServer.Models;
 namespace HospitalManagement.BlazorServer.Services;
 
 public class AppointmentService
 {
     private readonly HttpClient _httpClient;
+    private readonly AuthenticationStateProvider _authStateProvider;
     private readonly string _baseUrl;
 
     public AppointmentService(
@@ -26,7 +28,7 @@ public class AppointmentService
         {
             // Check if user is authenticated
             var authState = await _authStateProvider.GetAuthenticationStateAsync();
-            var user = authState.user;
+            var user = authState.User;
 
             // Get user role and ID
             string? role = user.FindFirst("role")?.Value;

@@ -1,4 +1,6 @@
-/* Hira Ahmad. */
+/* Hira Ahmad
+Summary: PatientRecordRepository implements IPatientRecordRepository to manage patient records in the database.
+It provides methods for CRUD operations on patient records.*/
 
 using Microsoft.EntityFrameworkCore;
 using HospitalManagement.Core.Models;
@@ -15,7 +17,7 @@ public class PatientRecordRepository : IPatientRecordRepository
     }
     public async Task<IEnumerable<PatientRecord>> GetAllAsync()
     {
-        return await _context.PatientRecords.ToListAsync();
+        return await _context.PatientRecords.Include(pr => pr.Patient).ToListAsync();
     }
     public async Task<PatientRecord?> GetByIdAsync(int id)
     {

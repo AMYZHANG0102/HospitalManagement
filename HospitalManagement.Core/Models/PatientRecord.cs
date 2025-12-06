@@ -1,5 +1,6 @@
-/* Amy Zhang
-Summary: This class represents a patient record/medical history containing multiple entries.*/
+/* Hira Ahmad 
+Summary: This class represents a patient record/medical history containing multiple entries.
+It includes properties for patient details and a list of record entries. */
 
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;

@@ -11,11 +11,11 @@ public class Appointment
 
     public string DoctorId { get; set; }
     
-    public AppointmentType Type { get; set; }
+    // public AppointmentType Type { get; set; }
 
     public DateTime DateTime { get; set; }
 
-    public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
+    // public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 
     // Doctor is initially available, since the system only allows users to schedule appointments with available doctors.
     // But doctors may mark themselves as unavalable for an appointment later on, which changes this property to true.

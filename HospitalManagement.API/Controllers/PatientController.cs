@@ -1,4 +1,4 @@
-/*Hira
+/*Hira Ahmad
 Summary: PatientController represents the API controller for managing patient users.
 */
 using Microsoft.AspNetCore.JsonPatch;
@@ -7,6 +7,7 @@ using HospitalManagement.Core.DTOs;
 using HospitalManagement.Core.Interfaces;
 using HospitalManagement.Core.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 namespace HospitalManagement.API.Controllers;
 
 [Route("api/[controller]")]
@@ -28,17 +29,19 @@ public class PatientsController : ControllerBase
 
     // GET: api/patients
     [HttpGet]
+    // [Authorize]
     public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
     {
-        var patients = await _repository.GetAllAsync();
+        var patients = await _repository.GetAllPatientsAsync();
         return Ok(patients);
     }
 
     // GET: api/patients/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Patient>> GetPatient(string id)
+    // [Authorize]
+    public async Task<ActionResult<Patient>> GetPatientById(string id)
     {
-        var patient = await _repository.GetByIdAsync(id);
+        var patient = await _repository.GetPatientByIdAsync(id);
         if (patient == null)
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
@@ -46,32 +49,35 @@ public class PatientsController : ControllerBase
         return Ok(patient);
     }
 
-    // //Get: api/patients/appointments/{id}
-    // [HttpGet("appointments/{id}")]
-    // public async Task<ActionResult<IEnumerable<Appointment>>> GetPatientAppointments(int id)
-    // {
-    //     var appointments = await _repository.GetPatientAppointmentsAsync(id);
-    //     if (appointments == null || !appointments.Any())
-    //     {
-    //         return Ok(appointments);
-    //     }
-    //     return Ok(appointments);
-    // }
+    //Get: api/patients/appointments/{id}
+    [HttpGet("appointments/{id}")]
+    // [Authorize]
+    public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPatientAppointments(string id)
+    {
+        var appointments = await _repository.GetAllPatientAppointmentsAsync(id);
+        if (appointments == null || !appointments.Any())
+        {
+            return Ok(appointments);
+        }
+        return Ok(appointments);
+    }
 
 
-    // // Get: api/patients/reviews/{id}
-    // [HttpGet("reviews/{id}")]
-    // public async Task<ActionResult<IEnumerable<Review>>> GetPatientReviews(int id)
-    // {
-    //     var reviews = await _repository.GetPatientReviewsAsync(id);
-    //     if (reviews == null || !reviews.Any())
-    //     {
-    //         return Ok(reviews);
-    //     }
-    //     return Ok(reviews);
-    // }
+    // Get: api/patients/reviews/{id}
+    [HttpGet("reviews/{id}")]
+    // [Authorize]
+    public async Task<ActionResult<IEnumerable<Review>>> GetAllPatientReviews(string id)
+    {
+        var reviews = await _repository.GetAllPatientReviewsAsync(id);
+        if (reviews == null || !reviews.Any())
+        {
+            return Ok(reviews);
+        }
+        return Ok(reviews);
+    }
 
     // POST: api/patients
+    // No Authorize here because this is used for registration
     [HttpPost]
     public async Task<ActionResult<Patient>> CreatePatient([FromBody] PatientCreateDto patientDto)
     {
@@ -144,6 +150,7 @@ public class PatientsController : ControllerBase
 
     // PATCH: api/patients/{id}
     [HttpPatch("{id}")]
+    // [Authorize]
     public async Task<IActionResult> PatchPatient(string id, [FromBody]
     JsonPatchDocument<UserPatchDto> patchDoc)
     {
@@ -151,7 +158,7 @@ public class PatientsController : ControllerBase
         {
             return BadRequest(new { message = "Patch document is null" });
         }
-        var patient = await _repository.GetByIdAsync(id);
+        var patient = await _repository.GetPatientByIdAsync(id);
         if (patient == null)
         {
             return NotFound(new { message = $"Patient with ID {id} not found" });
@@ -162,12 +169,13 @@ public class PatientsController : ControllerBase
         //     return BadRequest(ModelState);
         // }
 
-        await _repository.UpdateAsync(patient);
+        await _repository.UpdatePatientAsync(patient);
         return Ok(patient);
     }
 
     // DELETE: api/patients/{id}
     [HttpDelete("{id}")]
+    // [Authorize]
     public async Task<IActionResult> DeletePatient(string id)
     {
         var deleted = await _repository.DeleteAsync(id);

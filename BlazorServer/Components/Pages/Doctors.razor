@@ -1,0 +1,51 @@
+@* /*Hira Ahmad
+Summary: Doctors represents the page component for displaying doctors.
+*/ *@
+@page "/doctors"
+@using HospitalManagement.BlazorServer.Models
+@using HospitalManagement.BlazorServer.Services
+@inject IDoctorService DoctorService
+
+<h3 class="text-center mt-4">Doctors</h3>
+
+<div class="container mt-4">
+    @if (doctors == null)
+    {
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p>Loading doctors...</p>
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-info">
+                <tr>
+                    <th>Name</th>
+                    <th>Specialty</th>
+                    <th>Gender</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var doctor in doctors)
+                {
+                    <tr>
+                        <td> Dr. @doctor.FirstName @doctor.LastName</td>
+                        <td>@doctor.specialization</td>
+                        <td>@doctor.Gender</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<Doctor>? doctors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        doctors = await DoctorService.GetAllDoctorsAsync();
+    }
+}
